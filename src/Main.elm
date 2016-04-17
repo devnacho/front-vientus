@@ -1,6 +1,7 @@
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing ( onClick )
+import Html.CssHelpers
 import Effects exposing (Effects)
 
 -- official 'Elm Architecture' package
@@ -9,6 +10,7 @@ import StartApp
 
 -- component import example
 import Components.Hello exposing ( hello )
+
 
 -- APP KICK OFF!
 app = StartApp.start
@@ -37,11 +39,10 @@ init =
 -- 2b) styling using inline style attribute (two variants)
 view address model =
   div
-    [ class "mt-palette-accent", style styles.wrapper ]
+    []
     [ hello model
-    ,  p [ style [( "color", "#FFF")] ] [ text ( "Elm Webpack Starter" ) ]
-    ,  button [ class "mt-button-sm", onClick address Increment ] [ text "FTW!" ]
-    ,  img [ src "img/elm.jpg", style [( "display", "block"), ( "margin", "10px auto")] ] []
+    ,  p [ ] [ text ( "Elm Webpack Starter" ) ]
+    ,  button [ onClick address Increment ] [ text "FTW!" ]
     ]
 
 
