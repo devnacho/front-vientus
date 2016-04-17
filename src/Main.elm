@@ -137,18 +137,28 @@ view address model =
                 []
                 (List.map (\wd -> windButton address wd) allWindDirections)
             ]
-        , div
-            [ class "form-field" ]
-            [ label [] [ text "Select Days of Week" ]
-            , div
-                []
-                (List.map (\day -> dayButton address day) allDaysOfWeek)
-            ]
+        , button
+            [ onClick address ToggleDaysVisibility ]
+            [ text "Want to choose the days you can sail? " ]
+        , selectDays address model
         ]
     , br [] []
     , br [] []
     , text (toString model)
     ]
+
+
+selectDays address model =
+  if model.daysVisible then
+    div
+      [ class "form-field" ]
+      [ label [] [ text "Select Days of Week" ]
+      , div
+          []
+          (List.map (\day -> dayButton address day) allDaysOfWeek)
+      ]
+  else
+    span [] []
 
 
 windButton address windDirection =
@@ -173,6 +183,7 @@ type Action
   | SetWindSpeed String
   | ToggleWindDirection WindDirection
   | ToggleDay DayOfWeek
+  | ToggleDaysVisibility
 
 
 update action model =
@@ -190,6 +201,13 @@ update action model =
     SetWindSpeed str ->
       ( { model
           | windSpeed = str
+        }
+      , Effects.none
+      )
+
+    ToggleDaysVisibility ->
+      ( { model
+          | daysVisible = not model.daysVisible
         }
       , Effects.none
       )
