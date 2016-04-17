@@ -28,11 +28,8 @@ init =
 
 view address model =
   div
-    [ class "mt-palette-accent", style styles.wrapper ]
-    [  p [ style [( "color", "#FFF")] ] [ text ( "Elm Webpack Starter" ) ]
-    ,  button [ class "mt-button-sm", onClick address Increment ] [ text "FTW!" ]
-    ,  img [ src "img/elm.jpg", style [( "display", "block"), ( "margin", "10px auto")] ] []
-    ]
+    []
+    [ text "Hello" ]
 
 
 -- UPDATE
@@ -45,14 +42,3 @@ update action model =
     NoOp -> ( model, Effects.none )
     Increment -> ( model + 1, Effects.none )
 
-
--- CSS STYLES
-styles =
-  {
-    wrapper =
-      [ ( "padding-top", "10px" )
-      , ( "padding-bottom", "20px" )
-      , ( "text-align", "center" )
-      ]
-  }
-  
