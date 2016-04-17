@@ -22,7 +22,7 @@ css =
     [ (.) Content
         [ Css.width (px 960)
         , margin2 zero auto
-        , backgroundColor (hex "00FF00")
+        , backgroundColor (hex "00FFFF")
         ]
     ]
 
