@@ -2,7 +2,7 @@ module Main (..) where
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick, targetValue, on)
+import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import String exposing (toInt)
 import Effects exposing (Effects)
 import StartApp
@@ -65,8 +65,8 @@ type alias Model =
   }
 
 
-initalModel : Model
-initalModel =
+initialModel : Model
+initialModel =
   { email = ""
   , windSpeed = "11"
   , windDirections = []
@@ -90,7 +90,7 @@ allDaysOfWeek =
 
 
 init =
-  ( initalModel, Effects.none )
+  ( initialModel, Effects.none )
 
 
 view address model =
