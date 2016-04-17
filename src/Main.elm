@@ -29,7 +29,30 @@ init =
 view address model =
   div
     []
-    [ text "Hello" ]
+    [ h1 [] [ text "Never Miss a Windy Day Again." ]
+    , Html.form 
+      [ id "signup-form" ]
+      [ div
+        [ class "form-field" ]
+        [ label [] [ text "Email" ]
+        , input [ id "username-field", type' "text" ] []
+        ]
+      , div
+        [ class "form-field" ]
+        [ label [] [ text "Select Country" ]
+        , select
+          []
+          [ option [ id "1" ] [ text "Argentina" ]
+          , option [ id "2" ] [ text "Spain" ]
+          ]
+        ]
+      , div
+        [ class "form-field" ]
+        [ label [] [ text "Minimum Wind Speed (in knots)" ]
+        , input [ type' "number" ] []
+        ]
+      ]
+    ]
 
 
 -- UPDATE
