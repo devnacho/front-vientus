@@ -47,7 +47,7 @@ if ( TARGET_ENV === 'development' ) {
 
     entry: [
       'webpack-dev-server/client?http://localhost:8080',
-      path.join( __dirname, 'src/js/index.js' )
+      path.join( __dirname, 'src/index.js' )
     ],
 
     devServer: {
@@ -83,7 +83,7 @@ if ( TARGET_ENV === 'production' ) {
 
   module.exports = merge( commonConfig, {
 
-entry: path.join( __dirname, 'src/js/index.js' ),
+    entry: path.join( __dirname, 'src/index.js' ),
 
     module: {
       loaders: [
