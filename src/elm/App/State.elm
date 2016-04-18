@@ -3,6 +3,7 @@ module App.State (initialModel, update) where
 import Effects exposing (Effects)
 import App.Types exposing (..)
 import WindDirection.State
+import AvailableDays.State
 
 
 initialModel : Model
@@ -10,8 +11,7 @@ initialModel =
   { email = ""
   , windSpeed = "11"
   , windDirections = WindDirection.State.initialModel
-  , availableDays = [ Mon, Tue, Wed, Thu, Fri, Sat, Sun ]
-  , daysVisible = False
+  , availableDays = AvailableDays.State.initialModel
   }
 
 
@@ -23,6 +23,17 @@ update action model =
   case action of
     NoOp ->
       ( model, Effects.none )
+
+    AvailableDays action ->
+      let
+        ( childModel, childEffects ) =
+          AvailableDays.State.update action model.availableDays
+      in
+        ( { model
+            | availableDays = childModel
+          }
+        , Effects.map AvailableDays childEffects
+        )
 
     WindDirection action ->
       let
@@ -49,23 +60,3 @@ update action model =
       , Effects.none
       )
 
-    ToggleDaysVisibility ->
-      ( { model
-          | daysVisible = not model.daysVisible
-        }
-      , Effects.none
-      )
-
-    ToggleDay day ->
-      let
-        toggledList =
-          if List.member day model.availableDays then
-            List.filter (\d -> d /= day) model.availableDays
-          else
-            day :: model.availableDays
-      in
-        ( { model
-            | availableDays = toggledList
-          }
-        , Effects.none
-        )

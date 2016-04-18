@@ -6,7 +6,7 @@ import WindDirection.Types exposing (..)
 
 initialModel : Model
 initialModel =
-  [ N, NE ]
+  []
 
 
 update action model =

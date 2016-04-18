@@ -5,6 +5,7 @@ import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import App.Types exposing (..)
 import WindDirection.View
+import AvailableDays.View
 
 
 root address model =
@@ -45,10 +46,7 @@ root address model =
                 []
             ]
         , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections
-        , button
-            [ onClick address ToggleDaysVisibility ]
-            [ text "Want to choose the days you can sail? " ]
-        , selectDays address model
+        , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays
         ]
     , br [] []
     , br [] []
@@ -56,20 +54,3 @@ root address model =
     ]
 
 
-selectDays address model =
-  if model.daysVisible then
-    div
-      [ class "form-field" ]
-      [ label [] [ text "Select Days of Week" ]
-      , div
-          []
-          (List.map (\day -> dayButton address day) allDaysOfWeek)
-      ]
-  else
-    span [] []
-
-
-dayButton address day =
-  button
-    [ onClick address (ToggleDay day) ]
-    [ text (toString day) ]
