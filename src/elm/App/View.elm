@@ -1,11 +1,19 @@
 module App.View (root) where
 
 import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td)
-import Html.Attributes exposing (class, id, value, type', placeholder)
+import Html.Attributes exposing (class, id, value, type', placeholder, href)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
+
+import Html.CssHelpers
+
 import App.Types exposing (..)
 import WindDirection.View
 import AvailableDays.View
+
+
+
+{ id, class, classList } =
+  Html.CssHelpers.withNamespace ""
 
 
 root address model =
@@ -15,7 +23,7 @@ root address model =
     , div
         [ id "signup-form" ]
         [ div
-            [ class "form-field" ]
+            [ class [ FormField ] ]
             [ label [] [ text "Email" ]
             , input
                 [ id "username-field"
@@ -27,7 +35,7 @@ root address model =
                 []
             ]
         , div
-            [ class "form-field" ]
+            [ class [ FormField ] ]
             [ label [] [ text "Select Country" ]
             , select
                 []
@@ -36,7 +44,7 @@ root address model =
                 ]
             ]
         , div
-            [ class "form-field" ]
+            [ class [ FormField ] ]
             [ label [] [ text "Minimum Wind Speed (in knots)" ]
             , input
                 [ type' "number"

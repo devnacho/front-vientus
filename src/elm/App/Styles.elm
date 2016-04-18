@@ -5,22 +5,22 @@ import Css.Elements as Css
 import Css.Namespace exposing (namespace)
 import Html.CssHelpers
 
+import App.Types exposing (..)
+
 cssNamespace = "homepage"
 { class, classList, id } = Html.CssHelpers.withNamespace cssNamespace
 
 
-type CssClasses =
-  Content 
-
 css =
-  (stylesheet << namespace cssNamespace)
+  stylesheet
     [ Css.body
-        [ backgroundColor (hex "FF00FF") ]
-    , (.) Content
-        [ Css.width (px 960)
-        , margin2 zero auto
-        , backgroundColor (hex "FFFF00")
-        , fontSize (px 30)
-        , fontWeight bold
+        [  fontFamilies [ "Helvetica", "Arial", "sans-serif" ]
+        ]
+    , Css.a
+        [ color ( hex "428bca" )
+        , textDecoration none
+        ]
+    , (.) FormField
+        [ marginBottom ( px 30 )
         ]
     ]
