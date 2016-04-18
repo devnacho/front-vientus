@@ -3,7 +3,6 @@ module App.View (root) where
 import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td)
 import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
-
 import App.Types exposing (..)
 
 
@@ -85,5 +84,3 @@ dayButton address day =
   button
     [ onClick address (ToggleDay day) ]
     [ text (toString day) ]
-
-

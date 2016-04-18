@@ -19,6 +19,7 @@ initialModel =
 -- UPDATE
 
 
+update : Action -> Model -> ( Model, Effects a )
 update action model =
   case action of
     NoOp ->
