@@ -1,33 +1,24 @@
 module App.Types (..) where
 
+import WindDirection.Types 
 
 type Action
   = NoOp
   | SetEmail String
   | SetWindSpeed String
-  | ToggleWindDirection WindDirection
   | ToggleDay DayOfWeek
   | ToggleDaysVisibility
+  | WindDirection WindDirection.Types.Action
 
 
 type alias Model =
   { email : String
   , windSpeed : String
-  , windDirections : List WindDirection
+  , windDirections : WindDirection.Types.Model
   , availableDays : List DayOfWeek
   , daysVisible : Bool
   }
 
-
-type WindDirection
-  = N
-  | NE
-  | E
-  | SE
-  | S
-  | SW
-  | W
-  | NW
 
 
 type DayOfWeek
@@ -39,10 +30,6 @@ type DayOfWeek
   | Sat
   | Sun
 
-
-allWindDirections : List WindDirection
-allWindDirections =
-  [ N, NE, E, SE, S, SW, W, NE ]
 
 
 allDaysOfWeek : List DayOfWeek

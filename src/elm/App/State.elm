@@ -1,15 +1,15 @@
 module App.State (initialModel, update) where
 
 import Effects exposing (Effects)
-
 import App.Types exposing (..)
+import WindDirection.State
 
 
 initialModel : Model
 initialModel =
   { email = ""
   , windSpeed = "11"
-  , windDirections = []
+  , windDirections = WindDirection.State.initialModel
   , availableDays = [ Mon, Tue, Wed, Thu, Fri, Sat, Sun ]
   , daysVisible = False
   }
@@ -19,11 +19,21 @@ initialModel =
 -- UPDATE
 
 
-update : Action -> Model -> ( Model, Effects a )
 update action model =
   case action of
     NoOp ->
       ( model, Effects.none )
+
+    WindDirection action ->
+      let
+        ( childModel, childEffects ) =
+          WindDirection.State.update action model.windDirections
+      in
+        ( { model
+            | windDirections = childModel
+          }
+        , Effects.map WindDirection childEffects
+        )
 
     SetEmail str ->
       ( { model
@@ -45,20 +55,6 @@ update action model =
         }
       , Effects.none
       )
-
-    ToggleWindDirection direction ->
-      let
-        toggledList =
-          if List.member direction model.windDirections then
-            List.filter (\d -> d /= direction) model.windDirections
-          else
-            direction :: model.windDirections
-      in
-        ( { model
-            | windDirections = toggledList
-          }
-        , Effects.none
-        )
 
     ToggleDay day ->
       let

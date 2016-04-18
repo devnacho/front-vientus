@@ -4,6 +4,7 @@ import Html exposing (div, h1, select, form, input, label, button, a, text, span
 import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import App.Types exposing (..)
+import WindDirection.View
 
 
 root address model =
@@ -43,13 +44,7 @@ root address model =
                 ]
                 []
             ]
-        , div
-            [ class "form-field" ]
-            [ label [] [ text "Select wind directions" ]
-            , div
-                []
-                (List.map (\wd -> windButton address wd) allWindDirections)
-            ]
+        , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections
         , button
             [ onClick address ToggleDaysVisibility ]
             [ text "Want to choose the days you can sail? " ]
@@ -72,12 +67,6 @@ selectDays address model =
       ]
   else
     span [] []
-
-
-windButton address windDirection =
-  button
-    [ onClick address (ToggleWindDirection windDirection) ]
-    [ text (toString windDirection) ]
 
 
 dayButton address day =
