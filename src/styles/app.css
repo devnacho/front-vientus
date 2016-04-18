@@ -1,0 +1,11 @@
+body {
+    background-color: #FF00FF;
+}
+
+.homepageContent {
+    width: 960px;
+    margin: 0 auto;
+    background-color: #FFFF00;
+    font-size: 30px;
+    font-weight: bold;
+}
