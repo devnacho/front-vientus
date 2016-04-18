@@ -7,6 +7,8 @@ import String exposing (toInt)
 import Effects exposing (Effects)
 import StartApp
 
+import App.Types exposing (..)
+
 
 -- APP KICK OFF!
 
