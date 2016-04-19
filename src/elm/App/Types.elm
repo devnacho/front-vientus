@@ -13,5 +13,10 @@ type alias Model =
   }
 
 
+type GlobalCssClasses
+  = Main
+
+
 type CssClasses
-  = FormField
+  = FormSection
+  | Sidebar

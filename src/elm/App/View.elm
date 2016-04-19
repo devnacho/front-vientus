@@ -9,7 +9,7 @@ import Form.View
 
 
 { id, class, classList } =
-  Html.CssHelpers.withNamespace "form"
+  Html.CssHelpers.withNamespace "Vientus"
 
 
 globalClass =
@@ -19,5 +19,15 @@ globalClass =
 root address model =
   div
     []
-    [ Form.View.root (Signal.forwardTo address Form) model.form
+    [ 
+      div 
+        [ class [ FormSection ] ]
+        [ Form.View.root (Signal.forwardTo address Form) model.form ]
+    , div 
+        [ class [ Sidebar ] ]
+        [ text "Sidebar goes here" ]
     ]
+
+
+
+-- Form.View.root (Signal.forwardTo address Form) model.form

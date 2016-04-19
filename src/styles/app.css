@@ -1,12 +1,15 @@
-body {
-    font-family: Helvetica, Arial, sans-serif;
+.VientusFormSection {
+    width: 50%;
+    height: 1000px;
+    padding: 20px 40px;
+    box-sizing: border-box;
 }
 
-a {
-    color: #428bca;
-    text-decoration: none;
-}
-
-.vientusFormField {
-    margin-bottom: 30px;
+.VientusSidebar {
+    background-color: #DBDDF4;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 50%;
 }
