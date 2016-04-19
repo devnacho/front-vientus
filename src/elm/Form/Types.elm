@@ -21,4 +21,6 @@ type alias Model =
 
 
 type CssClasses
-  = Container
+  = FormSection
+  | SidebarSection
+  | Container

@@ -17,6 +17,3 @@ type GlobalCssClasses
   = Main
 
 
-type CssClasses
-  = FormSection
-  | SidebarSection

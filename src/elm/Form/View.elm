@@ -19,6 +19,17 @@ globalClass =
 
 root address model =
   div
+    []
+    [ div
+        [ class [ FormSection ] ]
+        [ formSection address model ]
+    , div
+        [ class [ SidebarSection ] ]
+        [ text "Sidebar Component goes here" ]
+    ]
+
+formSection address model =
+  div
     [ class [ Container ] ]
     [ h1 [] [ text "Never Miss a Windy Day Again." ]
     , div
