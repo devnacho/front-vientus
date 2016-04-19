@@ -7,6 +7,7 @@ import Html.CssHelpers
 import Form.Types exposing (..)
 import WindDirection.View
 import AvailableDays.View
+import AvailableDays.Types
 
 
 { id, class, classList } =
@@ -55,9 +56,22 @@ root address model =
                 []
             ]
         , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections
-        , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays
+        , availableDaysView address model
         ]
     , br [] []
     , br [] []
     , text (toString model)
     ]
+
+
+availableDaysView : Signal.Address Action -> Model -> Html.Html
+availableDaysView address model =
+  let
+    context =
+      { actions = 
+        (Signal.forwardTo address AvailableDays)
+      , setWindSpeed = 
+        (Signal.forwardTo address SetWindSpeed )  
+      }
+  in
+    AvailableDays.View.root context model.availableDays

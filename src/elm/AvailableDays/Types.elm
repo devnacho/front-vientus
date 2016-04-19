@@ -1,6 +1,5 @@
 module AvailableDays.Types (..) where
 
-
 type DayOfWeek
   = Mon
   | Tue

@@ -6,30 +6,33 @@ import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import AvailableDays.Types exposing (..)
 
 
-root address model =
+root context model =
   div
     []
     [ button
-        [ onClick address ToggleDaysVisibility ]
+        [ onClick context.actions ToggleDaysVisibility ]
         [ text "Want to choose the days you can sail? " ]
-    , selectDays address model.visible
+    , button
+        [ onClick context.setWindSpeed "55" ]
+        [ text "change wind speed from here" ]
+    , selectDays context model.visible
     ]
 
 
-selectDays address visible =
+selectDays context visible =
   if visible then
     div
       [ class "form-field" ]
       [ label [] [ text "Select Days of Week" ]
       , div
           []
-          (List.map (\day -> dayButton address day) allDaysOfWeek)
+          (List.map (\day -> dayButton context day) allDaysOfWeek)
       ]
   else
     span [] []
 
 
-dayButton address day =
+dayButton context day =
   button
-    [ onClick address (ToggleDay day) ]
+    [ onClick context.actions (ToggleDay day) ]
     [ text (toString day) ]
