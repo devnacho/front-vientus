@@ -13,8 +13,9 @@ css =
         FormSection
         [  width (pct 50)
         , height (px 1000)
-        , padding2 (px 20) (px 40)
+        , padding2 (px 20) (px 30)
         , boxSizing borderBox
+        , textAlign center
         ]
     , (.)
         Sidebar

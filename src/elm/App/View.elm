@@ -19,15 +19,11 @@ globalClass =
 root address model =
   div
     []
-    [ 
-      div 
+    [ div
         [ class [ FormSection ] ]
         [ Form.View.root (Signal.forwardTo address Form) model.form ]
-    , div 
+    , div
         [ class [ Sidebar ] ]
         [ text "Sidebar goes here" ]
     ]
 
-
-
--- Form.View.root (Signal.forwardTo address Form) model.form

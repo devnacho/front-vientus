@@ -1,7 +1,8 @@
 module Form.Types (..) where
 
-import WindDirection.Types 
-import AvailableDays.Types 
+import WindDirection.Types
+import AvailableDays.Types
+
 
 type Action
   = NoOp
@@ -10,9 +11,14 @@ type Action
   | SetEmail String
   | SetWindSpeed String
 
+
 type alias Model =
   { email : String
   , windSpeed : String
   , windDirections : WindDirection.Types.Model
   , availableDays : AvailableDays.Types.Model
   }
+
+
+type CssClasses
+  = Container

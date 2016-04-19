@@ -10,7 +10,7 @@ import AvailableDays.View
 
 
 { id, class, classList } =
-  Html.CssHelpers.withNamespace "form"
+  Html.CssHelpers.withNamespace "Form"
 
 
 globalClass =
@@ -19,7 +19,7 @@ globalClass =
 
 root address model =
   div
-    []
+    [ class [ Container ] ]
     [ h1 [] [ text "Never Miss a Windy Day Again." ]
     , div
         [ id "signup-form" ]
