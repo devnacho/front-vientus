@@ -12,12 +12,12 @@ root address model =
     [ button
         [ onClick address ToggleDaysVisibility ]
         [ text "Want to choose the days you can sail? " ]
-    , selectDays address model
+    , selectDays address model.visible
     ]
 
 
-selectDays address model =
-  if model.visible then
+selectDays address visible =
+  if visible then
     div
       [ class "form-field" ]
       [ label [] [ text "Select Days of Week" ]
