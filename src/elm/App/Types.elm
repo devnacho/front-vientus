@@ -1,21 +1,15 @@
 module App.Types (..) where
 
-import WindDirection.Types 
-import AvailableDays.Types 
+import Form.Types
+
 
 type Action
   = NoOp
-  | AvailableDays AvailableDays.Types.Action
-  | WindDirection WindDirection.Types.Action
-  | SetEmail String
-  | SetWindSpeed String
+  | Form Form.Types.Action
 
 
 type alias Model =
-  { email : String
-  , windSpeed : String
-  , windDirections : WindDirection.Types.Model
-  , availableDays : AvailableDays.Types.Model
+  { form : Form.Types.Model
   }
 
 

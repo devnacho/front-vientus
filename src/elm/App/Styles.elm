@@ -7,12 +7,9 @@ import Html.CssHelpers
 
 import App.Types exposing (..)
 
-cssNamespace = "homepage"
-{ class, classList, id } = Html.CssHelpers.withNamespace cssNamespace
-
 
 css =
-  stylesheet
+  (stylesheet << namespace "vientus")
     [ Css.body
         [  fontFamilies [ "Helvetica", "Arial", "sans-serif" ]
         ]

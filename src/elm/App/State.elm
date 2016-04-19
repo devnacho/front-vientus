@@ -2,16 +2,12 @@ module App.State (initialModel, update) where
 
 import Effects exposing (Effects)
 import App.Types exposing (..)
-import WindDirection.State
-import AvailableDays.State
+import Form.State
 
 
 initialModel : Model
 initialModel =
-  { email = ""
-  , windSpeed = "11"
-  , windDirections = WindDirection.State.initialModel
-  , availableDays = AvailableDays.State.initialModel
+  {  form = Form.State.initialModel
   }
 
 
@@ -25,34 +21,14 @@ update action model =
     NoOp ->
       ( model, Effects.none )
 
-    AvailableDays action ->
-      ( { model
-          | availableDays = AvailableDays.State.update action model.availableDays
-        }
-      , Effects.none
-      )
-
-    WindDirection action ->
+    Form action ->
       let
         ( childModel, childEffects ) =
-          WindDirection.State.update action model.windDirections
+          Form.State.update action model.form
       in
         ( { model
-            | windDirections = childModel
+            | form = childModel
           }
-        , Effects.map WindDirection childEffects
+        , Effects.map Form childEffects
         )
 
-    SetEmail str ->
-      ( { model
-          | email = str
-        }
-      , Effects.none
-      )
-
-    SetWindSpeed str ->
-      ( { model
-          | windSpeed = str
-        }
-      , Effects.none
-      )
