@@ -19,4 +19,4 @@ type GlobalCssClasses
 
 type CssClasses
   = FormSection
-  | Sidebar
+  | SidebarSection

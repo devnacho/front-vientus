@@ -18,7 +18,7 @@ css =
         , textAlign center
         ]
     , (.)
-        Sidebar
+        SidebarSection
         [ backgroundColor (hex "DBDDF4")
         , position fixed
         , top (px 0)

@@ -23,7 +23,7 @@ root address model =
         [ class [ FormSection ] ]
         [ Form.View.root (Signal.forwardTo address Form) model.form ]
     , div
-        [ class [ Sidebar ] ]
+        [ class [ SidebarSection ] ]
         [ text "Sidebar goes here" ]
     ]
 
