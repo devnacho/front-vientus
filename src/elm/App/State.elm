@@ -19,21 +19,18 @@ initialModel =
 -- UPDATE
 
 
+update : Action -> Model -> (Model, Effects Action)
 update action model =
   case action of
     NoOp ->
       ( model, Effects.none )
 
     AvailableDays action ->
-      let
-        ( childModel, childEffects ) =
-          AvailableDays.State.update action model.availableDays
-      in
-        ( { model
-            | availableDays = childModel
-          }
-        , Effects.map AvailableDays childEffects
-        )
+      ( { model
+          | availableDays = AvailableDays.State.update action model.availableDays
+        }
+      , Effects.none
+      )
 
     WindDirection action ->
       let
@@ -59,4 +56,3 @@ update action model =
         }
       , Effects.none
       )
-

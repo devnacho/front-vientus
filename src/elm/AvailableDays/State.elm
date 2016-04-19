@@ -11,14 +11,13 @@ initialModel =
   }
 
 
+update : Action -> Model -> Model
 update action model =
   case action of
     ToggleDaysVisibility ->
-      ( { model
-          | visible = not model.visible
-        }
-      , Effects.none
-      )
+      { model
+        | visible = not model.visible
+      }
 
     ToggleDay day ->
       let
@@ -28,8 +27,6 @@ update action model =
           else
             day :: model.days
       in
-        ( { model
-            | days = toggledList
-          }
-        , Effects.none
-        )
+        { model
+          | days = toggledList
+        }

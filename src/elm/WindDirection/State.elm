@@ -9,6 +9,7 @@ initialModel =
   []
 
 
+update : Action -> Model -> (Model, Effects Action)
 update action model =
   case action of
     ToggleWindDirection direction ->
