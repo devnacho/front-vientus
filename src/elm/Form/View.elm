@@ -51,9 +51,7 @@ formSection address model =
             [ label [] [ text "Select Country" ]
             , select
                 []
-                [ option [ id "1" ] [ text "Argentina" ]
-                , option [ id "2" ] [ text "Spain" ]
-                ]
+                ( List.map countryOption model.countries )
             ]
         , div
             []
@@ -72,3 +70,6 @@ formSection address model =
     , br [] []
     , text (toString model)
     ]
+
+countryOption country = 
+  option [ id country.id ] [ text country.name ]

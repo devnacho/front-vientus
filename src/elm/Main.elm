@@ -1,7 +1,8 @@
 module Main (..) where
 
-import Effects exposing (Effects)
+import Effects exposing (Effects, Never)
 import StartApp
+import Task
 
 import App.Types exposing (..)
 import App.State exposing (init, update)
@@ -28,3 +29,10 @@ main =
 
 
 port swap : Signal.Signal Bool
+
+
+-- Effects
+
+port runner : Signal (Task.Task Never ())
+port runner =
+    app.tasks
