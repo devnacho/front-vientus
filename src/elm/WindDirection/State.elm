@@ -1,6 +1,5 @@
 module WindDirection.State (initialModel, update) where
 
-import Effects exposing (Effects)
 import WindDirection.Types exposing (..)
 
 
@@ -9,7 +8,7 @@ initialModel =
   []
 
 
-update : Action -> Model -> (Model, Effects Action)
+update : Action -> Model -> Model
 update action model =
   case action of
     ToggleWindDirection direction ->
@@ -20,6 +19,4 @@ update action model =
           else
             direction :: model
       in
-        ( toggledList
-        , Effects.none
-        )
+        toggledList

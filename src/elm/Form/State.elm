@@ -1,9 +1,15 @@
-module Form.State (initialModel, update) where
+module Form.State (init, update) where
 
 import Effects exposing (Effects)
 import Form.Types exposing (..)
 import WindDirection.State
 import AvailableDays.State
+
+init : ( Model, Effects Action )
+init =
+  ( initialModel
+  , Effects.batch initialEffects
+  )
 
 
 initialModel : Model
@@ -14,6 +20,11 @@ initialModel =
   , availableDays = AvailableDays.State.initialModel
   }
 
+
+initialEffects : List ( Effects Action )
+initialEffects =
+  [ Effects.none 
+  ]
 
 
 -- UPDATE
@@ -33,15 +44,11 @@ update action model =
       )
 
     WindDirection action ->
-      let
-        ( childModel, childEffects ) =
-          WindDirection.State.update action model.windDirections
-      in
-        ( { model
-            | windDirections = childModel
-          }
-        , Effects.map WindDirection childEffects
-        )
+      ( { model
+          | windDirections = WindDirection.State.update action model.windDirections
+        }
+      , Effects.none
+      )
 
     SetEmail str ->
       ( { model
