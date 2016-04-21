@@ -19,3 +19,15 @@
     max-width: 480px;
     margin: 0px auto;
 }
+
+@media screen and (max-width: 600px) {
+        .FormFormSection {
+    width: 100%;
+}
+}
+
+@media screen and (max-width: 600px) {
+        .FormSidebarSection {
+    display: none;
+}
+}

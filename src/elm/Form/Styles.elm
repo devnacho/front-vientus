@@ -27,6 +27,14 @@ css =
         [ maxWidth (px 480)
         , margin2 (px 0) auto
         ]
+    , mediaQuery "screen and (max-width: 600px)"
+        [ (.) FormSection
+            [ width (pct 100) ]
+        ]
+    , mediaQuery "screen and (max-width: 600px)"
+        [ (.) SidebarSection
+            [ display none ]
+        ]
     ]
 
 
