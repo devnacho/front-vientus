@@ -28,6 +28,7 @@ root address model =
         [ text "Sidebar Component goes here" ]
     ]
 
+
 formSection address model =
   div
     [ class [ Container ] ]
@@ -50,8 +51,10 @@ formSection address model =
             []
             [ label [] [ text "Select Country" ]
             , select
-                []
-                ( List.map countryOption model.countries )
+                [ on "change" targetValue (\str -> Signal.message address (SelectCountry str)) ]
+                (option [] [ text "Select Country" ]
+                  :: (List.map countryOption model.countries)
+                )
             ]
         , div
             []
@@ -68,8 +71,9 @@ formSection address model =
         ]
     , br [] []
     , br [] []
-    , text (toString model)
+    , text (toString model.selectedCountry)
     ]
 
-countryOption country = 
-  option [ id country.id ] [ text country.name ]
+
+countryOption country =
+  option [ value country.id ] [ text country.name ]

@@ -11,6 +11,7 @@ type Action
   | SetEmail String
   | SetWindSpeed String
   | SetCountries ( Maybe (List Country) )
+  | SelectCountry String
 
 
 type alias Model =
@@ -25,7 +26,7 @@ type alias Model =
 
 type alias Country =
   { name : String
-  , id : Int
+  , id : String
   }
 
 

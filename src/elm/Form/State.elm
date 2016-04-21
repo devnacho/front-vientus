@@ -31,7 +31,6 @@ initialEffects =
   ]
 
 
-
 update : Action -> Model -> ( Model, Effects Action )
 update action model =
   case action of
@@ -39,21 +38,25 @@ update action model =
       ( model, Effects.none )
 
     SetCountries countries ->
-      let
-        _ =
-          Debug.log "COUNTRIES" countries
+      ( { model
+          | countries = Maybe.withDefault [] countries
+        }
+      , Effects.none
+      )
 
-        {-
-        _ =
-          case countriesList of
-            Just Countries ->
-              Debug.log "First Country" ( List.head countriesList )
-            Nothing ->
-              Debug.log "No countries" ()
-        -}
+    SelectCountry id ->
+      let
+        filteredCountries =
+          List.filter (\country -> country.id == id) model.countries
+
+        selectedCountry =
+          if (List.isEmpty filteredCountries) then
+            Nothing
+          else
+            List.head filteredCountries
       in
         ( { model
-            | countries = Maybe.withDefault [] countries
+            | selectedCountry = selectedCountry
           }
         , Effects.none
         )

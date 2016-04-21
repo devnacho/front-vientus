@@ -24,4 +24,4 @@ countryDecoder : Decoder Country
 countryDecoder =
   succeed Country
     |: ("name" := string)
-    |: ("id" := int)
+    |: ("id" := string)
