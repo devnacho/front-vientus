@@ -8,6 +8,7 @@ in Production.
 - Use of Elm-css
 - Communication of Elm with a REST API
 - Interop between Elm & Js
+- I18N
 
 ### Install:
 ```
