@@ -45,6 +45,8 @@ type alias Region =
 type alias Spot =
   { name : String
   , id : String
+  , latitude: Float
+  , longitude: Float
   }
 
 

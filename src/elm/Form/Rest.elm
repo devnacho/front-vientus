@@ -4,7 +4,7 @@ import Form.Types exposing (..)
 import Http
 import Json.Encode as Json
 import Json.Decode.Extra exposing ((|:))
-import Json.Decode exposing (Decoder, list, succeed, string, int, (:=))
+import Json.Decode exposing (Decoder, list, succeed, string, float, int, (:=))
 import Effects exposing (Effects)
 import Task
 
@@ -68,3 +68,5 @@ spotDecoder =
   succeed Spot
     |: ("name" := string)
     |: ("id" := string)
+    |: ("latitude" := float)
+    |: ("latitude" := float)
