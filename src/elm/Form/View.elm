@@ -58,6 +58,15 @@ formSection address model =
             ]
         , div
             []
+            [ label [] [ text "Select Spot" ]
+            , select
+                [ on "change" targetValue (\str -> Signal.message address (SelectSpot str)) ]
+                (option [] [ text "Select Spot" ]
+                  :: (List.map spotOption model.spots)
+                )
+            ]
+        , div
+            []
             [ label [] [ text "Minimum Wind Speed (in knots)" ]
             , input
                 [ type' "number"
@@ -72,8 +81,14 @@ formSection address model =
     , br [] []
     , br [] []
     , text (toString model.selectedCountry)
+    , br [] []
+    , text (toString model.selectedSpot)
     ]
 
 
 countryOption country =
   option [ value country.id ] [ text country.name ]
+
+
+spotOption spot =
+  option [ value spot.id ] [ text spot.name ]

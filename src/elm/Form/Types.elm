@@ -10,8 +10,10 @@ type Action
   | WindDirection WindDirection.Types.Action
   | SetEmail String
   | SetWindSpeed String
-  | SetCountries ( Maybe (List Country) )
+  | SetCountries (Maybe (List Country))
   | SelectCountry String
+  | SetSpots (Maybe (List Spot))
+  | SelectSpot String
 
 
 type alias Model =
@@ -21,10 +23,18 @@ type alias Model =
   , availableDays : AvailableDays.Types.Model
   , countries : List Country
   , selectedCountry : Maybe Country
+  , spots : List Spot
+  , selectedSpot : Maybe Spot
   }
 
 
 type alias Country =
+  { name : String
+  , id : String
+  }
+
+
+type alias Spot =
   { name : String
   , id : String
   }

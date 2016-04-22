@@ -25,3 +25,25 @@ countryDecoder =
   succeed Country
     |: ("name" := string)
     |: ("id" := string)
+
+
+
+getCountrySpots countryId  =
+  Http.get spotsListDecoder ( "http://localhost:3000/countries/" ++ countryId ++ "/spots.json" )
+    |> Task.toMaybe
+    |> Task.map (\list -> SetSpots list)
+    |> Effects.task
+
+
+spotsListDecoder =
+  list spotDecoder
+
+
+spotDecoder : Decoder Spot
+spotDecoder =
+  succeed Spot
+    |: ("name" := string)
+    |: ("id" := string)
+
+
+

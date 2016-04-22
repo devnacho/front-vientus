@@ -22,6 +22,8 @@ initialModel =
   , availableDays = AvailableDays.State.initialModel
   , countries = []
   , selectedCountry = Nothing
+  , spots = []
+  , selectedSpot = Nothing
   }
 
 
@@ -54,9 +56,41 @@ update action model =
             Nothing
           else
             List.head filteredCountries
+
+        effect =
+          if (List.isEmpty filteredCountries) then
+            Effects.none
+          else
+            Form.Rest.getCountrySpots id
       in
         ( { model
             | selectedCountry = selectedCountry
+            , selectedSpot = Nothing
+            , spots = []
+          }
+        , effect
+        )
+
+    SetSpots spots ->
+      ( { model
+          | spots = Maybe.withDefault [] spots
+        }
+      , Effects.none
+      )
+
+    SelectSpot id ->
+      let
+        filteredSpots =
+          List.filter (\spot -> spot.id == id) model.spots
+
+        selectedSpot =
+          if (List.isEmpty filteredSpots) then
+            Nothing
+          else
+            List.head filteredSpots
+      in
+        ( { model
+            | selectedSpot = selectedSpot
           }
         , Effects.none
         )
