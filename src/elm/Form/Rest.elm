@@ -27,9 +27,33 @@ countryDecoder =
     |: ("id" := string)
 
 
+getRegions countryId =
+  Http.get regionsListDecoder ("http://localhost:3000/countries/" ++ countryId ++ "/regions.json")
+    |> Task.toMaybe
+    |> Task.map (\list -> SetRegions list)
+    |> Effects.task
 
-getCountrySpots countryId  =
-  Http.get spotsListDecoder ( "http://localhost:3000/countries/" ++ countryId ++ "/spots.json" )
+
+regionsListDecoder =
+  list regionDecoder
+
+
+regionDecoder : Decoder Region
+regionDecoder =
+  succeed Region
+    |: ("name" := string)
+    |: ("id" := string)
+
+
+getCountrySpots countryId =
+  Http.get spotsListDecoder ("http://localhost:3000/countries/" ++ countryId ++ "/spots.json")
+    |> Task.toMaybe
+    |> Task.map (\list -> SetSpots list)
+    |> Effects.task
+
+
+getRegionSpots regionId =
+  Http.get spotsListDecoder ("http://localhost:3000/regions/" ++ regionId ++ "/spots.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetSpots list)
     |> Effects.task
@@ -44,6 +68,3 @@ spotDecoder =
   succeed Spot
     |: ("name" := string)
     |: ("id" := string)
-
-
-

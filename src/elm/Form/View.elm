@@ -56,6 +56,7 @@ formSection address model =
                   :: (List.map countryOption model.countries)
                 )
             ]
+        , selectRegion address model.regions
         , div
             []
             [ label [] [ text "Select Spot" ]
@@ -82,12 +83,33 @@ formSection address model =
     , br [] []
     , text (toString model.selectedCountry)
     , br [] []
+    , text (toString model.selectedRegion)
+    , br [] []
     , text (toString model.selectedSpot)
     ]
+
+selectRegion address regions =
+  if List.isEmpty regions then
+    span [] []
+  else
+    div
+      []
+      [ label [] [ text "Select Region" ]
+      , select
+          [ on "change" targetValue (\str -> Signal.message address (SelectRegion str)) ]
+          (option [] [ text "Select Region" ]
+            :: (List.map regionOption regions)
+          )
+      ]
+
 
 
 countryOption country =
   option [ value country.id ] [ text country.name ]
+
+
+regionOption region =
+  option [ value region.id ] [ text region.name ]
 
 
 spotOption spot =
