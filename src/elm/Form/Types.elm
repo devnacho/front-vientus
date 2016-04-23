@@ -31,6 +31,14 @@ type alias Model =
   , selectedSpot : Maybe Spot
   }
 
+type alias SubmitModel = 
+  { email : String
+  , windSpeed : String
+  , windDirections : WindDirection.Types.Model
+  , availableDays : AvailableDays.Types.Model
+  , selectedSpot : Spot
+  }
+
 
 type alias Country =
   { name : String

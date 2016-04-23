@@ -23,3 +23,16 @@ type alias Model =
 allWindDirections : List WindDirection
 allWindDirections =
   [ N, NE, E, SE, S, SW, W, NE ]
+
+
+wdToStr : WindDirection -> String
+wdToStr windDirection =
+  case windDirection of 
+    N -> "N"  
+    NE -> "NE"  
+    E -> "E"  
+    SE -> "SE"  
+    S -> "S"  
+    SW -> "SW"  
+    W -> "W"  
+    NW -> "NW"  
