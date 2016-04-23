@@ -11,6 +11,7 @@ import Effects exposing (Effects)
 import Task
 
 
+getCountries : Effects Action
 getCountries =
   Http.get countriesListDecoder "http://localhost:3000/countries.json"
     |> Task.toMaybe
@@ -18,6 +19,7 @@ getCountries =
     |> Effects.task
 
 
+countriesListDecoder : Decoder (List Country)
 countriesListDecoder =
   list countryDecoder
 
@@ -29,6 +31,7 @@ countryDecoder =
     |: ("id" := string)
 
 
+getRegions : String -> Effects Action
 getRegions countryId =
   Http.get regionsListDecoder ("http://localhost:3000/countries/" ++ countryId ++ "/regions.json")
     |> Task.toMaybe
@@ -36,6 +39,7 @@ getRegions countryId =
     |> Effects.task
 
 
+regionsListDecoder : Decoder (List Region)
 regionsListDecoder =
   list regionDecoder
 
@@ -47,6 +51,7 @@ regionDecoder =
     |: ("id" := string)
 
 
+getCountrySpots : String -> Effects Action
 getCountrySpots countryId =
   Http.get spotsListDecoder ("http://localhost:3000/countries/" ++ countryId ++ "/spots.json")
     |> Task.toMaybe
@@ -54,6 +59,7 @@ getCountrySpots countryId =
     |> Effects.task
 
 
+getRegionSpots : String -> Effects Action
 getRegionSpots regionId =
   Http.get spotsListDecoder ("http://localhost:3000/regions/" ++ regionId ++ "/spots.json")
     |> Task.toMaybe
@@ -61,6 +67,7 @@ getRegionSpots regionId =
     |> Effects.task
 
 
+spotsListDecoder : Decoder (List Spot)
 spotsListDecoder =
   list spotDecoder
 
