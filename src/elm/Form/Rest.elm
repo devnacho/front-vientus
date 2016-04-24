@@ -81,49 +81,30 @@ spotDecoder =
     |: ("latitude" := float)
 
 
-submitAlert formModel =
-  Http.post submitDecoder ("http://localhost:3000/alerts") (Debug.log "encoded" ( encodedAlert formModel) )
+submitParams : SubmitModel -> List ( String, String )
+submitParams submitModel =
+  List.append
+    (List.map (\wd -> ( "alert[wind_directions][]", wdToStr wd )) submitModel.windDirections)
+    (List.map (\day -> ( "alert[dates][]", dayToStr day )) submitModel.availableDays.days)
+    |> List.append
+        [ ( "alert[user_attributes][locale]", "EN" )
+        , ( "alert[user_attributes][email]", submitModel.email )
+        , ( "alert[spot_id]", submitModel.selectedSpot.id )
+        , ( "alert[min_speed]", submitModel.windSpeed )
+        ]
+
+
+encodedUrl : SubmitModel -> String
+encodedUrl submitModel =
+  Http.url "http://localhost:3000/alerts" (submitParams submitModel)
+
+
+submitAlert : SubmitModel -> Effects Action
+submitAlert submitModel =
+  Http.post submitDecoder (encodedUrl submitModel) Http.empty
     |> Task.toResult
-    |> Task.map (\result -> AlertSubmitted result)
+    |> Task.map (\result -> NoOp)
     |> Effects.task
-
-
-encodedAlert : SubmitModel -> Http.Body
-encodedAlert submitModel =
-  JE.encode 0 (alertObject submitModel)
-    |> Http.string
-
-
-
-{-
-"alert"=>{"user_attributes"=>{"locale"=>"en", "email"=>"pepe@pepe.com"}, "country_id"=>"113", "region_id"=>"", "spot_id"=>"15342", "min_speed"=>"11", "wind_directions"=>["N", "NE"], "dates"=>["5", "6", ""]}
--}
-
-
-alertObject : SubmitModel -> JE.Value
-alertObject submitModel =
-  JE.object
-    [ ( "alert"
-      , JE.object
-          [ ( "spot_id", JE.string submitModel.selectedSpot.id )
-          , ( "min_speed", JE.string submitModel.windSpeed )
-          , ( "user_attributes"
-            , JE.object
-                [ ( "locale", JE.string "en" )
-                , ( "email", JE.string submitModel.email )
-                ]
-            )
-          , ( "dates"
-            , JE.list
-                (List.map (\day -> JE.string (dayToStr day)) submitModel.availableDays.days)
-            )
-          , ( "wind_directions"
-            , JE.list
-                (List.map (\windDir -> JE.string (wdToStr windDir)) submitModel.windDirections)
-            )
-          ]
-      )
-    ]
 
 
 

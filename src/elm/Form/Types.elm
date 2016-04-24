@@ -20,7 +20,6 @@ type Action
   | SetSpots (Maybe (List Spot))
   | SelectSpot String
   | SubmitAlert
-  | AlertSubmitted (Result Http.Error ())
 
 
 type alias Model =

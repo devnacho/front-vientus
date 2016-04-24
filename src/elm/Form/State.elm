@@ -52,15 +52,6 @@ update action model =
           }
       in
         ( model, Form.Rest.submitAlert submitModel )
-    AlertSubmitted result ->
-      let
-        _ = Debug.log "result" result
-      in
-        case result of
-          Err something ->
-            ( model, Effects.none )
-          Ok something ->
-            ( model, Effects.none )
 
     SetCountries countries ->
       ( { model
