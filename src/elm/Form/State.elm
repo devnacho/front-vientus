@@ -41,6 +41,27 @@ update action model =
     NoOp ->
       ( model, Effects.none )
 
+    SubmitAlert ->
+      let
+        submitModel = 
+          { email = model.email
+          , windSpeed = model.windSpeed
+          , windDirections = model.windDirections
+          , availableDays = model.availableDays
+          , selectedSpot = Maybe.withDefault (Spot "" "" 0 0 ) model.selectedSpot
+          }
+      in
+        ( model, Form.Rest.submitAlert submitModel )
+    AlertSubmitted result ->
+      let
+        _ = Debug.log "result" result
+      in
+        case result of
+          Err something ->
+            ( model, Effects.none )
+          Ok something ->
+            ( model, Effects.none )
+
     SetCountries countries ->
       ( { model
           | countries = Maybe.withDefault [] countries

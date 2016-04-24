@@ -82,7 +82,10 @@ spotDecoder =
 
 
 submitAlert formModel =
-  Http.post submitDecoder ("http://localhost:3000/alerts") (encodedAlert formModel)
+  Http.post submitDecoder ("http://localhost:3000/alerts") (Debug.log "encoded" ( encodedAlert formModel) )
+    |> Task.toResult
+    |> Task.map (\result -> AlertSubmitted result)
+    |> Effects.task
 
 
 encodedAlert : SubmitModel -> Http.Body

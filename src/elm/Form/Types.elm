@@ -2,6 +2,9 @@ module Form.Types (..) where
 
 import WindDirection.Types
 import AvailableDays.Types
+import Task
+import Http
+
 
 
 type Action
@@ -16,6 +19,8 @@ type Action
   | SelectRegion String
   | SetSpots (Maybe (List Spot))
   | SelectSpot String
+  | SubmitAlert
+  | AlertSubmitted (Result Http.Error ())
 
 
 type alias Model =

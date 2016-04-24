@@ -78,6 +78,9 @@ formSection address model =
             ]
         , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections
         , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays
+        , br [] []
+        , br [] []
+        , button [ onClick address SubmitAlert ] [ text "Submit" ]
         ]
     , br [] []
     , br [] []
