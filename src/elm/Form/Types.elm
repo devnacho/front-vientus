@@ -49,7 +49,7 @@ type alias SubmitModel =
   , windSpeed : String
   , windDirections : WindDirection.Types.Model
   , availableDays : AvailableDays.Types.Model
-  , selectedSpot : Spot
+  , selectedSpotId : String
   }
 
 

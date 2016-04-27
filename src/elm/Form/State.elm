@@ -71,7 +71,10 @@ update action model =
           , windSpeed = model.windSpeed
           , windDirections = model.windDirections
           , availableDays = model.availableDays
-          , selectedSpot = Maybe.withDefault (Spot "" "" 0 0) model.selectedSpot
+          , selectedSpotId = 
+              case model.selectedSpot of 
+                Nothing -> ""
+                Just spot -> spot.id
           }
 
         command =

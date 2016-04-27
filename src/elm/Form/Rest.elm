@@ -94,7 +94,7 @@ submitParams submitModel =
     |> List.append
         [ ( "alert[user_attributes][locale]", "EN" )
         , ( "alert[user_attributes][email]", submitModel.email )
-        , ( "alert[spot_id]", submitModel.selectedSpot.id )
+        , ( "alert[spot_id]", submitModel.selectedSpotId )
         , ( "alert[min_speed]", submitModel.windSpeed )
         ]
 
