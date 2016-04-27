@@ -3,7 +3,6 @@ module Form.Types (..) where
 import WindDirection.Types
 import AvailableDays.Types
 import Task
-import Http
 
 
 
@@ -33,6 +32,16 @@ type alias Model =
   , selectedRegion : Maybe Region
   , spots : List Spot
   , selectedSpot : Maybe Spot
+  , errors : Errors
+  }
+
+type alias Errors = 
+  { email : String
+  , windSpeed : String
+  , windDirections : String
+  , availableDays : String
+  , selectedCountry : String
+  , selectedSpot : String
   }
 
 type alias SubmitModel = 

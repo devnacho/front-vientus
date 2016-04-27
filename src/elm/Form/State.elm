@@ -5,6 +5,8 @@ import Form.Types exposing (..)
 import Form.Rest
 import WindDirection.State
 import AvailableDays.State
+import String exposing (isEmpty)
+import Regex
 
 
 init : ( Model, Effects Action )
@@ -26,6 +28,18 @@ initialModel =
   , selectedRegion = Nothing
   , spots = []
   , selectedSpot = Nothing
+  , errors = initialErrors
+  }
+
+
+initialErrors : Errors
+initialErrors =
+  { email = ""
+  , windSpeed = ""
+  , windDirections = ""
+  , availableDays = ""
+  , selectedCountry = ""
+  , selectedSpot = ""
   }
 
 
@@ -43,15 +57,34 @@ update action model =
 
     SubmitAlert ->
       let
-        submitModel = 
+        errorsTuple =
+          getErrors model
+
+        errors =
+          fst errorsTuple
+
+        hasErrors =
+          snd errorsTuple
+
+        submitModel =
           { email = model.email
           , windSpeed = model.windSpeed
           , windDirections = model.windDirections
           , availableDays = model.availableDays
-          , selectedSpot = Maybe.withDefault (Spot "" "" 0 0 ) model.selectedSpot
+          , selectedSpot = Maybe.withDefault (Spot "" "" 0 0) model.selectedSpot
           }
+
+        command =
+          if hasErrors == False then
+            Form.Rest.submitAlert submitModel
+          else
+            Effects.none
       in
-        ( model, Form.Rest.submitAlert submitModel )
+        ( { model
+            | errors = errors
+          }
+        , command
+        )
 
     SetCountries countries ->
       ( { model
@@ -107,6 +140,7 @@ update action model =
             Nothing
           else
             List.head filteredRegions
+
         effect =
           if (List.isEmpty filteredRegions) then
             Effects.none
@@ -172,3 +206,80 @@ update action model =
         }
       , Effects.none
       )
+
+
+getErrors : Model -> ( Errors, Bool )
+getErrors model =
+  let
+    errors =
+      { email =
+          if not (isValidEmail model.email) then
+            "Please enter a valid email"
+          else
+            ""
+      , windSpeed =
+          if model.windSpeed == "" then
+            "Please enter a number in knots as the minimum speed"
+          else if not( isPositiveNumber model.windSpeed ) then
+            "You must enter a positive number"
+          else
+            ""
+      , windDirections = 
+        if List.isEmpty model.windDirections then
+          "At least select one wind direction"
+        else 
+          ""
+      , availableDays = 
+        if List.isEmpty model.availableDays.days then
+          "At least select one day"
+        else 
+          ""
+      , selectedCountry = 
+        case model.selectedCountry of 
+          Nothing -> "You have to select a country"
+          Just _ -> ""
+      , selectedSpot = 
+        case model.selectedSpot of 
+          Nothing -> "You have to select a spot"
+          Just _ -> ""
+      }
+
+    hasErrors =
+      not
+        <| isEmpty errors.email
+        && isEmpty errors.windSpeed
+        && isEmpty errors.windDirections
+        && isEmpty errors.availableDays
+        && isEmpty errors.selectedCountry
+        && isEmpty errors.selectedSpot
+  in
+    ( errors
+    , hasErrors
+    )
+
+
+
+-- TODO MOVE THIS TO UTILS MODULE
+
+
+isPositiveNumber : String -> Bool
+isPositiveNumber subject =
+  case String.toInt subject of
+    Ok number ->
+      if number > 0 then
+        True
+      else
+        False
+
+    Err _ ->
+      False
+
+
+isValidEmail : String -> Bool
+isValidEmail =
+  let
+    validEmail =
+      Regex.regex "^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+        |> Regex.caseInsensitive
+  in
+    Regex.contains validEmail

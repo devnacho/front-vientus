@@ -19,7 +19,8 @@
         "evancz/start-app": "2.0.2 <= v < 3.0.0",
         "rtfeldman/elm-css": "2.0.0 <= v < 3.0.0",
         "rtfeldman/elm-css-helpers": "1.1.0 <= v < 2.0.0",
-        "rtfeldman/elm-css-util": "1.0.0 <= v < 2.0.0"
+        "rtfeldman/elm-css-util": "1.0.0 <= v < 2.0.0",
+        "rtfeldman/elm-validate": "1.1.1 <= v < 2.0.0"
     },
     "elm-version": "0.16.0 <= v < 0.17.0"
 }

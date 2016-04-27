@@ -11,9 +11,14 @@ import Effects exposing (Effects)
 import Task
 
 
+baseUrl : String
+baseUrl =
+  "http://localhost:4000"
+
+
 getCountries : Effects Action
 getCountries =
-  Http.get countriesListDecoder "http://localhost:3000/countries.json"
+  Http.get countriesListDecoder (baseUrl ++ "/countries.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetCountries list)
     |> Effects.task
@@ -33,7 +38,7 @@ countryDecoder =
 
 getRegions : String -> Effects Action
 getRegions countryId =
-  Http.get regionsListDecoder ("http://localhost:3000/countries/" ++ countryId ++ "/regions.json")
+  Http.get regionsListDecoder (baseUrl ++ "/countries/" ++ countryId ++ "/regions.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetRegions list)
     |> Effects.task
@@ -53,7 +58,7 @@ regionDecoder =
 
 getCountrySpots : String -> Effects Action
 getCountrySpots countryId =
-  Http.get spotsListDecoder ("http://localhost:3000/countries/" ++ countryId ++ "/spots.json")
+  Http.get spotsListDecoder (baseUrl ++ "/countries/" ++ countryId ++ "/spots.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetSpots list)
     |> Effects.task
@@ -61,7 +66,7 @@ getCountrySpots countryId =
 
 getRegionSpots : String -> Effects Action
 getRegionSpots regionId =
-  Http.get spotsListDecoder ("http://localhost:3000/regions/" ++ regionId ++ "/spots.json")
+  Http.get spotsListDecoder (baseUrl ++ "/regions/" ++ regionId ++ "/spots.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetSpots list)
     |> Effects.task
@@ -96,7 +101,7 @@ submitParams submitModel =
 
 encodedUrl : SubmitModel -> String
 encodedUrl submitModel =
-  Http.url "http://localhost:3000/alerts" (submitParams submitModel)
+  Http.url (baseUrl ++ "/alerts") (submitParams submitModel)
 
 
 submitAlert : SubmitModel -> Effects Action

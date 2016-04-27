@@ -84,9 +84,8 @@ formSection address model =
         ]
     , br [] []
     , br [] []
-    , text (toString model.selectedCountry)
+    , text (toString model.errors)
     , br [] []
-    , text (toString model.selectedRegion)
     , br [] []
     , text (toString model.selectedSpot)
     ]
