@@ -2,6 +2,8 @@ module Form.Types (..) where
 
 import WindDirection.Types
 import AvailableDays.Types
+import Task
+
 
 
 type Action
@@ -16,6 +18,7 @@ type Action
   | SelectRegion String
   | SetSpots (Maybe (List Spot))
   | SelectSpot String
+  | SubmitAlert
 
 
 type alias Model =
@@ -29,6 +32,24 @@ type alias Model =
   , selectedRegion : Maybe Region
   , spots : List Spot
   , selectedSpot : Maybe Spot
+  , errors : Errors
+  }
+
+type alias Errors = 
+  { email : String
+  , windSpeed : String
+  , windDirections : String
+  , availableDays : String
+  , selectedCountry : String
+  , selectedSpot : String
+  }
+
+type alias SubmitModel = 
+  { email : String
+  , windSpeed : String
+  , windDirections : WindDirection.Types.Model
+  , availableDays : AvailableDays.Types.Model
+  , selectedSpotId : String
   }
 
 
