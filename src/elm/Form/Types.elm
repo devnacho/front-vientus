@@ -74,4 +74,10 @@ type alias Spot =
 type CssClasses
   = FormSection
   | SidebarSection
+  | SidebarOverlay
   | Container
+  | Title
+  | Subtitle
+  | Group
+  | SubmitButton
+  | Hint

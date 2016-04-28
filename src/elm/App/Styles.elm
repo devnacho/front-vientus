@@ -26,9 +26,11 @@ globalCss =
         ]
     , Css.label
         [ display block
-        , marginBottom (em 0.375)
+        , marginBottom (em 0.7)
         , fontWeight bold
-        , fontSize (em 1)
+        , fontSize (px 13)
+        , color (hex "444046")
+        , textTransform uppercase
         ]
     , Css.input
         [ width (pct 100)
@@ -43,7 +45,6 @@ globalCss =
     , Css.select
         [ width (pct 100)
         , display block
-        , marginBottom (em 1.5)
         , fontSize (em 0.9)
         , border3 (px 1) solid (hex "CCC" )
         , borderRadius (px 4)
