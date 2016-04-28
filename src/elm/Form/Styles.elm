@@ -20,7 +20,7 @@ css =
         , right (px 0)
         , height (pct 100)
         , width (pct 50)
-        , property "background" "url(http://www.kitesurfwallpaper.com/images/papers/best-kiteboarding-youri-zoon-low-pass-hd-2.jpg)" 
+        , property "background" "url(http://www.kitesurfwallpaper.com/images/papers/best-kiteboarding-youri-zoon-low-pass-hd-2.jpg) center center"
         , property "background-size" "cover"
         ]
     , (.) SidebarOverlay

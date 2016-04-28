@@ -103,7 +103,7 @@ selectRegion address regions =
     span [] []
   else
     div
-      []
+      [ class [ Group ] ]
       [ label [] [ text "Select Region" ]
       , select
           [ on "change" targetValue (\str -> Signal.message address (SelectRegion str)) ]
