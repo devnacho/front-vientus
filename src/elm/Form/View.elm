@@ -1,6 +1,6 @@
 module Form.View (root) where
 
-import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td)
+import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
 import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Html.CssHelpers
@@ -33,6 +33,8 @@ formSection address model =
   div
     [ class [ Container ] ]
     [ h1 [] [ text "Never Miss a Windy Day Again." ]
+    , p [] [ text "Select the minimum wind speed and the wind directions you need to sail at your spot." ]
+    , p [] [ text "Leave your email and get notified whenever the weather conditions match your preferences." ]
     , div
         [ id "signup-form" ]
         [ div
