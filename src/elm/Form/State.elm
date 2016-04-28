@@ -249,17 +249,20 @@ getErrors model =
 
     hasErrors =
       not
-        <| isEmpty errors.email
-        && isEmpty errors.windSpeed
-        && isEmpty errors.windDirections
-        && isEmpty errors.availableDays
-        && isEmpty errors.selectedCountry
-        && isEmpty errors.selectedSpot
+        <| noErrors errors.email
+        && noErrors errors.windSpeed
+        && noErrors errors.windDirections
+        && noErrors errors.availableDays
+        && noErrors errors.selectedCountry
+        && noErrors errors.selectedSpot
   in
     ( errors
     , hasErrors
     )
 
+noErrors : String -> Bool
+noErrors =
+  isEmpty
 
 
 -- TODO MOVE THIS TO UTILS MODULE
