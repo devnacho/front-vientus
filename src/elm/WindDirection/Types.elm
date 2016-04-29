@@ -24,6 +24,7 @@ type CssClasses
   | Chooser
   | Arrow
   | Text
+  | Icon
 
 allWindDirections : List WindDirection
 allWindDirections =

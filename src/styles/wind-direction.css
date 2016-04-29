@@ -1,20 +1,28 @@
 .WindDirChooser {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: 270px;
+    height: 270px;
     margin: 40px auto 50px auto;
 }
 
 .WindDirDirection {
     position: absolute;
-    width: 280px;
-    height: 280px;
+    width: 270px;
+    height: 270px;
+}
+
+.WindDirIcon {
+    font-size: 43px;
+    display: block;
+    padding-top: 30px;
+    cursor: pointer;
 }
 
 .WindDirText {
     position: absolute;
     top: 0px;
-    left: 140px;
+    left: 129px;
+    cursor: pointer;
 }
 
 .WindDirDirection:nth-child(1) {

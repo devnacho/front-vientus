@@ -1,15 +1,16 @@
 module WindDirection.View (root) where
 
-import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td)
+import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td, i)
 import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Utils.ErrorView exposing (error)
 import WindDirection.Types exposing (..)
 import Html.CssHelpers
 
+namespace = "WindDir"
 
 { id, class, classList } =
-  Html.CssHelpers.withNamespace "WindDir"
+  Html.CssHelpers.withNamespace namespace
 
 
 globalClass =
@@ -31,6 +32,10 @@ windButton address windDirection =
     [ div
       [ class [ Text ]  ]
       [ text (wdToStr windDirection) ]
+    , i
+      [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-up")
+      ]
+      []
     ]
 {-
 windButton address windDirection =

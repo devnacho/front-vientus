@@ -6,7 +6,7 @@ import Css.Namespace exposing (namespace)
 import WindDirection.Types exposing (..)
 
 size = 
-  280
+  270
 
 
 css =
@@ -23,10 +23,17 @@ css =
           , width (px size)
           , height (px size)
           ]
+      , (.) Icon
+          [ fontSize (px 43)
+          , display block
+          , paddingTop (px 30)
+          , property "cursor" "pointer"
+          ]
       , (.) Text
           [ position absolute
           , top (px 0)
-          , left (px (size/2) )
+          , left (px ( (size/2) - 6)  )
+          , property "cursor" "pointer"
           ]
       ]
       ( List.map direction [1..8] )
