@@ -65,6 +65,14 @@ css =
         , fontSize (px 12)
         , color (hex "AFAFAF")
         ]
+    , (.) Error
+        [ fontSize (px 12)
+        , color (hex "C36666")
+        , fontWeight bold
+        , display block
+        , marginTop (px 10)
+        , marginBottom (px 20)
+        ]
     , mediaQuery "screen and (max-width: 600px)"
         [ (.) FormSection
             [ width (pct 100) ]
@@ -74,5 +82,4 @@ css =
             [ display none ]
         ]
     ]
-
 

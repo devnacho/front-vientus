@@ -4,6 +4,7 @@ import Html exposing (div, h1, select, form, input, label, button, a, text, span
 import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Html.CssHelpers
+import Utils.ErrorView exposing (error)
 import App.Types exposing (..)
 import Form.Types exposing (..)
 import WindDirection.View
@@ -52,6 +53,7 @@ formSection address model =
                 , value model.email
                 ]
                 []
+            , error model.errors.email
             ]
         , div
             [ class [ Group ] ]
@@ -61,6 +63,7 @@ formSection address model =
                 (option [] [ text "Select Country" ]
                   :: (List.map countryOption model.countries)
                 )
+            , error model.errors.selectedCountry
             ]
         , selectRegion address model.regions
         , div
@@ -71,6 +74,7 @@ formSection address model =
                 (option [] [ text "Select Spot" ]
                   :: (List.map spotOption model.spots)
                 )
+            , error model.errors.selectedSpot
             ]
         , div
             [ class [ Group ] ]
@@ -81,6 +85,7 @@ formSection address model =
                 , on "input" targetValue (Signal.message address << SetWindSpeed)
                 ]
                 []
+            , error model.errors.windSpeed
             ]
         , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections
         , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays

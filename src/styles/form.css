@@ -64,6 +64,15 @@
     color: #AFAFAF;
 }
 
+.FormError {
+    font-size: 12px;
+    color: #C36666;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
 @media screen and (max-width: 600px) {
         .FormFormSection {
     width: 100%;

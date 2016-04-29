@@ -81,3 +81,4 @@ type CssClasses
   | Group
   | SubmitButton
   | Hint
+  | Error
