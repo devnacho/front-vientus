@@ -28,12 +28,9 @@ root address model errors =
 windButton address windDirection = 
   div
     [ class [ Direction ] ]
-    [ span
-      [ class [ "glyphicon glyphicon-arrow-down arrow" ] ]
-      [ div
-        [ class [ Text ]  ]
-        [ text (wdToStr windDirection) ]
-      ]
+    [ div
+      [ class [ Text ]  ]
+      [ text (wdToStr windDirection) ]
     ]
 {-
 windButton address windDirection =

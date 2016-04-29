@@ -27,7 +27,7 @@ type CssClasses
 
 allWindDirections : List WindDirection
 allWindDirections =
-  [ N, NE, E, SE, S, SW, W, NE ]
+  [ N, NE, E, SE, S, SW, W, NW ]
 
 
 wdToStr : WindDirection -> String

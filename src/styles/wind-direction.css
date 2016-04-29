@@ -1,6 +1,82 @@
 .WindDirChooser {
     position: relative;
-    width: 250px;
-    height: 250px;
-    margin: 20px auto 50px auto;
+    width: 280px;
+    height: 280px;
+    margin: 40px auto 50px auto;
+}
+
+.WindDirDirection {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+}
+
+.WindDirText {
+    position: absolute;
+    top: 0px;
+    left: 140px;
+}
+
+.WindDirDirection:nth-child(1) {
+    transform: rotate(0deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(1)  .WindDirText {
+    transform: rotate(0deg);
+}
+
+.WindDirDirection:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(2)  .WindDirText {
+    transform: rotate(-45deg);
+}
+
+.WindDirDirection:nth-child(3) {
+    transform: rotate(90deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(3)  .WindDirText {
+    transform: rotate(-90deg);
+}
+
+.WindDirDirection:nth-child(4) {
+    transform: rotate(135deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(4)  .WindDirText {
+    transform: rotate(-135deg);
+}
+
+.WindDirDirection:nth-child(5) {
+    transform: rotate(180deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(5)  .WindDirText {
+    transform: rotate(-180deg);
+}
+
+.WindDirDirection:nth-child(6) {
+    transform: rotate(225deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(6)  .WindDirText {
+    transform: rotate(-225deg);
+}
+
+.WindDirDirection:nth-child(7) {
+    transform: rotate(270deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(7)  .WindDirText {
+    transform: rotate(-270deg);
+}
+
+.WindDirDirection:nth-child(8) {
+    transform: rotate(315deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(8)  .WindDirText {
+    transform: rotate(-315deg);
 }
