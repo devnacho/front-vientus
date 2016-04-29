@@ -87,8 +87,8 @@ formSection address model =
                 []
             , error model.errors.windSpeed
             ]
-        , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections
-        , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays
+        , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections model.errors.windDirections
+        , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays model.errors.availableDays
         , br [] []
         , br [] []
         , button

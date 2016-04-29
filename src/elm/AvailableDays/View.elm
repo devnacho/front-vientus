@@ -3,16 +3,18 @@ module AvailableDays.View (root) where
 import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td)
 import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
+import Utils.ErrorView exposing (error)
 import AvailableDays.Types exposing (..)
 
 
-root address model =
+root address model errors =
   div
     []
     [ button
         [ onClick address ToggleDaysVisibility ]
         [ text "Want to choose the days you can sail? " ]
     , selectDays address model.visible
+    , error errors
     ]
 
 
