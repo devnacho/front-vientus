@@ -19,6 +19,11 @@ type Action
 type alias Model =
   List WindDirection
 
+type CssClasses
+  = Direction
+  | Chooser
+  | Arrow
+  | Text
 
 allWindDirections : List WindDirection
 allWindDirections =
