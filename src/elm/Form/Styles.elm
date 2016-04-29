@@ -52,7 +52,7 @@ css =
         ]
     , (.) Title
         [ color (hex "6F3C87")
-        , fontWeight lighter
+        , fontWeight bolder
         , fontSize (px 50)
         , textTransform uppercase
         ]
