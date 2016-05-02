@@ -46,9 +46,3 @@ windButton address windDirection model =
         ]
         []
       ]
-{-
-windButton address windDirection =
-  button
-    [ onClick address (ToggleWindDirection windDirection) ]
-    [ text (toString windDirection) ]
--}
