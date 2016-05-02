@@ -40,7 +40,7 @@ windButton address windDirection model =
       ]
       [ div
         [ class [ Text ]  ]
-        [ text (wdToStr windDirection) ]
+        [ text (toString windDirection) ]
       , i
         [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-down")
         ]
