@@ -7,21 +7,40 @@
 
 .WindDirDirection {
     position: absolute;
-    width: 270px;
-    height: 270px;
+    width: 40px;
+    height: 135px;
+    margin: 0px 115px;
+    color: #CCC;
+    pointer-events: none;
+    transform-origin: center bottom;
+}
+
+.WindDirDirection:hover {
+    color: #55D3A1;
+}
+
+.WindDirSelected {
+    font-weight: bold;
+    color: #20AA73;
+}
+
+.WindDirSelected:hover {
+    color: #20AA73;
 }
 
 .WindDirIcon {
-    font-size: 43px;
+    font-size: 45px;
     display: block;
     padding-top: 30px;
+    pointer-events: all;
     cursor: pointer;
 }
 
 .WindDirText {
     position: absolute;
     top: 0px;
-    left: 129px;
+    left: 15px;
+    pointer-events: all;
     cursor: pointer;
 }
 

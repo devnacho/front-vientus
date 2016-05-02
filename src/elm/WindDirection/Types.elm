@@ -21,6 +21,7 @@ type alias Model =
 
 type CssClasses
   = Direction
+  | Selected
   | Chooser
   | Arrow
   | Text

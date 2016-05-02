@@ -8,6 +8,9 @@ import WindDirection.Types exposing (..)
 size = 
   270
 
+arrowWidth = 
+  40
+
 
 css =
   (stylesheet << namespace "WindDir")
@@ -20,19 +23,35 @@ css =
           ]
       , (.) Direction
           [ position absolute
-          , width (px size)
-          , height (px size)
+          , width (px arrowWidth)
+          , height (px (size/2))
+          , margin2 (px 0) (px ((size - arrowWidth) / 2))
+          , color (hex "CCC") 
+          , property "pointer-events" "none"
+          , property "transform-origin" "center bottom"
+          , hover
+            [ color (hex "55D3A1") 
+            ]
+          ]
+      , (.) Selected
+          [ fontWeight bold
+          , color (hex "20AA73") 
+          , hover
+            [ color (hex "20AA73") 
+            ]
           ]
       , (.) Icon
-          [ fontSize (px 43)
+          [ fontSize (px 45)
           , display block
           , paddingTop (px 30)
+          , property "pointer-events" "all"
           , property "cursor" "pointer"
           ]
       , (.) Text
           [ position absolute
           , top (px 0)
-          , left (px ( (size/2) - 6)  )
+          , left (px ( (arrowWidth/2) - 5)  )
+          , property "pointer-events" "all"
           , property "cursor" "pointer"
           ]
       ]

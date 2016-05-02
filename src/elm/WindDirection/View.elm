@@ -22,21 +22,30 @@ root address model errors =
     [ label [] [ text "Select wind directions" ]
     , div
         [ class [ Chooser ] ]
-        (List.map (\wd -> windButton address wd) allWindDirections)
+        (List.map (\wd -> windButton address wd model) allWindDirections)
     , error errors
     ]
 
-windButton address windDirection = 
-  div
-    [ class [ Direction ] ]
-    [ div
-      [ class [ Text ]  ]
-      [ text (wdToStr windDirection) ]
-    , i
-      [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-up")
+windButton address windDirection model = 
+  let 
+    directionClass =
+      if List.member windDirection model then
+        [ Direction, Selected ]
+      else
+        [ Direction ]
+  in
+    div
+      [ class directionClass
+      , onClick address (ToggleWindDirection windDirection) 
       ]
-      []
-    ]
+      [ div
+        [ class [ Text ]  ]
+        [ text (wdToStr windDirection) ]
+      , i
+        [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-down")
+        ]
+        []
+      ]
 {-
 windButton address windDirection =
   button
