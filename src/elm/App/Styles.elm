@@ -59,7 +59,11 @@ globalCss =
         , overflow scroll
         ]
     , Css.a
-        [ color (hex "428bca")
+        [ color (hex "6F3C87")
         , textDecoration none
+        , hover
+            [ color (hex "A84CD4")
+            ]
+
         ]
     ]

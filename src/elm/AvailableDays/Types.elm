@@ -41,3 +41,5 @@ type CssClasses
   = Button
   | Selected
   | Icon
+  | Toggle
+  | DateIcon

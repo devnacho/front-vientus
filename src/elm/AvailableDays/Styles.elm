@@ -32,4 +32,13 @@ css =
     , (.) Icon
         [ marginLeft (px 8) 
         ]
+    , (.) Toggle
+        [ marginBottom (px 25) 
+        , display inlineBlock
+        , fontSize (px 14)
+        , property "cursor" "pointer"
+        ]
+    , (.) DateIcon
+        [ marginRight (px 8) 
+        ]
     ]

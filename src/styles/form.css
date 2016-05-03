@@ -46,6 +46,11 @@
     cursor: pointer;
 }
 
+.FormSubmitButton:hover {
+    color: #A84CD4;
+    border: 3px solid #A84CD4;
+}
+
 .FormTitle {
     color: #6F3C87;
     font-weight: bolder;

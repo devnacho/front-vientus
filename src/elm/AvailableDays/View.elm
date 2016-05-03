@@ -19,9 +19,13 @@ globalClass =
 root address model errors =
   div
     []
-    [ button
-        [ onClick address ToggleDaysVisibility ]
-        [ text "Want to choose the days you can sail? " ]
+    [ a
+        [ onClick address ToggleDaysVisibility 
+        , class [ Toggle ]
+        ]
+        [ i [ Html.Attributes.class (namespace ++ "DateIcon icon ion-calendar") ] []
+        , text "Want to choose the days you sail? " 
+        ]
     , selectDays address model
     , error errors
     ]
