@@ -36,3 +36,10 @@ dayToStr day  =
     Thu -> "4"  
     Fri -> "5"  
     Sat -> "6"  
+
+type CssClasses
+  = Button
+  | Selected
+  | Icon
+  | Toggle
+  | DateIcon

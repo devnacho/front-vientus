@@ -1,0 +1,40 @@
+.DaysButton {
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    margin: 10px 5px;
+    padding: 6px 0px;
+    border: 2px solid #CCC;
+    color: #CCC;
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.DaysButton:hover {
+    cursor: pointer;
+}
+
+.DaysSelected {
+    color: #20AA73;
+    border: 2px solid #20AA73;
+}
+
+.DaysSelected:hover {
+    color: #20AA73;
+    border: 2px solid #20AA73;
+}
+
+.DaysIcon {
+    margin-left: 8px;
+}
+
+.DaysToggle {
+    margin-bottom: 25px;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.DaysDateIcon {
+    margin-right: 8px;
+}

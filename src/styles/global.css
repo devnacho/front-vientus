@@ -49,6 +49,10 @@ select {
 }
 
 a {
-    color: #428bca;
+    color: #6F3C87;
     text-decoration: none;
+}
+
+a:hover {
+    color: #A84CD4;
 }

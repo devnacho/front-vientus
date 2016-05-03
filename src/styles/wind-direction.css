@@ -1,0 +1,109 @@
+.WindDirChooser {
+    position: relative;
+    width: 270px;
+    height: 270px;
+    margin: 40px auto 50px auto;
+}
+
+.WindDirDirection {
+    position: absolute;
+    width: 40px;
+    height: 135px;
+    margin: 0px 115px;
+    color: #CCC;
+    pointer-events: none;
+    transform-origin: center bottom;
+}
+
+.WindDirDirection:hover {
+    color: #55D3A1;
+}
+
+.WindDirSelected {
+    font-weight: bold;
+    color: #20AA73;
+}
+
+.WindDirSelected:hover {
+    color: #20AA73;
+}
+
+.WindDirIcon {
+    font-size: 45px;
+    display: block;
+    padding-top: 30px;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.WindDirText {
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.WindDirDirection:nth-child(1) {
+    transform: rotate(0deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(1)  .WindDirText {
+    transform: rotate(0deg);
+}
+
+.WindDirDirection:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(2)  .WindDirText {
+    transform: rotate(-45deg);
+}
+
+.WindDirDirection:nth-child(3) {
+    transform: rotate(90deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(3)  .WindDirText {
+    transform: rotate(-90deg);
+}
+
+.WindDirDirection:nth-child(4) {
+    transform: rotate(135deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(4)  .WindDirText {
+    transform: rotate(-135deg);
+}
+
+.WindDirDirection:nth-child(5) {
+    transform: rotate(180deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(5)  .WindDirText {
+    transform: rotate(-180deg);
+}
+
+.WindDirDirection:nth-child(6) {
+    transform: rotate(225deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(6)  .WindDirText {
+    transform: rotate(-225deg);
+}
+
+.WindDirDirection:nth-child(7) {
+    transform: rotate(270deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(7)  .WindDirText {
+    transform: rotate(-270deg);
+}
+
+.WindDirDirection:nth-child(8) {
+    transform: rotate(315deg);
+}
+
+.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(8)  .WindDirText {
+    transform: rotate(-315deg);
+}

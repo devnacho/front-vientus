@@ -49,6 +49,10 @@ css =
         , borderRadius (px 0)
         , fontWeight bold
         , property "cursor" "pointer" 
+        , hover
+            [ color (hex "A84CD4")
+            , border3 (px 3) solid (hex "A84CD4")
+            ]
         ]
     , (.) Title
         [ color (hex "6F3C87")
