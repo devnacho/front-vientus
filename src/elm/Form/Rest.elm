@@ -5,8 +5,7 @@ import WindDirection.Types exposing (wdToStr)
 import AvailableDays.Types exposing (dayToStr)
 import Http
 import Json.Encode as JE
-import Json.Decode.Extra exposing ((|:))
-import Json.Decode exposing (Decoder, list, succeed, string, float, int, (:=))
+import Json.Decode exposing (Decoder, object1, object2, object3, object4, list, succeed, string, float, int, (:=))
 import Effects exposing (Effects)
 import Task
 
@@ -31,9 +30,9 @@ countriesListDecoder =
 
 countryDecoder : Decoder Country
 countryDecoder =
-  succeed Country
-    |: ("name" := string)
-    |: ("id" := string)
+  object2 Country
+    ("name" := string)
+    ("id" := string)
 
 
 getRegions : String -> Effects Action
@@ -51,9 +50,9 @@ regionsListDecoder =
 
 regionDecoder : Decoder Region
 regionDecoder =
-  succeed Region
-    |: ("name" := string)
-    |: ("id" := string)
+  object2 Region
+    ("name" := string)
+    ("id" := string)
 
 
 getCountrySpots : String -> Effects Action
@@ -79,11 +78,11 @@ spotsListDecoder =
 
 spotDecoder : Decoder Spot
 spotDecoder =
-  succeed Spot
-    |: ("name" := string)
-    |: ("id" := string)
-    |: ("latitude" := float)
-    |: ("latitude" := float)
+  object4 Spot
+    ("name" := string)
+    ("id" := string)
+    ("latitude" := float)
+    ("latitude" := float)
 
 
 submitParams : SubmitModel -> List ( String, String )
@@ -113,7 +112,7 @@ submitAlert submitModel =
 
 
 
--- This code is not correct
+-- TODO Change this. This code is not correct
 
 
 submitDecoder : Decoder ()
