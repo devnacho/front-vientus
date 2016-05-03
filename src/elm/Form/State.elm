@@ -3,6 +3,7 @@ module Form.State (init, update) where
 import Effects exposing (Effects)
 import Form.Types exposing (..)
 import Form.Rest
+import Utils.ErrorView exposing (error)
 import WindDirection.State
 import AvailableDays.State
 import String exposing (isEmpty)
@@ -224,42 +225,45 @@ getErrors model =
           if model.windSpeed == "" then
             "Please enter a number in knots as the minimum speed"
           else if not( isPositiveNumber model.windSpeed ) then
-            "You must enter a positive number"
+            "Please enter a positive number"
           else
             ""
       , windDirections = 
         if List.isEmpty model.windDirections then
-          "At least select one wind direction"
+          "Please select at least one wind direction"
         else 
           ""
       , availableDays = 
         if List.isEmpty model.availableDays.days then
-          "At least select one day"
+          "Please select at least one day"
         else 
           ""
       , selectedCountry = 
         case model.selectedCountry of 
-          Nothing -> "You have to select a country"
+          Nothing -> "Please select a country"
           Just _ -> ""
       , selectedSpot = 
         case model.selectedSpot of 
-          Nothing -> "You have to select a spot"
+          Nothing -> "Please select a spot"
           Just _ -> ""
       }
 
     hasErrors =
       not
-        <| isEmpty errors.email
-        && isEmpty errors.windSpeed
-        && isEmpty errors.windDirections
-        && isEmpty errors.availableDays
-        && isEmpty errors.selectedCountry
-        && isEmpty errors.selectedSpot
+        <| noErrors errors.email
+        && noErrors errors.windSpeed
+        && noErrors errors.windDirections
+        && noErrors errors.availableDays
+        && noErrors errors.selectedCountry
+        && noErrors errors.selectedSpot
   in
     ( errors
     , hasErrors
     )
 
+noErrors : String -> Bool
+noErrors =
+  isEmpty
 
 
 -- TODO MOVE THIS TO UTILS MODULE
