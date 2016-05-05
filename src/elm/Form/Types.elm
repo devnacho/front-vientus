@@ -5,10 +5,8 @@ import AvailableDays.Types
 import Task
 
 
-
 type Action
-  = NoOp
-  | AvailableDays AvailableDays.Types.Action
+  = AvailableDays AvailableDays.Types.Action
   | WindDirection WindDirection.Types.Action
   | SetEmail String
   | SetWindSpeed String
@@ -35,9 +33,17 @@ type alias Model =
   , spots : List Spot
   , selectedSpot : Maybe Spot
   , errors : Errors
+  , status : Status
   }
 
-type alias Errors = 
+type Status
+  = Clean
+  | Submitting
+  | Failure
+  | Success
+
+
+type alias Errors =
   { email : String
   , windSpeed : String
   , windDirections : String
@@ -46,7 +52,8 @@ type alias Errors =
   , selectedSpot : String
   }
 
-type alias SubmitModel = 
+
+type alias SubmitModel =
   { email : String
   , windSpeed : String
   , windDirections : WindDirection.Types.Model
@@ -60,16 +67,18 @@ type alias Country =
   , id : String
   }
 
+
 type alias Region =
   { name : String
   , id : String
   }
 
+
 type alias Spot =
   { name : String
   , id : String
-  , latitude: Float
-  , longitude: Float
+  , latitude : Float
+  , longitude : Float
   }
 
 

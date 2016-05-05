@@ -30,6 +30,7 @@ initialModel =
   , spots = []
   , selectedSpot = Nothing
   , errors = initialErrors
+  , status = Clean
   }
 
 
@@ -53,55 +54,6 @@ initialEffects =
 update : Action -> Model -> ( Model, Effects Action )
 update action model =
   case action of
-    NoOp ->
-      ( model, Effects.none )
-
-    SubmitSuccess ->
-      let
-        _ = Debug.log "TODO BIEN" ""
-      in
-        ( model, Effects.none )
-
-    SubmitFailure ->
-      let
-        _ = Debug.log "TODO Mal" ""
-      in
-        ( model, Effects.none )
-
-    SubmitAlert ->
-      let
-        errorsTuple =
-          getErrors model
-
-        errors =
-          fst errorsTuple
-
-        hasErrors =
-          snd errorsTuple
-
-        submitModel =
-          { email = model.email
-          , windSpeed = model.windSpeed
-          , windDirections = model.windDirections
-          , availableDays = model.availableDays
-          , selectedSpotId = 
-              case model.selectedSpot of 
-                Nothing -> ""
-                Just spot -> spot.id
-          }
-
-        command =
-          if hasErrors == False then
-            Form.Rest.submitAlert submitModel
-          else
-            Effects.none
-      in
-        ( { model
-            | errors = errors
-          }
-        , command
-        )
-
     SetCountries countries ->
       ( { model
           | countries = Maybe.withDefault [] countries
@@ -223,6 +175,64 @@ update action model =
       , Effects.none
       )
 
+    SubmitAlert ->
+      let
+        errorsTuple =
+          getErrors model
+
+        errors =
+          fst errorsTuple
+
+        hasErrors =
+          snd errorsTuple
+
+        submitModel =
+          { email = model.email
+          , windSpeed = model.windSpeed
+          , windDirections = model.windDirections
+          , availableDays = model.availableDays
+          , selectedSpotId =
+              case model.selectedSpot of
+                Nothing ->
+                  ""
+
+                Just spot ->
+                  spot.id
+          }
+
+        command =
+          if hasErrors == False then
+            Form.Rest.submitAlert submitModel
+          else
+            Effects.none
+
+        status =
+          if hasErrors == False then
+            Submitting
+          else
+            Clean
+      in
+        ( { model
+            | errors = errors
+            , status = status
+          }
+        , command
+        )
+
+    SubmitSuccess ->
+      ( { model
+          | status = Success
+        }
+      , Effects.none
+      )
+
+    SubmitFailure ->
+      ( { model
+          | status = Failure
+        }
+      , Effects.none
+      )
+
 
 getErrors : Model -> ( Errors, Bool )
 getErrors model =
@@ -236,28 +246,34 @@ getErrors model =
       , windSpeed =
           if model.windSpeed == "" then
             "Please enter a number in knots as the minimum speed"
-          else if not( isPositiveNumber model.windSpeed ) then
+          else if not (isPositiveNumber model.windSpeed) then
             "Please enter a positive number"
           else
             ""
-      , windDirections = 
-        if List.isEmpty model.windDirections then
-          "Please select at least one wind direction"
-        else 
-          ""
-      , availableDays = 
-        if List.isEmpty model.availableDays.days then
-          "Please select at least one day"
-        else 
-          ""
-      , selectedCountry = 
-        case model.selectedCountry of 
-          Nothing -> "Please select a country"
-          Just _ -> ""
-      , selectedSpot = 
-        case model.selectedSpot of 
-          Nothing -> "Please select a spot"
-          Just _ -> ""
+      , windDirections =
+          if List.isEmpty model.windDirections then
+            "Please select at least one wind direction"
+          else
+            ""
+      , availableDays =
+          if List.isEmpty model.availableDays.days then
+            "Please select at least one day"
+          else
+            ""
+      , selectedCountry =
+          case model.selectedCountry of
+            Nothing ->
+              "Please select a country"
+
+            Just _ ->
+              ""
+      , selectedSpot =
+          case model.selectedSpot of
+            Nothing ->
+              "Please select a spot"
+
+            Just _ ->
+              ""
       }
 
     hasErrors =
@@ -273,9 +289,11 @@ getErrors model =
     , hasErrors
     )
 
+
 noErrors : String -> Bool
 noErrors =
   isEmpty
+
 
 
 -- TODO MOVE THIS TO UTILS MODULE
