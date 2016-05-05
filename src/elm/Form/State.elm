@@ -56,6 +56,18 @@ update action model =
     NoOp ->
       ( model, Effects.none )
 
+    SubmitSuccess ->
+      let
+        _ = Debug.log "TODO BIEN" ""
+      in
+        ( model, Effects.none )
+
+    SubmitFailure ->
+      let
+        _ = Debug.log "TODO Mal" ""
+      in
+        ( model, Effects.none )
+
     SubmitAlert ->
       let
         errorsTuple =

@@ -19,6 +19,8 @@ type Action
   | SetSpots (Maybe (List Spot))
   | SelectSpot String
   | SubmitAlert
+  | SubmitSuccess
+  | SubmitFailure
 
 
 type alias Model =

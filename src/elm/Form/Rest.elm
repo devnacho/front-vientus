@@ -102,18 +102,23 @@ encodedUrl submitModel =
   Http.url (baseUrl ++ "/alerts") (submitParams submitModel)
 
 
+
 submitAlert : SubmitModel -> Effects Action
 submitAlert submitModel =
   Http.post submitDecoder (encodedUrl submitModel) Http.empty
-    |> Task.toResult
-    |> Task.map (\result -> NoOp)
-    |> Effects.task
+    |> (flip Task.onError) (\err -> Task.succeed SubmitFailure  )
+    |> Effects.task 
+
+
+{-
+    Http.post submitDecoder (encodedUrl submitModel) Http.empty
+      |> Task.toResult
+      |> Task.map (\result -> NoOp )
+      |> Effects.task
+-}
 
 
 
--- TODO Change this. This code is not correct
-
-
-submitDecoder : Decoder ()
+submitDecoder : Decoder Action
 submitDecoder =
-  succeed ()
+  succeed SubmitSuccess
