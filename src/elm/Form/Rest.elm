@@ -94,6 +94,7 @@ submitParams submitModel =
         , ( "alert[user_attributes][email]", submitModel.email )
         , ( "alert[spot_id]", submitModel.selectedSpotId )
         , ( "alert[min_speed]", submitModel.windSpeed )
+        , ( "elm", "true" )
         ]
 
 
