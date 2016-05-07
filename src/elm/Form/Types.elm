@@ -3,6 +3,7 @@ module Form.Types (..) where
 import WindDirection.Types
 import AvailableDays.Types
 import Task
+import Translation.Utils exposing (..)
 
 
 type Action
@@ -34,6 +35,7 @@ type alias Model =
   , selectedSpot : Maybe Spot
   , errors : Errors
   , status : Status
+  , language : Language
   }
 
 type Status

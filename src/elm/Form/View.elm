@@ -9,6 +9,7 @@ import App.Types exposing (..)
 import Form.Types exposing (..)
 import WindDirection.View
 import AvailableDays.View
+import Translation.Utils exposing (..)
 
 
 { id, class, classList } =
@@ -55,9 +56,9 @@ cleanForm address model =
       , class [ Logo ]
       ]
       []
-  , h1 [ class [ Title ] ] [ text "Never Miss a Windy Day Again." ]
-  , p [ class [ Subtitle ] ] [ text "Select the minimum wind speed and the wind directions you need to sail at your spot." ]
-  , p [ class [ Subtitle ] ] [ text "Leave your email and get notified whenever the weather conditions match your preferences." ]
+  , h1 [ class [ Title ] ] [ text <| i18n model.language TitleText ]
+  , p [ class [ Subtitle ] ] [ text <| i18n model.language SubtitleText1 ]
+  , p [ class [ Subtitle ] ] [ text <| i18n model.language SubtitleText2 ]
   , div
       [ id "signup-form" ]
       [ div
@@ -75,28 +76,28 @@ cleanForm address model =
           ]
       , div
           [ class [ Group ] ]
-          [ label [] [ text "Select Country" ]
+          [ label [] [ text <| i18n model.language SelectCountryText ]
           , select
               [ on "change" targetValue (\str -> Signal.message address (SelectCountry str)) ]
-              (option [] [ text "Select Country" ]
+              (option [] [ text <| i18n model.language SelectCountryText ]
                 :: (List.map countryOption model.countries)
               )
           , error model.errors.selectedCountry
           ]
-      , selectRegion address model.regions
+      , selectRegion address model.regions model.language
       , div
           [ class [ Group ] ]
-          [ label [] [ text "Select Spot" ]
+          [ label [] [ text <| i18n model.language SelectSpotText ]
           , select
               [ on "change" targetValue (\str -> Signal.message address (SelectSpot str)) ]
-              (option [] [ text "Select Spot" ]
+              (option [] [ text <| i18n model.language SelectSpotText ]
                 :: (List.map spotOption model.spots)
               )
           , error model.errors.selectedSpot
           ]
       , div
           [ class [ Group ] ]
-          [ label [] [ text "Minimum Wind Speed (in knots)" ]
+          [ label [] [ text <| i18n model.language MinSpeedText ]
           , input
               [ type' "number"
               , value model.windSpeed
@@ -105,31 +106,31 @@ cleanForm address model =
               []
           , error model.errors.windSpeed
           ]
-      , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections model.errors.windDirections
-      , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays model.errors.availableDays
+      , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections model.errors.windDirections model.language
+      , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays model.errors.availableDays model.language
       , br [] []
       , button
           [ onClick address SubmitAlert
           , class [ SubmitButton ]
           ]
-          [ text "Submit" ]
+          [ text <| i18n model.language SubmitText ]
       , p
           [ class [ Hint ] ]
-          [ text "* Hint: If you want to receive alerts from another spot just sign up again with the same email and select it. You will receive alerts for both spots :)" ]
+          [ text <| i18n model.language HintText ]
       ]
   ]
 
 
-selectRegion address regions =
+selectRegion address regions language =
   if List.isEmpty regions then
     span [] []
   else
     div
       [ class [ Group ] ]
-      [ label [] [ text "Select Region" ]
+      [ label [] [ text <| i18n language SelectRegionText ]
       , select
           [ on "change" targetValue (\str -> Signal.message address (SelectRegion str)) ]
-          (option [] [ text "Select Region" ]
+          (option [] [ text <| i18n language SelectRegionText ]
             :: (List.map regionOption regions)
           )
       ]
@@ -148,16 +149,16 @@ spotOption spot =
 
 
 thanks address model =
-  [ h2 [ class [ ThanksTitle ] ] [ text "Thanks! Your alert has been succesfully created." ]
+  [ h2 [ class [ ThanksTitle ] ] [ text <| i18n model.language ThanksTitleText ]
   , div
       [ class [ Share ] ]
       [ h1
           [ class [ ShareTitle ] ]
-          [ text "Share it with your friends*."
+          [ text <| i18n model.language ShareTitleText1
           , br [] []
-          , text "They'll love it."
+          , text <| i18n model.language ShareTitleText2
           ]
-      , p [ class [ ShareHint ] ] [ text " * Not sharing with your friends in the next minute could result in 2 months without wind." ]
+      , p [ class [ ShareHint ] ] [ text <| i18n model.language ShareHintText ]
       , div
           []
           [ a

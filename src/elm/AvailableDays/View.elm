@@ -6,8 +6,11 @@ import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Html.CssHelpers
 import Utils.ErrorView exposing (error)
 import AvailableDays.Types exposing (..)
+import Translation.Utils exposing (..)
 
-namespace = "Days"
+namespace =
+  "Days"
+
 
 { id, class, classList } =
   Html.CssHelpers.withNamespace namespace
@@ -16,26 +19,27 @@ namespace = "Days"
 globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
-root address model errors =
+
+root address model errors language =
   div
     []
     [ a
-        [ onClick address ToggleDaysVisibility 
+        [ onClick address ToggleDaysVisibility
         , class [ Toggle ]
         ]
         [ i [ Html.Attributes.class (namespace ++ "DateIcon icon ion-calendar") ] []
-        , text "Want to choose the days you sail? " 
+        , text <| i18n language ToggleDaysText
         ]
-    , selectDays address model
+    , selectDays address model language
     , error errors
     ]
 
 
-selectDays address model =
+selectDays address model language =
   if model.visible then
     div
       []
-      [ label [] [ text "Select Days of Week" ]
+      [ label [] [ text <| i18n language SelectDaysText ]
       , div
           []
           (List.map (\day -> dayButton address day model.days) allDaysOfWeek)
@@ -45,12 +49,13 @@ selectDays address model =
 
 
 dayButton address day selectedDays =
-  let 
+  let
     buttonClass =
       if List.member day selectedDays then
         [ Button, Selected ]
       else
         [ Button ]
+
     icon =
       if List.member day selectedDays then
         i [ Html.Attributes.class (namespace ++ "Icon icon ion-checkmark") ] []
@@ -59,9 +64,8 @@ dayButton address day selectedDays =
   in
     div
       [ class buttonClass
-      , onClick address (ToggleDay day) 
+      , onClick address (ToggleDay day)
       ]
-      [ text (toString day) 
+      [ text (toString day)
       , icon
       ]
-

@@ -6,6 +6,7 @@ import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Utils.ErrorView exposing (error)
 import WindDirection.Types exposing (..)
 import Html.CssHelpers
+import Translation.Utils exposing (..)
 
 namespace = "WindDir"
 
@@ -16,10 +17,10 @@ namespace = "WindDir"
 globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
-root address model errors =
+root address model errors language =
   div
     []
-    [ label [] [ text "Select wind directions" ]
+    [ label [] [ text <| i18n language SelectWindDirText ]
     , div
         [ class [ Chooser ] ]
         (List.map (\wd -> windButton address wd model) allWindDirections)

@@ -8,6 +8,7 @@ import WindDirection.State
 import AvailableDays.State
 import String exposing (isEmpty)
 import Regex
+import Translation.Utils exposing (..)
 
 
 init : ( Model, Effects Action )
@@ -31,6 +32,7 @@ initialModel =
   , selectedSpot = Nothing
   , errors = initialErrors
   , status = Clean
+  , language = English
   }
 
 
