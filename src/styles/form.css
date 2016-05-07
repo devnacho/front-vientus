@@ -114,6 +114,12 @@
 }
 
 @media screen and (max-width: 600px) {
+        .FormTitle {
+    font-size: 35px;
+}
+}
+
+@media screen and (max-width: 600px) {
         .FormSidebarSection {
     display: none;
 }

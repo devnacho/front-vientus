@@ -104,6 +104,9 @@ css =
     , mediaQuery "screen and (max-width: 600px)"
         [ (.) FormSection
             [ width (pct 100) ]
+        , (.) Title
+            [ fontSize (px 35)
+            ]
         ]
     , mediaQuery "screen and (max-width: 600px)"
         [ (.) SidebarSection
