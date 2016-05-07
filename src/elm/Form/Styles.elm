@@ -77,6 +77,30 @@ css =
         , marginTop (px 10)
         , marginBottom (px 20)
         ]
+    , (.) ThanksTitle
+        [ marginTop (px 50)
+        , fontWeight lighter
+        , color (hex "6F3C87")
+        ]
+    , (.) Share
+        [ marginTop (px 50)
+        ]
+    , (.) ShareIcon
+        [ property "cursor" "pointer"
+        , marginBottom (px 10)
+        , marginTop (px 10)
+        , display block
+        ]
+    , (.) ShareTitle
+        [ marginTop (px 30)
+        , fontWeight lighter
+        ]
+    , (.) ShareHint
+        [ fontSize (px 13)
+        , fontWeight lighter
+        , color (hex "AAA")
+        , marginTop (px 20)
+        ]
     , mediaQuery "screen and (max-width: 600px)"
         [ (.) FormSection
             [ width (pct 100) ]

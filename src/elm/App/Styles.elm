@@ -57,6 +57,7 @@ globalCss =
     , (#) Main 
         [ height (pct 100)
         , overflow scroll
+        , property "-webkit-overflow-scrolling" "touch"
         ]
     , Css.a
         [ color (hex "6F3C87")

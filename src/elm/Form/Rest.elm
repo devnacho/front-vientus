@@ -11,7 +11,7 @@ import Task
 
 baseUrl : String
 baseUrl =
-  "http://localhost:4000"
+  "http://www.vient.us"
 
 
 getCountries : Effects Action

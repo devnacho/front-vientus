@@ -78,6 +78,35 @@
     margin-bottom: 20px;
 }
 
+.FormThanksTitle {
+    margin-top: 50px;
+    font-weight: lighter;
+    color: #6F3C87;
+}
+
+.FormShare {
+    margin-top: 50px;
+}
+
+.FormShareIcon {
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    display: block;
+}
+
+.FormShareTitle {
+    margin-top: 30px;
+    font-weight: lighter;
+}
+
+.FormShareHint {
+    font-size: 13px;
+    font-weight: lighter;
+    color: #AAA;
+    margin-top: 20px;
+}
+
 @media screen and (max-width: 600px) {
         .FormFormSection {
     width: 100%;

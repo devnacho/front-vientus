@@ -93,3 +93,10 @@ type CssClasses
   | SubmitButton
   | Hint
   | Error
+  | ThanksTitle
+  | Share
+  | ShareTitle
+  | ShareIcon
+  | ShareHint
+  | Facebook
+  | Twitter

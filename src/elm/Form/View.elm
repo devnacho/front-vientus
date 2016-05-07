@@ -1,7 +1,7 @@
 module Form.View (root) where
 
-import Html exposing (div, h1, h2, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
-import Html.Attributes exposing (class, id, value, type', placeholder)
+import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
+import Html.Attributes exposing (class, id, value, type', placeholder, src, height, width, href)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Html.CssHelpers
 import Utils.ErrorView exposing (error)
@@ -39,14 +39,15 @@ formSection address model =
     content =
       case model.status of
         Success ->
-          ( thanks address model )
-        _ ->
-          ( cleanForm address model )
+          (thanks address model)
 
+        _ ->
+          (cleanForm address model)
   in
     div
       [ class [ Container ] ]
       content
+
 
 cleanForm address model =
   [ h1 [ class [ Title ] ] [ text "Never Miss a Windy Day Again." ]
@@ -114,8 +115,6 @@ cleanForm address model =
   ]
 
 
-
-
 selectRegion address regions =
   if List.isEmpty regions then
     span [] []
@@ -144,19 +143,34 @@ spotOption spot =
 
 
 thanks address model =
-  [ h2 [] [ text "Thanks! Your alert has been succesfully created." ]
+  [ h2 [ class [ ThanksTitle ] ] [ text "Thanks! Your alert has been succesfully created." ]
   , div
-      []
-      [ h1 [] [ text "Share it with your friends*. You know they'll love it." ]
-      , p [] [ text " * Not sharing with your friends in the next minute could result in 2 months without wind." ]
+      [ class [ Share ] ]
+      [ h1
+          [ class [ ShareTitle ] ]
+          [ text "Share it with your friends*."
+          , br [] []
+          , text "They'll love it."
+          ]
+      , p [ class [ ShareHint ] ] [ text " * Not sharing with your friends in the next minute could result in 2 months without wind." ]
       , div
           []
           [ a
-              []
-              [ text "share with facebook" ]
+              [ class [ ShareIcon, Facebook ] ]
+              [ img
+                  [ height 84
+                  , src "img/facebook.png"
+                  ]
+                  []
+              ]
           , a
-              []
-              [ text "share with twitter" ]
+              [ class [ ShareIcon, Facebook ] ]
+              [ img
+                  [ height 84
+                  , src "img/twitter.png"
+                  ]
+                  []
+              ]
           ]
       ]
   ]
