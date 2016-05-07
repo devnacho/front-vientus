@@ -1,4 +1,4 @@
-module Form.State (init, update) where
+module Form.State (initialModel, initialEffects, update) where
 
 import Effects exposing (Effects)
 import Form.Types exposing (..)
@@ -11,15 +11,8 @@ import Regex
 import Translation.Utils exposing (..)
 
 
-init : ( Model, Effects Action )
-init =
-  ( initialModel
-  , Effects.batch initialEffects
-  )
-
-
-initialModel : Model
-initialModel =
+initialModel : Language -> Model
+initialModel appLanguage =
   { email = ""
   , windSpeed = "11"
   , windDirections = WindDirection.State.initialModel
@@ -32,7 +25,7 @@ initialModel =
   , selectedSpot = Nothing
   , errors = initialErrors
   , status = Clean
-  , language = English
+  , language = appLanguage
   }
 
 
@@ -47,10 +40,11 @@ initialErrors =
   }
 
 
-initialEffects : List (Effects Action)
+initialEffects : Effects Action
 initialEffects =
-  [ Form.Rest.getCountries
-  ]
+  Effects.batch
+    [ Form.Rest.getCountries
+    ]
 
 
 update : Action -> Model -> ( Model, Effects Action )

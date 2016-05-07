@@ -3,7 +3,7 @@ module App.State (init, update) where
 import Effects exposing (Effects)
 import App.Types exposing (..)
 import Form.State
-
+import Translation.Utils exposing (..)
 
 init : ( Model, Effects Action )
 init =
@@ -14,16 +14,20 @@ init =
 
 initialModel : Model
 initialModel =
-  { form = fst Form.State.init
+  { form = Form.State.initialModel initialLanguage
+  , language = initialLanguage
   }
 
 
 initialEffects : List (Effects Action)
 initialEffects =
-  [ Effects.map Form <| snd Form.State.init
+  [ Effects.map Form <| Form.State.initialEffects
   ]
 
 
+initialLanguage : Language
+initialLanguage =
+  Spanish
 
 -- UPDATE
 
