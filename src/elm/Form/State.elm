@@ -149,20 +149,6 @@ update action model =
         , Effects.none
         )
 
-    AvailableDays action ->
-      ( { model
-          | availableDays = AvailableDays.State.update action model.availableDays
-        }
-      , Effects.none
-      )
-
-    WindDirection action ->
-      ( { model
-          | windDirections = WindDirection.State.update action model.windDirections
-        }
-      , Effects.none
-      )
-
     SetEmail str ->
       ( { model
           | email = str
@@ -238,6 +224,20 @@ update action model =
     ChangeLanguage language ->
       ( { model
           | language = language
+        }
+      , Effects.none
+      )
+
+    AvailableDays action ->
+      ( { model
+          | availableDays = AvailableDays.State.update action model.availableDays
+        }
+      , Effects.none
+      )
+
+    WindDirection action ->
+      ( { model
+          | windDirections = WindDirection.State.update action model.windDirections
         }
       , Effects.none
       )
