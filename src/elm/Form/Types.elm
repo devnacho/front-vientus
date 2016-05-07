@@ -20,6 +20,7 @@ type Action
   | SubmitAlert
   | SubmitSuccess
   | SubmitFailure
+  | ChangeLanguage Language
 
 
 type alias Model =
@@ -103,3 +104,6 @@ type CssClasses
   | ShareHint
   | Facebook
   | Twitter
+  | Languages
+  | LangIcon
+  | LangActive

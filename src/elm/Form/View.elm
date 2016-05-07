@@ -32,6 +32,7 @@ root address model =
             [ class [ SidebarOverlay ] ]
             []
         ]
+    , languageChooser address model
     ]
 
 
@@ -180,3 +181,38 @@ thanks address model =
           ]
       ]
   ]
+
+
+languageChooser address model =
+  let
+    englishClass =
+      if model.language == English then
+        [ LangIcon, LangActive ]
+      else
+        [ LangIcon ]
+
+    spanishClass =
+      if model.language == Spanish then
+        [ LangIcon, LangActive ]
+      else
+        [ LangIcon ]
+  in
+    div
+      [ class [ Languages ] ]
+      [ a
+          [ onClick address (ChangeLanguage English) ]
+          [ img
+              [ src "img/english.png"
+              , class englishClass
+              ]
+              []
+          ]
+      , a
+          [ onClick address (ChangeLanguage Spanish) ]
+          [ img
+              [ src "img/spanish.png"
+              , class spanishClass
+              ]
+              []
+          ]
+      ]

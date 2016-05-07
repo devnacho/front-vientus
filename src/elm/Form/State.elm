@@ -235,6 +235,13 @@ update action model =
       , Effects.none
       )
 
+    ChangeLanguage language ->
+      ( { model
+          | language = language
+        }
+      , Effects.none
+      )
+
 
 getErrors : Model -> ( Errors, Bool )
 getErrors model =
@@ -265,14 +272,14 @@ getErrors model =
       , selectedCountry =
           case model.selectedCountry of
             Nothing ->
-            i18n model.language CountryErrorText
+              i18n model.language CountryErrorText
 
             Just _ ->
               ""
       , selectedSpot =
           case model.selectedSpot of
             Nothing ->
-            i18n model.language SpotErrorText
+              i18n model.language SpotErrorText
 
             Just _ ->
               ""

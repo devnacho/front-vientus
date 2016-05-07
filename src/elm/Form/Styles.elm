@@ -106,15 +106,31 @@ css =
         , color (hex "AAA")
         , marginTop (px 20)
         ]
-    , mediaQuery "screen and (max-width: 600px)"
+    , (.) Languages
+        [ position absolute
+        , top (px 20)
+        , right (px 20)
+        ]
+    , (.) LangIcon
+        [ width (px 30) 
+        , marginLeft (px 10)
+        , property "cursor" "pointer"
+        , opacity (float 0.4)
+        ]
+    , (.) LangActive
+        [ opacity (float 1)
+        ]
+    , mediaQuery "screen and (max-width: 700px)"
         [ (.) FormSection
             [ width (pct 100) ]
         , (.) Title
             [ fontSize (px 35)
             ]
-        ]
-    , mediaQuery "screen and (max-width: 600px)"
-        [ (.) SidebarSection
+        , (.) Languages
+            [ left (px 20)
+            , right auto
+            ]
+        , (.) SidebarSection
             [ display none ]
         ]
     ]

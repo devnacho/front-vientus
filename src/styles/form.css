@@ -113,19 +113,43 @@
     margin-top: 20px;
 }
 
-@media screen and (max-width: 600px) {
+.FormLanguages {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.FormLangIcon {
+    width: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    opacity: 0.4;
+}
+
+.FormLangActive {
+    opacity: 1;
+}
+
+@media screen and (max-width: 700px) {
         .FormFormSection {
     width: 100%;
 }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
         .FormTitle {
     font-size: 35px;
 }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
+        .FormLanguages {
+    left: 20px;
+    right: auto;
+}
+}
+
+@media screen and (max-width: 700px) {
         .FormSidebarSection {
     display: none;
 }
