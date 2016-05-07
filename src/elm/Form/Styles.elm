@@ -9,7 +9,7 @@ import Form.Types exposing (..)
 css =
   (stylesheet << namespace "Form")
     [ (.) FormSection
-        [  width (pct 50)
+        [  width (pct 55)
         , padding4 (px 20) (px 30) (px 80) (px 30)
         , boxSizing borderBox
         , textAlign center
@@ -19,7 +19,7 @@ css =
         , top (px 0)
         , right (px 0)
         , height (pct 100)
-        , width (pct 50)
+        , width (pct 45)
         , property "background" "url(http://www.kitesurfwallpaper.com/images/papers/best-kiteboarding-youri-zoon-low-pass-hd-2.jpg) center center"
         , property "background-size" "cover"
         ]
@@ -27,6 +27,10 @@ css =
         [ backgroundColor (rgba 111 60 135 0.7)
         , height (pct 100)
         , width (pct 100)
+        ]
+    , (.) Logo
+        [ width (px 118)
+        , marginBottom (px 20)
         ]
     , (.) Container
         [ maxWidth (px 480)
@@ -59,6 +63,7 @@ css =
         , fontWeight bolder
         , fontSize (px 50)
         , textTransform uppercase
+        , marginTop (px 0)
         ]
     , (.) Subtitle
         [ color (hex "746F77")

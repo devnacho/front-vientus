@@ -50,7 +50,12 @@ formSection address model =
 
 
 cleanForm address model =
-  [ h1 [ class [ Title ] ] [ text "Never Miss a Windy Day Again." ]
+  [ img
+      [ src "img/vientus_logo.png"
+      , class [ Logo ]
+      ]
+      []
+  , h1 [ class [ Title ] ] [ text "Never Miss a Windy Day Again." ]
   , p [ class [ Subtitle ] ] [ text "Select the minimum wind speed and the wind directions you need to sail at your spot." ]
   , p [ class [ Subtitle ] ] [ text "Leave your email and get notified whenever the weather conditions match your preferences." ]
   , div

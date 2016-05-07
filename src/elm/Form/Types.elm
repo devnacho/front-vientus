@@ -87,6 +87,7 @@ type CssClasses
   | SidebarSection
   | SidebarOverlay
   | Container
+  | Logo
   | Title
   | Subtitle
   | Group
