@@ -59,6 +59,7 @@ globalCss =
         [ height (pct 100)
         , overflow scroll
         , property "-webkit-overflow-scrolling" "touch"
+        , position relative
         ]
     , Css.a
         [ color (hex "6F3C87")
