@@ -23,6 +23,7 @@ globalCss =
         , margin (px 0)
         , height (pct 100)
         , overflow hidden
+        , property "-webkit-tap-highlight-color" "rgba(0,0,0,0)"
         ]
     , Css.label
         [ display block
