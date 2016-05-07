@@ -242,37 +242,37 @@ getErrors model =
     errors =
       { email =
           if not (isValidEmail model.email) then
-            "Please enter a valid email"
+            i18n model.language EmailErrorText
           else
             ""
       , windSpeed =
           if model.windSpeed == "" then
-            "Please enter a number in knots as the minimum speed"
+            i18n model.language WindSpeedErrorText1
           else if not (isPositiveNumber model.windSpeed) then
-            "Please enter a positive number"
+            i18n model.language WindSpeedErrorText2
           else
             ""
       , windDirections =
           if List.isEmpty model.windDirections then
-            "Please select at least one wind direction"
+            i18n model.language WindDirErrorText
           else
             ""
       , availableDays =
           if List.isEmpty model.availableDays.days then
-            "Please select at least one day"
+            i18n model.language DaysErrorText
           else
             ""
       , selectedCountry =
           case model.selectedCountry of
             Nothing ->
-              "Please select a country"
+            i18n model.language CountryErrorText
 
             Just _ ->
               ""
       , selectedSpot =
           case model.selectedSpot of
             Nothing ->
-              "Please select a spot"
+            i18n model.language SpotErrorText
 
             Just _ ->
               ""
