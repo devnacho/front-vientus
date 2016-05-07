@@ -107,7 +107,7 @@ css =
         , marginTop (px 20)
         ]
     , (.) Languages
-        [ position absolute
+        [ position fixed
         , top (px 20)
         , right (px 20)
         ]
@@ -127,7 +127,8 @@ css =
             [ fontSize (px 35)
             ]
         , (.) Languages
-            [ left (px 20)
+            [ position absolute
+            , left (px 20)
             , right auto
             ]
         , (.) SidebarSection
