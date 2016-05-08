@@ -11,6 +11,7 @@ type TranslationId
   = TitleText
   | SubtitleText1
   | SubtitleText2
+  | EmailPlaceholderText
   | SelectCountryText
   | SelectRegionText
   | SelectSpotText
@@ -57,6 +58,11 @@ i18n lang trans =
           TranslationSet
             "Leave us your email and get notified whenever the weather conditions match your preferences."
             "Dejanos tu email y recibe alertas en tu email un día antes de cuando sopla, con las condiciones que elegiste."
+
+        EmailPlaceholderText ->
+          TranslationSet
+            "your-email@example.com"
+            "tu-email@ejemplo.com"
 
         SelectCountryText ->
           TranslationSet

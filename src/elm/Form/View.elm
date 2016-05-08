@@ -68,7 +68,7 @@ cleanForm address model =
           , input
               [ id "username-field"
               , type' "text"
-              , placeholder "your-email@gmail.com"
+              , placeholder <| i18n model.language EmailPlaceholderText
               , on "input" targetValue (Signal.message address << SetEmail)
               , value model.email
               ]
