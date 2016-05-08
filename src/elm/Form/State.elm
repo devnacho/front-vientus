@@ -150,18 +150,46 @@ update action model =
         )
 
     SetEmail str ->
-      ( { model
-          | email = str
-        }
-      , Effects.none
-      )
+      let
+        errorsModel =
+          model.errors
+
+        errors =
+          { errorsModel
+            | email =
+                if model.status /= Clean then
+                  emailValidation str model.language
+                else
+                  ""
+          }
+      in
+        ( { model
+            | email = str
+            , errors = errors
+          }
+        , Effects.none
+        )
 
     SetWindSpeed str ->
-      ( { model
-          | windSpeed = str
-        }
-      , Effects.none
-      )
+      let
+        errorsModel =
+          model.errors
+
+        errors =
+          { errorsModel
+            | windSpeed =
+                if model.status /= Clean then
+                  windSpeedValidation str model.language
+                else
+                  ""
+          }
+      in
+        ( { model
+            | windSpeed = str
+            , errors = errors
+          }
+        , Effects.none
+        )
 
     SubmitAlert ->
       let
@@ -198,7 +226,7 @@ update action model =
           if hasErrors == False then
             Submitting
           else
-            Clean
+            Dirty
       in
         ( { model
             | errors = errors
@@ -243,27 +271,37 @@ update action model =
       )
 
 
+windSpeedValidation windSpeed language =
+  if windSpeed == "" then
+    i18n language WindSpeedErrorText1
+  else if not (isPositiveNumber windSpeed) then
+    i18n language WindSpeedErrorText2
+  else
+    ""
+
+
+emailValidation str language =
+  if (not (isValidEmail str)) then
+    i18n language EmailErrorText
+  else
+    ""
+
+windDirectionsValidation windDirections language = 
+  if List.isEmpty windDirections then
+    i18n language WindDirErrorText
+  else
+    ""
+
 getErrors : Model -> ( Errors, Bool )
 getErrors model =
   let
     errors =
       { email =
-          if not (isValidEmail model.email) then
-            i18n model.language EmailErrorText
-          else
-            ""
+          emailValidation model.email model.language
       , windSpeed =
-          if model.windSpeed == "" then
-            i18n model.language WindSpeedErrorText1
-          else if not (isPositiveNumber model.windSpeed) then
-            i18n model.language WindSpeedErrorText2
-          else
-            ""
+          windSpeedValidation model.windSpeed model.language
       , windDirections =
-          if List.isEmpty model.windDirections then
-            i18n model.language WindDirErrorText
-          else
-            ""
+          windDirectionsValidation model.windDirections model.language
       , availableDays =
           if List.isEmpty model.availableDays.days then
             i18n model.language DaysErrorText
