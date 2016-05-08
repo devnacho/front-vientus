@@ -8,6 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server --hot --inline --port 7070 --content-base src/",
     "build": "rimraf dist && webpack && cp -r src/img/ dist/img/ && cp src/favicon.ico dist/favicon.ico",
+    "deploy": "npm run build && aws s3 sync dist s3://beta.vient.us",
     "watch": "webpack --watch"
   },
   "devDependencies": {
