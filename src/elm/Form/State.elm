@@ -82,14 +82,17 @@ update action model =
               [ Form.Rest.getRegions id
               , Form.Rest.getCountrySpots id
               ]
-      in
-        ( { model
+
+        newModel =
+          { model
             | selectedCountry = selectedCountry
             , selectedRegion = Nothing
             , regions = []
             , selectedSpot = Nothing
             , spots = []
           }
+      in
+        ( validateNewModel newModel
         , effect
         )
 
@@ -142,37 +145,42 @@ update action model =
             Nothing
           else
             List.head filteredSpots
-      in
-        ( { model
+
+        newModel =
+          { model
             | selectedSpot = selectedSpot
           }
+      in
+        ( validateNewModel newModel
         , Effects.none
         )
 
     SetEmail str ->
-      ( { model
-          | email = str
-        }
-      , Effects.none
-      )
+      let
+        newModel =
+          { model
+            | email = str
+          }
+      in
+        ( validateNewModel newModel
+        , Effects.none
+        )
 
     SetWindSpeed str ->
-      ( { model
-          | windSpeed = str
-        }
-      , Effects.none
-      )
+      let
+        newModel =
+          { model
+            | windSpeed = str
+          }
+      in
+        ( validateNewModel newModel
+        , Effects.none
+        )
 
     SubmitAlert ->
       let
-        errorsTuple =
-          getErrors model
-
         errors =
-          fst errorsTuple
-
-        hasErrors =
-          snd errorsTuple
+          validate model
 
         submitModel =
           { email = model.email
@@ -189,16 +197,16 @@ update action model =
           }
 
         command =
-          if hasErrors == False then
+          if (hasErrors errors) == False then
             Form.Rest.submitAlert submitModel
           else
             Effects.none
 
         status =
-          if hasErrors == False then
+          if (hasErrors errors) == False then
             Submitting
           else
-            Clean
+            Dirty
       in
         ( { model
             | errors = errors
@@ -229,74 +237,89 @@ update action model =
       )
 
     AvailableDays action ->
-      ( { model
-          | availableDays = AvailableDays.State.update action model.availableDays
-        }
-      , Effects.none
-      )
+      let
+        newModel =
+          { model
+            | availableDays = AvailableDays.State.update action model.availableDays
+          }
+      in
+        ( validateNewModel newModel
+        , Effects.none
+        )
 
     WindDirection action ->
-      ( { model
-          | windDirections = WindDirection.State.update action model.windDirections
-        }
-      , Effects.none
-      )
+      let
+        newModel =
+          { model
+            | windDirections = WindDirection.State.update action model.windDirections
+          }
+      in
+        ( validateNewModel newModel
+        , Effects.none
+        )
 
 
-getErrors : Model -> ( Errors, Bool )
-getErrors model =
-  let
-    errors =
-      { email =
-          if not (isValidEmail model.email) then
-            i18n model.language EmailErrorText
-          else
-            ""
-      , windSpeed =
-          if model.windSpeed == "" then
-            i18n model.language WindSpeedErrorText1
-          else if not (isPositiveNumber model.windSpeed) then
-            i18n model.language WindSpeedErrorText2
-          else
-            ""
-      , windDirections =
-          if List.isEmpty model.windDirections then
-            i18n model.language WindDirErrorText
-          else
-            ""
-      , availableDays =
-          if List.isEmpty model.availableDays.days then
-            i18n model.language DaysErrorText
-          else
-            ""
-      , selectedCountry =
-          case model.selectedCountry of
-            Nothing ->
-              i18n model.language CountryErrorText
+validateNewModel : Model -> Model
+validateNewModel newModel =
+  { newModel
+    | errors =
+        if newModel.status /= Clean then
+          validate newModel
+        else
+          newModel.errors
+  }
 
-            Just _ ->
-              ""
-      , selectedSpot =
-          case model.selectedSpot of
-            Nothing ->
-              i18n model.language SpotErrorText
 
-            Just _ ->
-              ""
-      }
+validate : Model -> Errors
+validate model =
+  { email =
+      if not (isValidEmail model.email) then
+        i18n model.language EmailErrorText
+      else
+        ""
+  , windSpeed =
+      if model.windSpeed == "" then
+        i18n model.language WindSpeedErrorText1
+      else if not (isPositiveNumber model.windSpeed) then
+        i18n model.language WindSpeedErrorText2
+      else
+        ""
+  , windDirections =
+      if List.isEmpty model.windDirections then
+        i18n model.language WindDirErrorText
+      else
+        ""
+  , availableDays =
+      if List.isEmpty model.availableDays.days then
+        i18n model.language DaysErrorText
+      else
+        ""
+  , selectedCountry =
+      case model.selectedCountry of
+        Nothing ->
+          i18n model.language CountryErrorText
 
-    hasErrors =
-      not
-        <| noErrors errors.email
-        && noErrors errors.windSpeed
-        && noErrors errors.windDirections
-        && noErrors errors.availableDays
-        && noErrors errors.selectedCountry
-        && noErrors errors.selectedSpot
-  in
-    ( errors
-    , hasErrors
-    )
+        Just _ ->
+          ""
+  , selectedSpot =
+      case model.selectedSpot of
+        Nothing ->
+          i18n model.language SpotErrorText
+
+        Just _ ->
+          ""
+  }
+
+
+hasErrors : Errors -> Bool
+hasErrors errors =
+  not
+    <| noErrors errors.email
+    && noErrors errors.windSpeed
+    && noErrors errors.windDirections
+    && noErrors errors.availableDays
+    && noErrors errors.selectedCountry
+    && noErrors errors.selectedSpot
 
 
 noErrors : String -> Bool

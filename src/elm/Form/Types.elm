@@ -41,6 +41,7 @@ type alias Model =
 
 type Status
   = Clean
+  | Dirty
   | Submitting
   | Failure
   | Success
