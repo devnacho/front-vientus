@@ -48,12 +48,12 @@ type Status
 
 
 type alias Errors =
-  { email : String
-  , windSpeed : String
-  , windDirections : String
-  , availableDays : String
-  , selectedCountry : String
-  , selectedSpot : String
+  { email : TranslationId
+  , windSpeed : TranslationId
+  , windDirections : TranslationId
+  , availableDays : TranslationId
+  , selectedCountry : TranslationId
+  , selectedSpot : TranslationId
   }
 
 

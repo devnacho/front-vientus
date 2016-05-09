@@ -8,7 +8,10 @@ import WindDirection.Types exposing (..)
 import Html.CssHelpers
 import Translation.Utils exposing (..)
 
-namespace = "WindDir"
+
+namespace =
+  "WindDir"
+
 
 { id, class, classList } =
   Html.CssHelpers.withNamespace namespace
@@ -17,6 +20,7 @@ namespace = "WindDir"
 globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
+
 root address model errors language =
   div
     []
@@ -24,11 +28,12 @@ root address model errors language =
     , div
         [ class [ Chooser ] ]
         (List.map (\wd -> windButton address wd model) allWindDirections)
-    , error errors
+    , error errors language
     ]
 
-windButton address windDirection model = 
-  let 
+
+windButton address windDirection model =
+  let
     directionClass =
       if List.member windDirection model then
         [ Direction, Selected ]
@@ -37,13 +42,13 @@ windButton address windDirection model =
   in
     div
       [ class directionClass
-      , onClick address (ToggleWindDirection windDirection) 
+      , onClick address (ToggleWindDirection windDirection)
       ]
       [ div
-        [ class [ Text ]  ]
-        [ text (toString windDirection) ]
+          [ class [ Text ] ]
+          [ text (toString windDirection) ]
       , i
-        [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-down")
-        ]
-        []
+          [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-down")
+          ]
+          []
       ]

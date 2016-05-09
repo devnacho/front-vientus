@@ -31,7 +31,7 @@ root address model errors language =
         , text <| i18n language ToggleDaysText
         ]
     , selectDays address model language
-    , error errors
+    , error errors language
     ]
 
 

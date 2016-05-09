@@ -8,7 +8,8 @@ type alias TranslationSet =
 
 
 type TranslationId
-  = TitleText
+  = EmptyError
+  | TitleText
   | SubtitleText1
   | SubtitleText2
   | EmailPlaceholderText
@@ -44,6 +45,11 @@ i18n lang trans =
   let
     translationSet =
       case trans of
+        EmptyError ->
+          TranslationSet
+            ""
+            ""
+
         TitleText ->
           TranslationSet
             "Never Miss a Windy Day Again."

@@ -73,7 +73,7 @@ cleanForm address model =
               , value model.email
               ]
               []
-          , error model.errors.email
+          , error model.errors.email model.language
           ]
       , div
           [ class [ Group ] ]
@@ -83,7 +83,7 @@ cleanForm address model =
               (option [] [ text <| i18n model.language SelectCountryText ]
                 :: (List.map countryOption model.countries)
               )
-          , error model.errors.selectedCountry
+          , error model.errors.selectedCountry model.language
           ]
       , selectRegion address model.regions model.language
       , div
@@ -94,7 +94,7 @@ cleanForm address model =
               (option [] [ text <| i18n model.language SelectSpotText ]
                 :: (List.map spotOption model.spots)
               )
-          , error model.errors.selectedSpot
+          , ( error model.errors.selectedSpot model.language )
           ]
       , div
           [ class [ Group ] ]
@@ -105,7 +105,7 @@ cleanForm address model =
               , on "input" targetValue (Signal.message address << SetWindSpeed)
               ]
               []
-          , error model.errors.windSpeed
+          , ( error model.errors.windSpeed model.language )
           ]
       , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections model.errors.windDirections model.language
       , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays model.errors.availableDays model.language

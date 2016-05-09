@@ -38,12 +38,12 @@ initialModel =
 
 initialErrors : Errors
 initialErrors =
-  { email = ""
-  , windSpeed = ""
-  , windDirections = ""
-  , availableDays = ""
-  , selectedCountry = ""
-  , selectedSpot = ""
+  { email = EmptyError
+  , windSpeed = EmptyError
+  , windDirections = EmptyError
+  , availableDays = EmptyError
+  , selectedCountry = EmptyError
+  , selectedSpot = EmptyError
   }
 
 
@@ -274,57 +274,53 @@ validate : Model -> Errors
 validate model =
   { email =
       if not (isValidEmail model.email) then
-        i18n model.language EmailErrorText
+        EmailErrorText
       else
-        ""
+        EmptyError
   , windSpeed =
       if model.windSpeed == "" then
-        i18n model.language WindSpeedErrorText1
+        WindSpeedErrorText1
       else if not (isPositiveNumber model.windSpeed) then
-        i18n model.language WindSpeedErrorText2
+        WindSpeedErrorText2
       else
-        ""
+        EmptyError
   , windDirections =
       if List.isEmpty model.windDirections then
-        i18n model.language WindDirErrorText
+        WindDirErrorText
       else
-        ""
+        EmptyError
   , availableDays =
       if List.isEmpty model.availableDays.days then
-        i18n model.language DaysErrorText
+        DaysErrorText
       else
-        ""
+        EmptyError
   , selectedCountry =
       case model.selectedCountry of
         Nothing ->
-          i18n model.language CountryErrorText
+          CountryErrorText
 
         Just _ ->
-          ""
+          EmptyError
   , selectedSpot =
       case model.selectedSpot of
         Nothing ->
-          i18n model.language SpotErrorText
+          SpotErrorText
 
         Just _ ->
-          ""
+          EmptyError
   }
 
 
 hasErrors : Errors -> Bool
 hasErrors errors =
   not
-    <| noErrors errors.email
-    && noErrors errors.windSpeed
-    && noErrors errors.windDirections
-    && noErrors errors.availableDays
-    && noErrors errors.selectedCountry
-    && noErrors errors.selectedSpot
+    <| EmptyError == errors.email
+    && EmptyError == errors.windSpeed
+    && EmptyError == errors.windDirections
+    && EmptyError == errors.availableDays
+    && EmptyError == errors.selectedCountry
+    && EmptyError == errors.selectedSpot
 
-
-noErrors : String -> Bool
-noErrors =
-  isEmpty
 
 
 
