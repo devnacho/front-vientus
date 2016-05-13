@@ -1,11 +1,11 @@
-module App.Types (..) where
+module App.Types exposing (..)
 
 import Form.Types
 
 
-type Action
+type Msg
   = NoOp
-  | Form Form.Types.Action
+  | Form Form.Types.Msg
 
 
 type alias Model =

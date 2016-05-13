@@ -15,7 +15,7 @@ var commonConfig = {
 
   output: {
     path:       path.resolve( __dirname, 'dist/' ),
-    filename: 'index.js',
+    filename: '[hash].js',
   },
 
   resolve: {
@@ -60,7 +60,7 @@ if ( TARGET_ENV === 'development' ) {
         {
           test:    /\.elm$/,
           exclude: [/elm-stuff/, /node_modules/],
-          loader:  'elm-hot!elm-webpack'
+          loader:  'elm-webpack'
         },
         {
           test: /\.(css|scss)$/,
@@ -107,7 +107,7 @@ if ( TARGET_ENV === 'production' ) {
       new webpack.optimize.OccurenceOrderPlugin(),
 
       // extract CSS into a separate file
-      new ExtractTextPlugin( './style.css', { allChunks: true } ),
+      new ExtractTextPlugin( './[hash].css', { allChunks: true } ),
 
       // minify & mangle JS/CSS
       new webpack.optimize.UglifyJsPlugin({

@@ -1,6 +1,5 @@
-module Form.State (init, update) where
+module Form.State exposing (init, update)
 
-import Effects exposing (Effects)
 import Form.Types exposing (..)
 import Form.Rest
 import Utils.ErrorView exposing (error)
@@ -11,10 +10,10 @@ import Regex
 import Translation.Utils exposing (..)
 
 
-init : ( Model, Effects Action )
+init : ( Model, Cmd Msg )
 init =
   ( initialModel
-  , Effects.batch initialEffects
+  , Cmd.batch initialCommands
   )
 
 
@@ -47,21 +46,24 @@ initialErrors =
   }
 
 
-initialEffects : List (Effects Action)
-initialEffects =
+initialCommands : List (Cmd Msg)
+initialCommands =
   [ Form.Rest.getCountries
   ]
 
 
-update : Action -> Model -> ( Model, Effects Action )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update action model =
   case action of
     SetCountries countries ->
       ( { model
           | countries = Maybe.withDefault [] countries
         }
-      , Effects.none
+      , Cmd.none
       )
+
+    HttpFail _ ->
+      ( model, Cmd.none )
 
     SelectCountry id ->
       let
@@ -76,9 +78,9 @@ update action model =
 
         effect =
           if (List.isEmpty filteredCountries) then
-            Effects.none
+            Cmd.none
           else
-            Effects.batch
+            Cmd.batch
               [ Form.Rest.getRegions id
               , Form.Rest.getCountrySpots id
               ]
@@ -100,7 +102,7 @@ update action model =
       ( { model
           | regions = Maybe.withDefault [] regions
         }
-      , Effects.none
+      , Cmd.none
       )
 
     SelectRegion id ->
@@ -116,7 +118,7 @@ update action model =
 
         effect =
           if (List.isEmpty filteredRegions) then
-            Effects.none
+            Cmd.none
           else
             Form.Rest.getRegionSpots id
       in
@@ -132,7 +134,7 @@ update action model =
       ( { model
           | spots = Maybe.withDefault [] spots
         }
-      , Effects.none
+      , Cmd.none
       )
 
     SelectSpot id ->
@@ -152,7 +154,7 @@ update action model =
           }
       in
         ( validateNewModel newModel
-        , Effects.none
+        , Cmd.none
         )
 
     SetEmail str ->
@@ -163,7 +165,7 @@ update action model =
           }
       in
         ( validateNewModel newModel
-        , Effects.none
+        , Cmd.none
         )
 
     SetWindSpeed str ->
@@ -174,7 +176,7 @@ update action model =
           }
       in
         ( validateNewModel newModel
-        , Effects.none
+        , Cmd.none
         )
 
     SubmitAlert ->
@@ -200,7 +202,7 @@ update action model =
           if (hasErrors errors) == False then
             Form.Rest.submitAlert submitModel
           else
-            Effects.none
+            Cmd.none
 
         status =
           if (hasErrors errors) == False then
@@ -219,21 +221,21 @@ update action model =
       ( { model
           | status = Success
         }
-      , Effects.none
+      , Cmd.none
       )
 
     SubmitFailure ->
       ( { model
           | status = Failure
         }
-      , Effects.none
+      , Cmd.none
       )
 
     ChangeLanguage language ->
       ( { model
           | language = language
         }
-      , Effects.none
+      , Cmd.none
       )
 
     AvailableDays action ->
@@ -244,7 +246,7 @@ update action model =
           }
       in
         ( validateNewModel newModel
-        , Effects.none
+        , Cmd.none
         )
 
     WindDirection action ->
@@ -255,7 +257,7 @@ update action model =
           }
       in
         ( validateNewModel newModel
-        , Effects.none
+        , Cmd.none
         )
 
 

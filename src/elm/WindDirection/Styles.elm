@@ -1,4 +1,4 @@
-module WindDirection.Styles (css) where
+module WindDirection.Styles exposing (css)
 
 import Css exposing (..)
 import Css.Elements as Css

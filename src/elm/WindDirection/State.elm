@@ -1,4 +1,4 @@
-module WindDirection.State (initialModel, update) where
+module WindDirection.State exposing (initialModel, update)
 
 import WindDirection.Types exposing (..)
 
@@ -8,7 +8,7 @@ initialModel =
   []
 
 
-update : Action -> Model -> Model
+update : Msg -> Model -> Model
 update action model =
   case action of
     ToggleWindDirection direction ->

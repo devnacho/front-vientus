@@ -1,4 +1,4 @@
-module WindDirection.Types (..) where
+module WindDirection.Types exposing (..)
 
 
 type WindDirection
@@ -12,7 +12,7 @@ type WindDirection
   | NW
 
 
-type Action
+type Msg
   = ToggleWindDirection WindDirection
 
 

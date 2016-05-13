@@ -1,4 +1,4 @@
-module Form.Styles (css) where
+module Form.Styles exposing (css)
 
 import Css exposing (..)
 import Css.Elements as Css

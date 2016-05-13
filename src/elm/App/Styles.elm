@@ -1,4 +1,4 @@
-module App.Styles (css, globalCss) where
+module App.Styles exposing (css, globalCss)
 
 import Css exposing (..)
 import Css.Elements as Css

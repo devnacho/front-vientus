@@ -1,14 +1,15 @@
-module Form.Types (..) where
+module Form.Types exposing (..)
 
 import WindDirection.Types
 import AvailableDays.Types
 import Task
 import Translation.Utils exposing (..)
+import Http
 
 
-type Action
-  = AvailableDays AvailableDays.Types.Action
-  | WindDirection WindDirection.Types.Action
+type Msg
+  = AvailableDays AvailableDays.Types.Msg
+  | WindDirection WindDirection.Types.Msg
   | SetEmail String
   | SetWindSpeed String
   | SetCountries (Maybe (List Country))
@@ -21,6 +22,7 @@ type Action
   | SubmitSuccess
   | SubmitFailure
   | ChangeLanguage Language
+  | HttpFail Http.Error
 
 
 type alias Model =

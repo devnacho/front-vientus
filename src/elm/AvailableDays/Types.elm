@@ -1,4 +1,4 @@
-module AvailableDays.Types (..) where
+module AvailableDays.Types exposing (..)
 
 
 type DayOfWeek
@@ -11,7 +11,7 @@ type DayOfWeek
   | Sun
 
 
-type Action
+type Msg
   = ToggleDay DayOfWeek
   | ToggleDaysVisibility
 
