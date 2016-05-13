@@ -13,7 +13,6 @@ globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
 
-error : TranslationId -> Language -> Html.Html
 error errorMessage language =
   span
     [ class [ Error ] ]

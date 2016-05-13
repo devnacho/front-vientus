@@ -4,6 +4,7 @@ import WindDirection.Types
 import AvailableDays.Types
 import Task
 import Translation.Utils exposing (..)
+import Http
 
 
 type Msg
@@ -21,6 +22,7 @@ type Msg
   | SubmitSuccess
   | SubmitFailure
   | ChangeLanguage Language
+  | HttpFail Http.Error
 
 
 type alias Model =

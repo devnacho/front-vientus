@@ -2,7 +2,7 @@ module Form.View exposing (root)
 
 import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
 import Html.Attributes exposing (class, id, value, type', placeholder, src, height, width, href)
-import Html.Events exposing (onClick, targetValue, on, targetChecked)
+import Html.Events exposing (onClick, targetValue, on, targetChecked, onInput)
 import Html.App exposing (map)
 import Html.CssHelpers
 import Utils.ErrorView exposing (error)
@@ -109,7 +109,7 @@ cleanForm model =
           , ( error model.errors.windSpeed model.language )
           ]
       , map WindDirection (WindDirection.View.root model.windDirections model.errors.windDirections model.language)
-      , map Availabledays (Availabledays.View.root model.availableDays model.errors.availableDays model.language)
+      , map AvailableDays (AvailableDays.View.root model.availableDays model.errors.availableDays model.language)
       , br [] []
       , button
           [ onClick SubmitAlert

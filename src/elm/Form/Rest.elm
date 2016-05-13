@@ -17,8 +17,7 @@ getCountries : Cmd Msg
 getCountries =
   Http.get countriesListDecoder (baseUrl ++ "/countries.json")
     |> Task.toMaybe
-    |> Task.map (\list -> SetCountries list)
-    |> Task.perform
+    |> Task.perform HttpFail SetCountries
 
 
 countriesListDecoder : Decoder (List Country)
@@ -37,8 +36,7 @@ getRegions : String -> Cmd Msg
 getRegions countryId =
   Http.get regionsListDecoder (baseUrl ++ "/countries/" ++ countryId ++ "/regions.json")
     |> Task.toMaybe
-    |> Task.map (\list -> SetRegions list)
-    |> Task.perform
+    |> Task.perform HttpFail SetRegions
 
 
 regionsListDecoder : Decoder (List Region)
@@ -57,16 +55,14 @@ getCountrySpots : String -> Cmd Msg
 getCountrySpots countryId =
   Http.get spotsListDecoder (baseUrl ++ "/countries/" ++ countryId ++ "/spots.json")
     |> Task.toMaybe
-    |> Task.map (\list -> SetSpots list)
-    |> Task.perform
+    |> Task.perform HttpFail SetSpots
 
 
 getRegionSpots : String -> Cmd Msg
 getRegionSpots regionId =
   Http.get spotsListDecoder (baseUrl ++ "/regions/" ++ regionId ++ "/spots.json")
     |> Task.toMaybe
-    |> Task.map (\list -> SetSpots list)
-    |> Task.perform
+    |> Task.perform HttpFail SetSpots
 
 
 spotsListDecoder : Decoder (List Spot)
@@ -106,11 +102,10 @@ encodedUrl submitModel =
 submitAlert : SubmitModel -> Cmd Msg
 submitAlert submitModel =
   Http.post submitDecoder (encodedUrl submitModel) Http.empty
-    |> (flip Task.onError) (\err -> Task.succeed SubmitFailure  )
-    |> Task.perform
+    |> Task.perform HttpFail (\_ -> SubmitSuccess)
 
 
 
-submitDecoder : Decoder Msg
+submitDecoder : Decoder String
 submitDecoder =
-  succeed SubmitSuccess
+  succeed "foo"

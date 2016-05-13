@@ -62,6 +62,9 @@ update action model =
       , Cmd.none
       )
 
+    HttpFail _ ->
+      ( model, Cmd.none )
+
     SelectCountry id ->
       let
         filteredCountries =

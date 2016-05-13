@@ -10,16 +10,12 @@ import App.View exposing (root)
 
 
 
-app =
+main =
   Html.program
     { init = App.State.init
     , update = App.State.update
     , view = App.View.root
     , subscriptions = \_ -> Sub.none
     }
-
-
-main =
-  app.html
 
 
