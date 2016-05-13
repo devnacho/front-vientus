@@ -7,7 +7,7 @@ import Form.State
 init : ( Model, Cmd Msg )
 init =
   ( initialModel
-  , Cmd.batch initialEffects
+  , Cmd.batch initialCommands
   )
 
 
@@ -17,8 +17,8 @@ initialModel =
   }
 
 
-initialEffects : List (Cmd Msg)
-initialEffects =
+initialCommands : List (Cmd Msg)
+initialCommands =
   [ Cmd.map Form <| snd Form.State.init
   ]
 
@@ -35,11 +35,11 @@ update action model =
 
     Form action ->
       let
-        ( childModel, childEffects ) =
+        ( childModel, childCommands ) =
           Form.State.update action model.form
       in
         ( { model
             | form = childModel
           }
-        , Cmd.map Form childEffects
+        , Cmd.map Form childCommands
         )

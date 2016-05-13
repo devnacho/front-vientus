@@ -13,7 +13,7 @@ import Translation.Utils exposing (..)
 init : ( Model, Cmd Msg )
 init =
   ( initialModel
-  , Cmd.batch initialEffects
+  , Cmd.batch initialCommands
   )
 
 
@@ -46,8 +46,8 @@ initialErrors =
   }
 
 
-initialEffects : List (Cmd Msg)
-initialEffects =
+initialCommands : List (Cmd Msg)
+initialCommands =
   [ Form.Rest.getCountries
   ]
 
