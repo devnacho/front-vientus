@@ -1,4 +1,4 @@
-module Form.Rest (..) where
+module Form.Rest exposing (..)
 
 import Form.Types exposing (..)
 import AvailableDays.Types exposing (dayToStr)

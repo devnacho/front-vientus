@@ -1,4 +1,4 @@
-module Form.State (init, update) where
+module Form.State exposing (init, update)
 
 import Effects exposing (Effects)
 import Form.Types exposing (..)

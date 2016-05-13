@@ -1,4 +1,4 @@
-module Form.Types (..) where
+module Form.Types exposing (..)
 
 import WindDirection.Types
 import AvailableDays.Types

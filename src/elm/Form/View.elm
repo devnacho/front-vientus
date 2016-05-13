@@ -1,4 +1,4 @@
-module Form.View (root) where
+module Form.View exposing (root)
 
 import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
 import Html.Attributes exposing (class, id, value, type', placeholder, src, height, width, href)

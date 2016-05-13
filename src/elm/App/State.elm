@@ -1,4 +1,4 @@
-module App.State (init, update) where
+module App.State exposing (init, update)
 
 import Effects exposing (Effects)
 import App.Types exposing (..)

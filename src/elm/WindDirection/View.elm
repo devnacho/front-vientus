@@ -1,4 +1,4 @@
-module WindDirection.View (root) where
+module WindDirection.View exposing (root)
 
 import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td, i)
 import Html.Attributes exposing (class, id, value, type', placeholder)

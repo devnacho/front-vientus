@@ -1,4 +1,4 @@
-module Translation.Utils (Language(..), TranslationId(..), i18n) where
+module Translation.Utils exposing (Language(..), TranslationId(..), i18n)
 
 
 type alias TranslationSet =

@@ -1,4 +1,4 @@
-module AvailableDays.Types (..) where
+module AvailableDays.Types exposing (..)
 
 
 type DayOfWeek

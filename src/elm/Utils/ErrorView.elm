@@ -1,4 +1,4 @@
-module Utils.ErrorView (error) where
+module Utils.ErrorView exposing (error)
 
 import Html exposing (div, h1, select, form, input, label, button, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
 import Form.Types exposing (..)

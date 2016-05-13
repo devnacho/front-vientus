@@ -1,4 +1,4 @@
-module WindDirection.Types (..) where
+module WindDirection.Types exposing (..)
 
 
 type WindDirection
