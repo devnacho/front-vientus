@@ -11,7 +11,7 @@ type DayOfWeek
   | Sun
 
 
-type Action
+type Msg
   = ToggleDay DayOfWeek
   | ToggleDaysVisibility
 

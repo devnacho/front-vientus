@@ -6,9 +6,9 @@ import Task
 import Translation.Utils exposing (..)
 
 
-type Action
-  = AvailableDays AvailableDays.Types.Action
-  | WindDirection WindDirection.Types.Action
+type Msg
+  = AvailableDays AvailableDays.Types.Msg
+  | WindDirection WindDirection.Types.Msg
   | SetEmail String
   | SetWindSpeed String
   | SetCountries (Maybe (List Country))

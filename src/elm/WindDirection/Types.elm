@@ -12,7 +12,7 @@ type WindDirection
   | NW
 
 
-type Action
+type Msg
   = ToggleWindDirection WindDirection
 
 
