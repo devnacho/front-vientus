@@ -5,5 +5,5 @@ require( '../styles/form.css' );
 require( '../styles/wind-direction.css' );
 require( '../styles/available-days.css' );
 
-var Elm = require( '../elm/Main' );
-Elm.embed( Elm.Main, document.getElementById( 'Main' ), { swap: false } );
+var Elm = require('../elm/Main');
+Elm.Main.embed( document.getElementById( 'Main' ) );
