@@ -52,7 +52,7 @@ initialEffects =
   ]
 
 
-update : Action -> Model -> ( Model, Cmd Msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update action model =
   case action of
     SetCountries countries ->
