@@ -1,7 +1,6 @@
 module Main exposing (..)
 
-import Effects exposing (Effects, Never)
-import StartApp
+import Html.App as Html
 import Task
 
 import App.Types exposing (..)
@@ -12,11 +11,11 @@ import App.View exposing (root)
 
 
 app =
-  StartApp.start
+  Html.program
     { init = App.State.init
     , update = App.State.update
     , view = App.View.root
-    , inputs = [ Signal.map (always NoOp) swap ]
+    , subscriptions = \_ -> Sub.none
     }
 
 
@@ -24,15 +23,3 @@ main =
   app.html
 
 
-
--- HOT-SWAPPING
-
-
-port swap : Signal.Signal Bool
-
-
--- Effects
-
-port runner : Signal (Task.Task Never ())
-port runner =
-    app.tasks
