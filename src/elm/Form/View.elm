@@ -11,6 +11,7 @@ import Form.Types exposing (..)
 import WindDirection.View
 import AvailableDays.View
 import Translation.Utils exposing (..)
+import Json.Decode as Json
 
 
 { id, class, classList } =
@@ -80,7 +81,7 @@ cleanForm model =
           [ class [ Group ] ]
           [ label [] [ text <| i18n model.language SelectCountryText ]
           , select
-              []
+              [ on "change" (Json.map SelectCountry targetValue )]
               (option [] [ text <| i18n model.language SelectCountryText ]
                 :: (List.map countryOption model.countries)
               )
@@ -91,7 +92,7 @@ cleanForm model =
           [ class [ Group ] ]
           [ label [] [ text <| i18n model.language SelectSpotText ]
           , select
-              []
+              [ on "change" (Json.map SelectSpot targetValue )]
               (option [] [ text <| i18n model.language SelectSpotText ]
                 :: (List.map spotOption model.spots)
               )
@@ -131,7 +132,7 @@ selectRegion regions language =
       [ class [ Group ] ]
       [ label [] [ text <| i18n language SelectRegionText ]
       , select
-          []
+          [ on "change" (Json.map SelectRegion targetValue )]
           (option [] [ text <| i18n language SelectRegionText ]
             :: (List.map regionOption regions)
           )
