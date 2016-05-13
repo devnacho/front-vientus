@@ -20,35 +20,35 @@ globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
 
-root address model errors language =
+root model errors language =
   div
     []
     [ a
-        [ onClick address ToggleDaysVisibility
+        [ onClick ToggleDaysVisibility
         , class [ Toggle ]
         ]
         [ i [ Html.Attributes.class (namespace ++ "DateIcon icon ion-calendar") ] []
         , text <| i18n language ToggleDaysText
         ]
-    , selectDays address model language
+    , selectDays model language
     , error errors language
     ]
 
 
-selectDays address model language =
+selectDays model language =
   if model.visible then
     div
       []
       [ label [] [ text <| i18n language SelectDaysText ]
       , div
           []
-          (List.map (\day -> dayButton address day model.days) allDaysOfWeek)
+          (List.map (\day -> dayButton day model.days) allDaysOfWeek)
       ]
   else
     span [] []
 
 
-dayButton address day selectedDays =
+dayButton day selectedDays =
   let
     buttonClass =
       if List.member day selectedDays then
@@ -64,7 +64,7 @@ dayButton address day selectedDays =
   in
     div
       [ class buttonClass
-      , onClick address (ToggleDay day)
+      , onClick (ToggleDay day)
       ]
       [ text (toString day)
       , icon

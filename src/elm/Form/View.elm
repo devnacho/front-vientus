@@ -3,6 +3,7 @@ module Form.View exposing (root)
 import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
 import Html.Attributes exposing (class, id, value, type', placeholder, src, height, width, href)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
+import Html.App exposing (map)
 import Html.CssHelpers
 import Utils.ErrorView exposing (error)
 import App.Types exposing (..)
@@ -20,38 +21,38 @@ globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
 
-root address model =
+root model =
   div
     []
     [ div
         [ class [ FormSection ] ]
-        [ formSection address model ]
+        [ formSection model ]
     , div
         [ class [ SidebarSection ] ]
         [ div
             [ class [ SidebarOverlay ] ]
             []
         ]
-    , languageChooser address model
+    , languageChooser model
     ]
 
 
-formSection address model =
+formSection model =
   let
     content =
       case model.status of
         Success ->
-          (thanks address model)
+          (thanks model)
 
         _ ->
-          (cleanForm address model)
+          (cleanForm model)
   in
     div
       [ class [ Container ] ]
       content
 
 
-cleanForm address model =
+cleanForm model =
   [ img
       [ src "img/vientus_logo.png"
       , class [ Logo ]
@@ -69,7 +70,7 @@ cleanForm address model =
               [ id "username-field"
               , type' "text"
               , placeholder <| i18n model.language EmailPlaceholderText
-              , on "input" targetValue (Signal.message address << SetEmail)
+              , onInput SetEmail
               , value model.email
               ]
               []
@@ -79,18 +80,18 @@ cleanForm address model =
           [ class [ Group ] ]
           [ label [] [ text <| i18n model.language SelectCountryText ]
           , select
-              [ on "change" targetValue (\str -> Signal.message address (SelectCountry str)) ]
+              []
               (option [] [ text <| i18n model.language SelectCountryText ]
                 :: (List.map countryOption model.countries)
               )
           , error model.errors.selectedCountry model.language
           ]
-      , selectRegion address model.regions model.language
+      , selectRegion model.regions model.language
       , div
           [ class [ Group ] ]
           [ label [] [ text <| i18n model.language SelectSpotText ]
           , select
-              [ on "change" targetValue (\str -> Signal.message address (SelectSpot str)) ]
+              []
               (option [] [ text <| i18n model.language SelectSpotText ]
                 :: (List.map spotOption model.spots)
               )
@@ -102,16 +103,16 @@ cleanForm address model =
           , input
               [ type' "number"
               , value model.windSpeed
-              , on "input" targetValue (Signal.message address << SetWindSpeed)
+              , onInput SetWindSpeed
               ]
               []
           , ( error model.errors.windSpeed model.language )
           ]
-      , WindDirection.View.root (Signal.forwardTo address WindDirection) model.windDirections model.errors.windDirections model.language
-      , AvailableDays.View.root (Signal.forwardTo address AvailableDays) model.availableDays model.errors.availableDays model.language
+      , map WindDirection (WindDirection.View.root model.windDirections model.errors.windDirections model.language)
+      , map Availabledays (Availabledays.View.root model.availableDays model.errors.availableDays model.language)
       , br [] []
       , button
-          [ onClick address SubmitAlert
+          [ onClick SubmitAlert
           , class [ SubmitButton ]
           ]
           [ text <| i18n model.language SubmitText ]
@@ -122,7 +123,7 @@ cleanForm address model =
   ]
 
 
-selectRegion address regions language =
+selectRegion regions language =
   if List.isEmpty regions then
     span [] []
   else
@@ -130,7 +131,7 @@ selectRegion address regions language =
       [ class [ Group ] ]
       [ label [] [ text <| i18n language SelectRegionText ]
       , select
-          [ on "change" targetValue (\str -> Signal.message address (SelectRegion str)) ]
+          []
           (option [] [ text <| i18n language SelectRegionText ]
             :: (List.map regionOption regions)
           )
@@ -149,7 +150,7 @@ spotOption spot =
   option [ value spot.id ] [ text spot.name ]
 
 
-thanks address model =
+thanks model =
   [ h2 [ class [ ThanksTitle ] ] [ text <| i18n model.language ThanksTitleText ]
   , div
       [ class [ Share ] ]
@@ -183,7 +184,7 @@ thanks address model =
   ]
 
 
-languageChooser address model =
+languageChooser model =
   let
     englishClass =
       if model.language == English then
@@ -200,7 +201,7 @@ languageChooser address model =
     div
       [ class [ Languages ] ]
       [ a
-          [ onClick address (ChangeLanguage English) ]
+          [ onClick (ChangeLanguage English) ]
           [ img
               [ src "img/english.png"
               , class englishClass
@@ -208,7 +209,7 @@ languageChooser address model =
               []
           ]
       , a
-          [ onClick address (ChangeLanguage Spanish) ]
+          [ onClick (ChangeLanguage Spanish) ]
           [ img
               [ src "img/spanish.png"
               , class spanishClass

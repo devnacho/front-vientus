@@ -21,18 +21,18 @@ globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
 
-root address model errors language =
+root model errors language =
   div
     []
     [ label [] [ text <| i18n language SelectWindDirText ]
     , div
         [ class [ Chooser ] ]
-        (List.map (\wd -> windButton address wd model) allWindDirections)
+        (List.map (\wd -> windButton wd model) allWindDirections)
     , error errors language
     ]
 
 
-windButton address windDirection model =
+windButton windDirection model =
   let
     directionClass =
       if List.member windDirection model then
@@ -42,7 +42,7 @@ windButton address windDirection model =
   in
     div
       [ class directionClass
-      , onClick address (ToggleWindDirection windDirection)
+      , onClick (ToggleWindDirection windDirection)
       ]
       [ div
           [ class [ Text ] ]

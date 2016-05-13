@@ -6,6 +6,7 @@ import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Html.CssHelpers
 import App.Types exposing (..)
 import Form.View
+import Html.App exposing (map)
 
 
 { id, class, classList } =
@@ -16,8 +17,8 @@ globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
 
-root address model =
+root model =
   div
     []
-    [ Form.View.root (Signal.forwardTo address Form) model.form
+    [ map Form (Form.View.root model.form)
     ]
