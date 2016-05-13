@@ -1,14 +1,13 @@
 module App.State exposing (init, update)
 
-import Effects exposing (Effects)
 import App.Types exposing (..)
 import Form.State
 
 
-init : ( Model, Effects Action )
+init : ( Model, Cmd Msg )
 init =
   ( initialModel
-  , Effects.batch initialEffects
+  , Cmd.batch initialEffects
   )
 
 
@@ -18,9 +17,9 @@ initialModel =
   }
 
 
-initialEffects : List (Effects Action)
+initialEffects : List (Cmd Msg)
 initialEffects =
-  [ Effects.map Form <| snd Form.State.init
+  [ Cmd.map Form <| snd Form.State.init
   ]
 
 
@@ -28,11 +27,11 @@ initialEffects =
 -- UPDATE
 
 
-update : Action -> Model -> ( Model, Effects Action )
+update : Action -> Model -> ( Model, Cmd Msg )
 update action model =
   case action of
     NoOp ->
-      ( model, Effects.none )
+      ( model, Cmd.none )
 
     Form action ->
       let
@@ -42,5 +41,5 @@ update action model =
         ( { model
             | form = childModel
           }
-        , Effects.map Form childEffects
+        , Cmd.map Form childEffects
         )

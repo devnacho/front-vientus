@@ -1,6 +1,5 @@
-module AvailableDays.State (initialModel, update) where
+module AvailableDays.State exposing (initialModel, update)
 
-import Effects exposing (Effects)
 import AvailableDays.Types exposing (..)
 
 

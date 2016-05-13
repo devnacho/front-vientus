@@ -5,7 +5,6 @@ import AvailableDays.Types exposing (dayToStr)
 import Http
 import Json.Encode as JE
 import Json.Decode exposing (Decoder, object1, object2, object3, object4, list, succeed, string, float, int, (:=))
-import Effects exposing (Effects)
 import Task
 
 
@@ -14,12 +13,12 @@ baseUrl =
   "http://www.vient.us"
 
 
-getCountries : Effects Action
+getCountries : Cmd Msg
 getCountries =
   Http.get countriesListDecoder (baseUrl ++ "/countries.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetCountries list)
-    |> Effects.task
+    |> Task.perform
 
 
 countriesListDecoder : Decoder (List Country)
@@ -34,12 +33,12 @@ countryDecoder =
     ("id" := string)
 
 
-getRegions : String -> Effects Action
+getRegions : String -> Cmd Msg
 getRegions countryId =
   Http.get regionsListDecoder (baseUrl ++ "/countries/" ++ countryId ++ "/regions.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetRegions list)
-    |> Effects.task
+    |> Task.perform
 
 
 regionsListDecoder : Decoder (List Region)
@@ -54,20 +53,20 @@ regionDecoder =
     ("id" := string)
 
 
-getCountrySpots : String -> Effects Action
+getCountrySpots : String -> Cmd Msg
 getCountrySpots countryId =
   Http.get spotsListDecoder (baseUrl ++ "/countries/" ++ countryId ++ "/spots.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetSpots list)
-    |> Effects.task
+    |> Task.perform
 
 
-getRegionSpots : String -> Effects Action
+getRegionSpots : String -> Cmd Msg
 getRegionSpots regionId =
   Http.get spotsListDecoder (baseUrl ++ "/regions/" ++ regionId ++ "/spots.json")
     |> Task.toMaybe
     |> Task.map (\list -> SetSpots list)
-    |> Effects.task
+    |> Task.perform
 
 
 spotsListDecoder : Decoder (List Spot)
@@ -104,22 +103,14 @@ encodedUrl submitModel =
 
 
 
-submitAlert : SubmitModel -> Effects Action
+submitAlert : SubmitModel -> Cmd Msg
 submitAlert submitModel =
   Http.post submitDecoder (encodedUrl submitModel) Http.empty
     |> (flip Task.onError) (\err -> Task.succeed SubmitFailure  )
-    |> Effects.task 
-
-
-{-
-    Http.post submitDecoder (encodedUrl submitModel) Http.empty
-      |> Task.toResult
-      |> Task.map (\result -> NoOp )
-      |> Effects.task
--}
+    |> Task.perform
 
 
 
-submitDecoder : Decoder Action
+submitDecoder : Decoder Msg
 submitDecoder =
   succeed SubmitSuccess
