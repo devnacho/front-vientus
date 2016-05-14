@@ -1,4 +1,4 @@
-module AvailableDays.Styles (css) where
+module AvailableDays.Styles exposing (css)
 
 import Css exposing (..)
 import Css.Elements as Css
