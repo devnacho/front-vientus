@@ -165,7 +165,9 @@ thanks model =
       , div
           []
           [ a
-              [ class [ ShareIcon, Facebook ] ]
+              [ class [ ShareIcon, Facebook ]
+              , onClick (ShareVientus "Facebook")
+              ]
               [ img
                   [ height 84
                   , src "img/facebook.png"
@@ -173,7 +175,9 @@ thanks model =
                   []
               ]
           , a
-              [ class [ ShareIcon, Facebook ] ]
+              [ class [ ShareIcon, Twitter ] 
+              , onClick (ShareVientus "Twitter")
+              ]
               [ img
                   [ height 84
                   , src "img/twitter.png"

@@ -23,6 +23,7 @@ type Msg
   | SubmitFailure
   | ChangeLanguage Language
   | HttpFail Http.Error
+  | ShareVientus String
 
 
 type alias Model =

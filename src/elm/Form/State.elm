@@ -8,6 +8,8 @@ import AvailableDays.State
 import String exposing (isEmpty)
 import Regex
 import Translation.Utils exposing (..)
+import App.Ports as Ports
+
 
 
 init : ( Model, Cmd Msg )
@@ -237,6 +239,9 @@ update action model =
         }
       , Cmd.none
       )
+
+    ShareVientus network ->
+      ( model , Ports.share network )
 
     AvailableDays action ->
       let

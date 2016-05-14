@@ -8,8 +8,6 @@ import App.State exposing (init, update)
 import App.View exposing (root)
 
 
-
-
 main =
   Html.program
     { init = App.State.init
