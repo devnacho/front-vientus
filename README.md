@@ -3,6 +3,8 @@
 Redesigning [Vientus](http://vient.us) front end in Elm to learn how to use Elm
 in Production.
 
+[App in Production](http://beta.vient.us)
+
 ## Things to learn:
 - Production App Code structure
 - Use of Elm-css
