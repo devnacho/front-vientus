@@ -1,9 +1,9 @@
 # Vientus front end in Elm
 
-Redesigning [Vientus](http://vient.us) front end in Elm to learn how to use Elm
+Redesigning [Vientus](http://www.vient.us) front end in Elm to learn how to use Elm
 in Production.
 
-[App in Production](http://beta.vient.us)
+[App in Production](http://www.vient.us)
 
 ## Things to learn:
 - Production App Code structure
