@@ -43,8 +43,7 @@ npm run build
 
 * Files are saved into the `/dist` folder
 * To check it, open `dist/index.html`
-* To publish the `/dist` folder to your own GitHub repo's `gh-pages`, commit any changes, then:
+* To publish new changes to amazon run:
 ```
-git subtree push --prefix dist origin gh-pages
-open http://<your-github-account>.github.io/elm-webpack-starter/
+aws s3 sync dist s3://www.vient.us
 ```
