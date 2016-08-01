@@ -1,7 +1,7 @@
 module Form.View exposing (root)
 
 import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
-import Html.Attributes exposing (class, id, value, type', placeholder, src, height, width, href)
+import Html.Attributes exposing (class, classList, id, value, type', placeholder, src, height, width, href)
 import Html.Events exposing (onClick, targetValue, on, targetChecked, onInput)
 import Html.App exposing (map)
 import Html.CssHelpers
@@ -190,35 +190,28 @@ thanks model =
 
 
 languageChooser model =
-  let
-    englishClass =
-      if model.language == English then
-        [ LangIcon, LangActive ]
-      else
-        [ LangIcon ]
-
-    spanishClass =
-      if model.language == Spanish then
-        [ LangIcon, LangActive ]
-      else
-        [ LangIcon ]
-  in
-    div
-      [ class [ Languages ] ]
-      [ a
-          [ onClick (ChangeLanguage English) ]
-          [ img
-              [ src "img/english.png"
-              , class englishClass
-              ]
-              []
-          ]
-      , a
-          [ onClick (ChangeLanguage Spanish) ]
-          [ img
-              [ src "img/spanish.png"
-              , class spanishClass
-              ]
-              []
-          ]
-      ]
+  div
+    [ class [ Languages ] ]
+    [ a
+        [ onClick (ChangeLanguage English) ]
+        [ img
+            [ src "img/english.png"
+            , classList
+                [ (LangIcon, True)
+                , (LangActive, model.language == English)
+                ]
+            ]
+            []
+        ]
+    , a
+        [ onClick (ChangeLanguage Spanish) ]
+        [ img
+            [ src "img/spanish.png"
+            , classList
+                [ (LangIcon, True)
+                , (LangActive, model.language == Spanish)
+                ]
+            ]
+            []
+        ]
+    ]
