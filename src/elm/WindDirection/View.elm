@@ -33,22 +33,18 @@ root model errors language =
 
 
 windButton windDirection model =
-  let
-    directionClass =
-      if List.member windDirection model then
-        [ Direction, Selected ]
-      else
-        [ Direction ]
-  in
-    div
-      [ class directionClass
-      , onClick (ToggleWindDirection windDirection)
-      ]
-      [ div
-          [ class [ Text ] ]
-          [ text (toString windDirection) ]
-      , i
-          [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-down")
-          ]
-          []
-      ]
+  div
+    [ classList
+        [ (Direction, True)
+        , (Selected, List.member windDirection model )
+        ]
+    , onClick (ToggleWindDirection windDirection)
+    ]
+    [ div
+        [ class [ Text ] ]
+        [ text (toString windDirection) ]
+    , i
+        [ Html.Attributes.class (namespace ++ "Icon icon ion-ios-arrow-thin-down")
+        ]
+        []
+    ]

@@ -50,12 +50,6 @@ selectDays model language =
 
 dayButton day selectedDays =
   let
-    buttonClass =
-      if List.member day selectedDays then
-        [ Button, Selected ]
-      else
-        [ Button ]
-
     icon =
       if List.member day selectedDays then
         i [ Html.Attributes.class (namespace ++ "Icon icon ion-checkmark") ] []
@@ -63,7 +57,10 @@ dayButton day selectedDays =
         i [ Html.Attributes.class (namespace ++ "Icon icon ion-close") ] []
   in
     div
-      [ class buttonClass
+      [ classList
+          [ (Button, True)
+          , (Selected, List.member day selectedDays)
+          ]
       , onClick (ToggleDay day)
       ]
       [ text (toString day)
