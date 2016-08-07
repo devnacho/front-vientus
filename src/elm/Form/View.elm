@@ -1,7 +1,7 @@
 module Form.View exposing (root)
 
 import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
-import Html.Attributes exposing (class, classList, id, value, type', placeholder, src, height, width, href)
+import Html.Attributes exposing (class, classList, id, value, type', placeholder, src, height, width, href, style)
 import Html.Events exposing (onClick, targetValue, on, targetChecked, onInput)
 import Html.App exposing (map)
 import Html.CssHelpers
@@ -30,12 +30,14 @@ root randomSeed model =
         [ class [ FormSection ] ]
         [ formSection model ]
     , div
-        [ class [ SidebarSection ] ]
+        [ class [ SidebarSection ]
+        , style <| backgroundStyle randomSeed
+        ]
         [ div
             [ class [ SidebarOverlay ] ]
             []
         ]
-    , languageChooser randomSeed model
+    , languageChooser model
     ]
 
 
@@ -176,7 +178,7 @@ thanks model =
                   []
               ]
           , a
-              [ class [ ShareIcon, Twitter ] 
+              [ class [ ShareIcon, Twitter ]
               , onClick (ShareVientus "Twitter")
               ]
               [ img
@@ -190,7 +192,7 @@ thanks model =
   ]
 
 
-languageChooser randomSeed model =
+languageChooser model =
   div
     [ class [ Languages ] ]
     [ a
@@ -204,7 +206,6 @@ languageChooser randomSeed model =
             ]
             []
         ]
-    , text <| toString <| fst <| Random.step (Random.int 0 5) (Random.initialSeed randomSeed)
     , a
         [ onClick (ChangeLanguage Spanish) ]
         [ img
@@ -216,4 +217,14 @@ languageChooser randomSeed model =
             ]
             []
         ]
+    ]
+
+
+backgroundStyle : Int -> List (String, String)
+backgroundStyle randomSeed =
+  let
+    number = toString <| fst <| Random.step (Random.int 1 4) (Random.initialSeed randomSeed)
+  in
+    [ ("background", "url(img/bg" ++ number ++ ".jpg) center center")
+    , ("background-size", "cover")
     ]
