@@ -8,8 +8,6 @@ import App.State exposing (init, update)
 import App.View exposing (root)
 
 
-type alias Flags = { randSeed : Int }
-
 main : Program Flags
 main =
   Html.programWithFlags

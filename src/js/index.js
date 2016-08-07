@@ -7,7 +7,7 @@ require( '../styles/available-days.css' );
 
 var Elm = require('../elm/Main');
 var app = Elm.Main.embed( document.getElementById('Main'),
-                          { randSeed: Math.floor(Math.random() * 0xFFFFFF) }
+                          { randomSeed: Math.floor(Math.random() * 0xFFFFFF) }
                         );
 
 app.ports.share.subscribe(function(network) {

@@ -1,4 +1,4 @@
-module Form.State exposing (initialModel, initialCommands, update)
+module Form.State exposing (init, update)
 
 import Form.Types exposing (..)
 import Form.Rest
@@ -10,9 +10,14 @@ import Regex
 import Translation.Utils exposing (..)
 import App.Ports as Ports
 
+init : ( Model, Cmd Msg )
+init =
+  ( initialModel
+  , Cmd.batch initialCommands
+  )
 
-initialModel : Int -> Model
-initialModel randSeed =
+initialModel : Model
+initialModel =
   { email = ""
   , windSpeed = "11"
   , windDirections = WindDirection.State.initialModel
@@ -26,7 +31,6 @@ initialModel randSeed =
   , errors = initialErrors
   , status = Clean
   , language = English
-  , currentSeed = randSeed
   }
 
 

@@ -23,7 +23,7 @@ globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
 
-root model =
+root randomSeed model =
   div
     []
     [ div
@@ -35,7 +35,7 @@ root model =
             [ class [ SidebarOverlay ] ]
             []
         ]
-    , languageChooser model
+    , languageChooser randomSeed model
     ]
 
 
@@ -190,7 +190,7 @@ thanks model =
   ]
 
 
-languageChooser model =
+languageChooser randomSeed model =
   div
     [ class [ Languages ] ]
     [ a
@@ -204,7 +204,7 @@ languageChooser model =
             ]
             []
         ]
-    , text <| toString <| fst <| Random.step (Random.int 0 5) (Random.initialSeed model.currentSeed)
+    , text <| toString <| fst <| Random.step (Random.int 0 5) (Random.initialSeed randomSeed)
     , a
         [ onClick (ChangeLanguage Spanish) ]
         [ img

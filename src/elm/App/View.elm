@@ -21,5 +21,5 @@ globalClass =
 root model =
   div
     []
-    [ map Form (Form.View.root model.form)
+    [ map Form (Form.View.root model.randomSeed model.form)
     ]

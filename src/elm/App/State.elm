@@ -5,21 +5,22 @@ import Form.State
 
 
 init : Flags -> ( Model, Cmd Msg )
-init { randSeed } =
-  ( initialModel randSeed
+init { randomSeed } =
+  ( initialModel randomSeed
   , Cmd.batch initialCommands
   )
 
 
 initialModel : Int -> Model
-initialModel randSeed =
-  { form = Form.State.initialModel randSeed
+initialModel randomSeed =
+  { form = fst Form.State.init
+  , randomSeed = randomSeed
   }
 
 
 initialCommands : List (Cmd Msg)
 initialCommands =
-  [ Cmd.map Form <| Cmd.batch Form.State.initialCommands
+  [ Cmd.map Form <| snd Form.State.init
   ]
 
 
