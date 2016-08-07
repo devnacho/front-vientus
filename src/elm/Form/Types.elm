@@ -40,6 +40,7 @@ type alias Model =
   , errors : Errors
   , status : Status
   , language : Language
+  , currentSeed : Int
   }
 
 type Status

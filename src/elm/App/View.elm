@@ -7,6 +7,7 @@ import Html.CssHelpers
 import App.Types exposing (..)
 import Form.View
 import Html.App exposing (map)
+import Random
 
 
 { id, class, classList } =

@@ -2,6 +2,7 @@ module App.Types exposing (..)
 
 import Form.Types
 
+type alias Flags = { randSeed : Int }
 
 type Msg
   = NoOp

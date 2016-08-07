@@ -4,22 +4,22 @@ import App.Types exposing (..)
 import Form.State
 
 
-init : ( Model, Cmd Msg )
-init =
-  ( initialModel
+init : Flags -> ( Model, Cmd Msg )
+init { randSeed } =
+  ( initialModel randSeed
   , Cmd.batch initialCommands
   )
 
 
-initialModel : Model
-initialModel =
-  { form = fst Form.State.init
+initialModel : Int -> Model
+initialModel randSeed =
+  { form = Form.State.initialModel randSeed
   }
 
 
 initialCommands : List (Cmd Msg)
 initialCommands =
-  [ Cmd.map Form <| snd Form.State.init
+  [ Cmd.map Form <| Cmd.batch Form.State.initialCommands
   ]
 
 

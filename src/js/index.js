@@ -6,7 +6,9 @@ require( '../styles/wind-direction.css' );
 require( '../styles/available-days.css' );
 
 var Elm = require('../elm/Main');
-var app = Elm.Main.embed( document.getElementById( 'Main' ) );
+var app = Elm.Main.embed( document.getElementById('Main'),
+                          { randSeed: Math.floor(Math.random() * 0xFFFFFF) }
+                        );
 
 app.ports.share.subscribe(function(network) {
   if(network === "Facebook"){

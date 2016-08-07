@@ -12,6 +12,7 @@ import WindDirection.View
 import AvailableDays.View
 import Translation.Utils exposing (..)
 import Json.Decode as Json
+import Random
 
 
 { id, class, classList } =
@@ -203,6 +204,7 @@ languageChooser model =
             ]
             []
         ]
+    , text <| toString <| fst <| Random.step (Random.int 0 5) (Random.initialSeed model.currentSeed)
     , a
         [ onClick (ChangeLanguage Spanish) ]
         [ img
