@@ -7,6 +7,7 @@ import Html.CssHelpers
 import App.Types exposing (..)
 import Form.View
 import Html.App exposing (map)
+import Random
 
 
 { id, class, classList } =
@@ -20,5 +21,5 @@ globalClass =
 root model =
   div
     []
-    [ map Form (Form.View.root model.form)
+    [ map Form (Form.View.root model.randomSeed model.form)
     ]

@@ -1,7 +1,7 @@
 module Form.View exposing (root)
 
 import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
-import Html.Attributes exposing (class, classList, id, value, type', placeholder, src, height, width, href)
+import Html.Attributes exposing (class, classList, id, value, type', placeholder, src, height, width, href, style)
 import Html.Events exposing (onClick, targetValue, on, targetChecked, onInput)
 import Html.App exposing (map)
 import Html.CssHelpers
@@ -12,6 +12,7 @@ import WindDirection.View
 import AvailableDays.View
 import Translation.Utils exposing (..)
 import Json.Decode as Json
+import Random
 
 
 { id, class, classList } =
@@ -22,14 +23,16 @@ globalClass =
   .class (Html.CssHelpers.withNamespace "")
 
 
-root model =
+root randomSeed model =
   div
     []
     [ div
         [ class [ FormSection ] ]
         [ formSection model ]
     , div
-        [ class [ SidebarSection ] ]
+        [ class [ SidebarSection ]
+        , style <| backgroundStyle randomSeed
+        ]
         [ div
             [ class [ SidebarOverlay ] ]
             []
@@ -175,7 +178,7 @@ thanks model =
                   []
               ]
           , a
-              [ class [ ShareIcon, Twitter ] 
+              [ class [ ShareIcon, Twitter ]
               , onClick (ShareVientus "Twitter")
               ]
               [ img
@@ -214,4 +217,14 @@ languageChooser model =
             ]
             []
         ]
+    ]
+
+
+backgroundStyle : Int -> List (String, String)
+backgroundStyle randomSeed =
+  let
+    number = toString <| fst <| Random.step (Random.int 1 4) (Random.initialSeed randomSeed)
+  in
+    [ ("background", "url(img/bg" ++ number ++ ".jpg) center center")
+    , ("background-size", "cover")
     ]
