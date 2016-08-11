@@ -112,7 +112,7 @@ cleanForm model =
               []
           , ( error model.errors.windSpeed model.language )
           ]
-      , map WindDirection (WindDirection.View.root model.windDirections model.errors.windDirections model.language)
+      , WindDirection.View.root model.windDirections model.errors.windDirections model.language 
       , map AvailableDays (AvailableDays.View.root model.availableDays model.errors.availableDays model.language)
       , br [] []
       , button

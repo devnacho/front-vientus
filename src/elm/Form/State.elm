@@ -3,7 +3,6 @@ module Form.State exposing (init, update)
 import Form.Types exposing (..)
 import Form.Rest
 import Utils.ErrorView exposing (error)
-import WindDirection.State
 import AvailableDays.State
 import String exposing (isEmpty)
 import Regex
@@ -20,7 +19,7 @@ initialModel : Model
 initialModel =
   { email = ""
   , windSpeed = "11"
-  , windDirections = WindDirection.State.initialModel
+  , windDirections = []
   , availableDays = AvailableDays.State.initialModel
   , countries = []
   , selectedCountry = Nothing
@@ -178,6 +177,17 @@ update action model =
         , Cmd.none
         )
 
+    ToggleWindDirection direction ->
+      let
+        toggledList =
+          if List.member direction model.windDirections then
+            List.filter (\d -> d /= direction) model.windDirections
+          else
+            direction :: model.windDirections
+        newModel = { model | windDirections = toggledList }
+      in
+        validateNewModel newModel ! []
+
     SubmitAlert ->
       let
         errors =
@@ -245,17 +255,6 @@ update action model =
         newModel =
           { model
             | availableDays = AvailableDays.State.update action model.availableDays
-          }
-      in
-        ( validateNewModel newModel
-        , Cmd.none
-        )
-
-    WindDirection action ->
-      let
-        newModel =
-          { model
-            | windDirections = WindDirection.State.update action model.windDirections
           }
       in
         ( validateNewModel newModel

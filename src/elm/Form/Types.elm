@@ -1,6 +1,5 @@
 module Form.Types exposing (..)
 
-import WindDirection.Types
 import AvailableDays.Types
 import Task
 import Translation.Utils exposing (..)
@@ -9,7 +8,6 @@ import Http
 
 type Msg
   = AvailableDays AvailableDays.Types.Msg
-  | WindDirection WindDirection.Types.Msg
   | SetEmail String
   | SetWindSpeed String
   | SetCountries (Maybe (List Country))
@@ -24,12 +22,13 @@ type Msg
   | ChangeLanguage Language
   | HttpFail Http.Error
   | ShareVientus String
+  | ToggleWindDirection WindDirection
 
 
 type alias Model =
   { email : String
   , windSpeed : String
-  , windDirections : WindDirection.Types.Model
+  , windDirections : List WindDirection
   , availableDays : AvailableDays.Types.Model
   , countries : List Country
   , selectedCountry : Maybe Country
@@ -63,11 +62,25 @@ type alias Errors =
 type alias SubmitModel =
   { email : String
   , windSpeed : String
-  , windDirections : WindDirection.Types.Model
+  , windDirections : List WindDirection
   , availableDays : AvailableDays.Types.Model
   , selectedSpotId : String
   }
 
+
+type WindDirection
+  = N
+  | NE
+  | E
+  | SE
+  | S
+  | SW
+  | W
+  | NW
+
+allWindDirections : List WindDirection
+allWindDirections =
+  [ N, NE, E, SE, S, SW, W, NW ]
 
 type alias Country =
   { name : String
