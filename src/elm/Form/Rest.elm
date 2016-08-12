@@ -1,7 +1,6 @@
 module Form.Rest exposing (..)
 
 import Form.Types exposing (..)
-import AvailableDays.Types exposing (dayToStr)
 import Http
 import Json.Encode as JE
 import Json.Decode exposing (Decoder, object1, object2, object3, object4, list, succeed, string, float, int, (:=))
@@ -83,7 +82,7 @@ submitParams : SubmitModel -> List ( String, String )
 submitParams submitModel =
   List.append
     (List.map (\wd -> ( "alert[wind_directions][]", toString wd )) submitModel.windDirections)
-    (List.map (\day -> ( "alert[dates][]", dayToStr day )) submitModel.availableDays.days)
+    (List.map (\day -> ( "alert[dates][]", dayToStr day )) submitModel.availableDays)
     |> List.append
         [ ( "alert[user_attributes][locale]", "EN" )
         , ( "alert[user_attributes][email]", submitModel.email )

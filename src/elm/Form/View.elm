@@ -112,8 +112,8 @@ cleanForm model =
               []
           , ( error model.errors.windSpeed model.language )
           ]
-      , WindDirection.View.root model.windDirections model.errors.windDirections model.language 
-      , map AvailableDays (AvailableDays.View.root model.availableDays model.errors.availableDays model.language)
+      , WindDirection.View.root model.windDirections model.errors.windDirections model.language
+      , AvailableDays.View.root model model.errors.availableDays model.language 
       , br [] []
       , button
           [ onClick SubmitAlert

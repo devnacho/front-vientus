@@ -3,7 +3,6 @@ module Form.State exposing (init, update)
 import Form.Types exposing (..)
 import Form.Rest
 import Utils.ErrorView exposing (error)
-import AvailableDays.State
 import String exposing (isEmpty)
 import Regex
 import Translation.Utils exposing (..)
@@ -20,7 +19,6 @@ initialModel =
   { email = ""
   , windSpeed = "11"
   , windDirections = []
-  , availableDays = AvailableDays.State.initialModel
   , countries = []
   , selectedCountry = Nothing
   , regions = []
@@ -30,6 +28,8 @@ initialModel =
   , errors = initialErrors
   , status = Clean
   , language = English
+  , daysVisible = False
+  , days = allDaysOfWeek
   }
 
 
@@ -53,6 +53,25 @@ initialCommands =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update action model =
   case action of
+    ToggleDaysVisibility ->
+      { model
+        | daysVisible = not model.daysVisible
+      } ! []
+
+    ToggleDay day ->
+      let
+        toggledList =
+          if List.member day model.days then
+            List.filter (\d -> d /= day) model.days
+          else
+            day :: model.days
+        newModel =
+          { model
+            | days = toggledList
+          }
+      in
+        validateNewModel newModel ! []
+
     SetCountries countries ->
       ( { model
           | countries = Maybe.withDefault [] countries
@@ -197,7 +216,7 @@ update action model =
           { email = model.email
           , windSpeed = model.windSpeed
           , windDirections = model.windDirections
-          , availableDays = model.availableDays
+          , availableDays = model.days
           , selectedSpotId =
               case model.selectedSpot of
                 Nothing ->
@@ -250,17 +269,6 @@ update action model =
     ShareVientus network ->
       ( model , Ports.share network )
 
-    AvailableDays action ->
-      let
-        newModel =
-          { model
-            | availableDays = AvailableDays.State.update action model.availableDays
-          }
-      in
-        ( validateNewModel newModel
-        , Cmd.none
-        )
-
 
 validateNewModel : Model -> Model
 validateNewModel newModel =
@@ -293,7 +301,7 @@ validate model =
       else
         EmptyError
   , availableDays =
-      if List.isEmpty model.availableDays.days then
+      if List.isEmpty model.days then
         DaysErrorText
       else
         EmptyError
