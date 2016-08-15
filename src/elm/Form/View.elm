@@ -29,17 +29,36 @@ root randomSeed model =
     [ div
         [ class [ FormSection ] ]
         [ formSection model ]
-    , div
-        [ class [ SidebarSection ]
-        , style <| backgroundStyle randomSeed
-        ]
-        [ div
-            [ class [ SidebarOverlay ] ]
-            []
-        ]
+    , sidebar randomSeed model
     , languageChooser model
     ]
 
+sidebar randomSeed model =
+  let
+    content =
+      case model.selectedCountry of
+        Nothing ->
+          bgSidebar randomSeed model
+        Just country ->
+          mapSidebar model
+  in
+    content
+
+
+mapSidebar model =
+  div
+    [ class [ SidebarSection ] ]
+    [ text "MAP GOES HERE" ]
+
+bgSidebar randomSeed model =
+  div
+    [ class [ SidebarSection ]
+    , style <| backgroundStyle randomSeed
+    ]
+    [ div
+        [ class [ SidebarOverlay ] ]
+        []
+    ]
 
 formSection model =
   let

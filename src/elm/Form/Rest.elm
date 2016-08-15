@@ -9,7 +9,7 @@ import Task
 
 baseUrl : String
 baseUrl =
-  "http://app.vient.us"
+  "http://localhost:3000"
 
 
 getCountries : Cmd Msg
