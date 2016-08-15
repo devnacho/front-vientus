@@ -149,3 +149,5 @@ type CssClasses
   | Languages
   | LangIcon
   | LangActive
+  | Map
+  | SidebarHidden

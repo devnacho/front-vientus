@@ -29,30 +29,35 @@ root randomSeed model =
     [ div
         [ class [ FormSection ] ]
         [ formSection model ]
-    , sidebar randomSeed model
+    , bgSidebar randomSeed model
+    , mapSidebar model
     , languageChooser model
     ]
 
-sidebar randomSeed model =
-  let
-    content =
-      case model.selectedCountry of
-        Nothing ->
-          bgSidebar randomSeed model
-        Just country ->
-          mapSidebar model
-  in
-    content
-
+mapHidden model =
+  case model.selectedCountry of
+    Nothing ->
+      True
+    Just country ->
+      False
 
 mapSidebar model =
   div
-    [ class [ SidebarSection ] ]
-    [ text "MAP GOES HERE" ]
+    [ id Map
+    , classList
+        [ ( SidebarSection, True )
+        , ( SidebarHidden, mapHidden model )
+        ]
+    ]
+    [ text "MAP GOES HERE"
+    ]
 
 bgSidebar randomSeed model =
   div
-    [ class [ SidebarSection ]
+    [ classList
+        [ ( SidebarSection, True )
+        , ( SidebarHidden, not ( mapHidden model ) )
+        ]
     , style <| backgroundStyle randomSeed
     ]
     [ div

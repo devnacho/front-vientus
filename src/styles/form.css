@@ -13,6 +13,10 @@
     width: 45%;
 }
 
+.FormSidebarHidden {
+    display: none;
+}
+
 .FormSidebarOverlay {
     background-color: rgba(111, 60, 135, 0.7);
     height: 100%;

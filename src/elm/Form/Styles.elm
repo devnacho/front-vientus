@@ -21,6 +21,9 @@ css =
         , height (pct 100)
         , width (pct 45)
         ]
+    , (.) SidebarHidden
+        [ display none
+        ]
     , (.) SidebarOverlay
         [ backgroundColor (rgba 111 60 135 0.7)
         , height (pct 100)
