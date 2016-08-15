@@ -48,7 +48,7 @@
     transform: rotate(0deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(1)  .WindDirText {
+.WindDirDirection:nth-child(1)  .WindDirText {
     transform: rotate(0deg);
 }
 
@@ -56,7 +56,7 @@
     transform: rotate(45deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(2)  .WindDirText {
+.WindDirDirection:nth-child(2)  .WindDirText {
     transform: rotate(-45deg);
 }
 
@@ -64,7 +64,7 @@
     transform: rotate(90deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(3)  .WindDirText {
+.WindDirDirection:nth-child(3)  .WindDirText {
     transform: rotate(-90deg);
 }
 
@@ -72,7 +72,7 @@
     transform: rotate(135deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(4)  .WindDirText {
+.WindDirDirection:nth-child(4)  .WindDirText {
     transform: rotate(-135deg);
 }
 
@@ -80,7 +80,7 @@
     transform: rotate(180deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(5)  .WindDirText {
+.WindDirDirection:nth-child(5)  .WindDirText {
     transform: rotate(-180deg);
 }
 
@@ -88,7 +88,7 @@
     transform: rotate(225deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(6)  .WindDirText {
+.WindDirDirection:nth-child(6)  .WindDirText {
     transform: rotate(-225deg);
 }
 
@@ -96,7 +96,7 @@
     transform: rotate(270deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(7)  .WindDirText {
+.WindDirDirection:nth-child(7)  .WindDirText {
     transform: rotate(-270deg);
 }
 
@@ -104,6 +104,6 @@
     transform: rotate(315deg);
 }
 
-.WindDirDirection  .WindDirText, .WindDirDirection:nth-child(8)  .WindDirText {
+.WindDirDirection:nth-child(8)  .WindDirText {
     transform: rotate(-315deg);
 }

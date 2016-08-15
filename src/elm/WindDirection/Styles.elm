@@ -66,11 +66,11 @@ direction index =
         [ ( nthChild (toString index)  )
             [ transforms
                 [ rotate (deg degrees ) ]
-            ]
-        , descendants
-            [ (.) Text
-                [ transforms
-                    [ rotate (deg (0 - degrees ) ) ]
+            , descendants
+                [ (.) Text
+                    [ transforms
+                        [ rotate (deg (0 - degrees ) ) ]
+                    ]
                 ]
             ]
         ]
