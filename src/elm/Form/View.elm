@@ -43,13 +43,12 @@ mapHidden model =
 
 mapSidebar model =
   div
-    [ id Map
-    , classList
+    [ classList
         [ ( SidebarSection, True )
         , ( SidebarHidden, mapHidden model )
         ]
     ]
-    [ text "MAP GOES HERE"
+    [ div [ id Map ] []
     ]
 
 bgSidebar randomSeed model =
