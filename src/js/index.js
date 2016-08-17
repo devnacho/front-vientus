@@ -23,16 +23,19 @@ app.ports.share.subscribe(function(network) {
 });
 
 
-
+var mymap;
 // Wait until DOM element exists before attaching map
 // That's what requestAnimationFrame does
 function attachMap() {
   if (document.querySelectorAll('#Map').length == 0) {
     window.requestAnimationFrame(attachMap);
   }
-  var mymap = L.map('Map').setView([51.505, -0.09], 5);
+  mymap = L.map('Map');
+
+  mymap.setView([38.668356, -2.109375], 2);
 
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamduYXRjaCIsImEiOiJjaXJ3YWJvaGkwMGdkaHhrdzR0YXEwemFyIn0.CVofMKGll1SVcBtzW_vN1A').addTo(mymap);
+
 };
 
 attachMap();

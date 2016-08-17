@@ -3,7 +3,7 @@ module Form.Rest exposing (..)
 import Form.Types exposing (..)
 import Http
 import Json.Encode as JE
-import Json.Decode exposing (Decoder, object1, object2, object3, object4, list, succeed, string, float, int, (:=))
+import Json.Decode exposing (Decoder, object1, object2, object3, object4, object5, object6, list, succeed, oneOf, string, float, int, (:=))
 import Task
 
 
@@ -26,9 +26,13 @@ countriesListDecoder =
 
 countryDecoder : Decoder Country
 countryDecoder =
-  object2 Country
+  object6 Country
     ("name" := string)
     ("id" := string)
+    (oneOf [ "sw_latitude" := float, succeed 0 ])
+    (oneOf [ "sw_longitude" := float, succeed 0 ])
+    (oneOf [ "ne_latitude" := float, succeed 0 ])
+    (oneOf [ "ne_longitude" := float, succeed 0 ])
 
 
 getRegions : String -> Cmd Msg
@@ -48,7 +52,6 @@ regionDecoder =
   object2 Region
     ("name" := string)
     ("id" := string)
-
 
 getCountrySpots : String -> Cmd Msg
 getCountrySpots countryId =

@@ -87,6 +87,10 @@ allWindDirections =
 type alias Country =
   { name : String
   , id : String
+  , swLatitude : Float
+  , swlongitude : Float
+  , neLatitude : Float
+  , nelongitude : Float
   }
 
 
