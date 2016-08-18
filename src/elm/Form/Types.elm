@@ -88,9 +88,9 @@ type alias Country =
   { name : String
   , id : String
   , swLatitude : Float
-  , swlongitude : Float
+  , swLongitude : Float
   , neLatitude : Float
-  , nelongitude : Float
+  , neLongitude : Float
   }
 
 
