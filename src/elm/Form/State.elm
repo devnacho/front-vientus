@@ -149,11 +149,14 @@ update action model =
         )
 
     SetSpots spots ->
-      ( { model
-          | spots = Maybe.withDefault [] spots
-        }
-      , Cmd.none
-      )
+      let
+        justSpots = Maybe.withDefault [] spots
+      in
+        ( { model
+            | spots = justSpots
+          }
+        , Ports.setMarkers justSpots
+        )
 
     SelectSpot id ->
       let

@@ -9,7 +9,9 @@ var Elm = require('../elm/Main');
 var app = Elm.Main.embed( document.getElementById('Main'),
                           { randomSeed: Math.floor(Math.random() * 0xFFFFFF) }
                         );
-var mymap;
+var mymap,
+    markers,
+    layerGroup;
 
 app.ports.share.subscribe(function(network) {
   if(network === "Facebook"){
@@ -24,12 +26,21 @@ app.ports.share.subscribe(function(network) {
 });
 
 app.ports.setMapBoundary.subscribe(function(country) {
-  mymap.fitBounds([
-	  [country.swLatitude, country.swLongitude],
-	  [country.neLatitude, country.neLongitude]
-  ]);
+  //mymap.fitBounds([
+	//  [country.swLatitude, country.swLongitude],
+	//  [country.neLatitude, country.neLongitude]
+  //]);
 });
 
+app.ports.setMarkers.subscribe(function(spots) {
+  if(layerGroup != undefined){
+    mymap.removeLayer(layerGroup);
+  }
+  markers = spots.map( spot => { return L.marker([spot.latitude, spot.longitude]); });
+  layerGroup = L.featureGroup( markers );
+  layerGroup.addTo(mymap);
+  mymap.fitBounds(layerGroup.getBounds().pad(0.1));
+});
 
 
 
@@ -41,7 +52,9 @@ function attachMap() {
   if (document.querySelectorAll('#Map').length == 0) {
     window.requestAnimationFrame(attachMap);
   }
-  mymap = L.map('Map');
+  mymap = L.map('Map', {
+    maxZoom: 14
+  });
   mymap.setView([38.668356, -2.109375], 2);
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamduYXRjaCIsImEiOiJjaXJ3YWJvaGkwMGdkaHhrdzR0YXEwemFyIn0.CVofMKGll1SVcBtzW_vN1A').addTo(mymap);
 

@@ -78,7 +78,7 @@ spotDecoder =
     ("name" := string)
     ("id" := string)
     ("latitude" := float)
-    ("latitude" := float)
+    ("longitude" := float)
 
 
 submitParams : SubmitModel -> List ( String, String )
