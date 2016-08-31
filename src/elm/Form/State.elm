@@ -1,4 +1,4 @@
-module Form.State exposing (init, update)
+module Form.State exposing (init, update, subscriptions)
 
 import Form.Types exposing (..)
 import Form.Rest
@@ -13,6 +13,11 @@ init =
   ( initialModel
   , Cmd.batch initialCommands
   )
+
+subscriptions model =
+  Sub.batch
+    [ Ports.selectSpot SelectSpot
+    ]
 
 initialModel : Model
 initialModel =

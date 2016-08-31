@@ -7,3 +7,5 @@ port share : String -> Cmd msg
 port setMapBoundary : Maybe Country -> Cmd msg
 
 port setMarkers : List Spot -> Cmd msg
+
+port selectSpot : (String -> msg) -> Sub msg

@@ -1,7 +1,7 @@
 module Form.View exposing (root)
 
 import Html exposing (div, h1, h2, select, form, input, label, button, img, a, text, span, br, option, table, tr, th, thead, tbody, td, p)
-import Html.Attributes exposing (class, classList, id, value, type', placeholder, src, height, width, href, style)
+import Html.Attributes exposing (class, classList, id, value, type', placeholder, src, height, width, href, style, selected)
 import Html.Events exposing (onClick, targetValue, on, targetChecked, onInput)
 import Html.App exposing (map)
 import Html.CssHelpers
@@ -120,7 +120,7 @@ cleanForm model =
           , select
               [ on "change" (Json.map SelectSpot targetValue )]
               (option [] [ text <| i18n model.language SelectSpotText ]
-                :: (List.map spotOption model.spots)
+                :: (List.map (\spot -> spotOption spot model.selectedSpot ) model.spots)
               )
           , ( error model.errors.selectedSpot model.language )
           ]
@@ -173,8 +173,20 @@ regionOption region =
   option [ value region.id ] [ text region.name ]
 
 
-spotOption spot =
-  option [ value spot.id ] [ text spot.name ]
+spotOption spot maybeSelectedSpot =
+  let
+    isSelected =
+      case maybeSelectedSpot of
+        Nothing ->
+          False
+        Just selectedSpot ->
+          selectedSpot.id == spot.id
+  in
+    option
+      [ value spot.id
+      , selected isSelected
+      ]
+      [ text spot.name ]
 
 
 thanks model =

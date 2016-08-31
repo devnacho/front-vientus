@@ -13,6 +13,10 @@ var mymap,
     markers,
     layerGroup;
 
+function onSpotClick( spot ) {
+  app.ports.selectSpot.send( spot.id );
+};
+
 app.ports.share.subscribe(function(network) {
   if(network === "Facebook"){
     window.open('https://www.facebook.com/dialog/share?app_id=307031336138092&display=popup&href=http://vient.us&redirect_uri=http://vient.us', 'sharer', 'width=626,height=400');
@@ -36,13 +40,11 @@ app.ports.setMarkers.subscribe(function(spots) {
   if(layerGroup != undefined){
     mymap.removeLayer(layerGroup);
   }
-  markers = spots.map( spot => { return L.marker([spot.latitude, spot.longitude]); });
+  markers = spots.map( spot => { return L.marker([spot.latitude, spot.longitude]).on('click', () => onSpotClick(spot) ); });
   layerGroup = L.featureGroup( markers );
   layerGroup.addTo(mymap);
   mymap.fitBounds(layerGroup.getBounds().pad(0.1));
 });
-
-
 
 
 
