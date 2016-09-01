@@ -40,7 +40,13 @@ app.ports.setMarkers.subscribe(function(spots) {
   if(layerGroup != undefined){
     mymap.removeLayer(layerGroup);
   }
-  markers = spots.map( spot => { return L.marker([spot.latitude, spot.longitude]).on('click', () => onSpotClick(spot) ); });
+  markers = spots.map(
+    spot => {
+      return L.marker([spot.latitude, spot.longitude])
+        .bindPopup(spot.name)
+        .on('click', () => onSpotClick(spot) );
+    }
+  );
   layerGroup = L.featureGroup( markers );
   layerGroup.addTo(mymap);
   mymap.fitBounds(layerGroup.getBounds().pad(0.1));
