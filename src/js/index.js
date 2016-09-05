@@ -10,8 +10,22 @@ var app = Elm.Main.embed( document.getElementById('Main'),
                           { randomSeed: Math.floor(Math.random() * 0xFFFFFF) }
                         );
 var mymap,
+    selectedIcon,
     markers,
     layerGroup;
+
+selectedIcon = L.icon({
+  iconUrl: 'img/marker-icon-selected@1x.png',
+  iconRetinaUrl: 'img/marker-icon-selected@2x.png',
+  shadowUrl: 'img/marker-shadow.png',
+  iconSize:    [25, 41],
+	iconAnchor:  [12, 41],
+	popupAnchor: [1, -34],
+	tooltipAnchor: [16, -28],
+	shadowSize:  [41, 41]
+});
+
+//selectedIcon = new L.Icon.Default();
 
 function onSpotClick( spot ) {
   app.ports.selectSpot.send( spot.id );
@@ -42,7 +56,7 @@ app.ports.setMarkers.subscribe(function(spots) {
   }
   markers = spots.map(
     spot => {
-      return L.marker([spot.latitude, spot.longitude])
+      return L.marker([spot.latitude, spot.longitude], {icon: selectedIcon})
         .bindPopup(spot.name)
         .on('click', () => onSpotClick(spot) );
     }
