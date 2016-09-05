@@ -75,7 +75,7 @@ app.ports.setSelectedMarker.subscribe(function(selectedInfo) {
   var newSelectedSpot = selectedInfo.newSelectedSpot;
 
   markersMap[newSelectedSpot.id].setIcon(selectedIcon).openPopup();
-  mymap.setView([newSelectedSpot.latitude, newSelectedSpot.longitude]);
+  mymap.setView([newSelectedSpot.latitude, newSelectedSpot.longitude], 12);
 
   if(prevSelectedSpot != undefined){
     markersMap[prevSelectedSpot.id].setIcon(new L.Icon.Default()).closePopup();
