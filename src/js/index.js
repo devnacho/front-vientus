@@ -74,10 +74,10 @@ app.ports.setSelectedMarker.subscribe(function(selectedInfo) {
   var prevSelectedSpot = selectedInfo.prevSelectedSpot;
   var newSelectedSpot = selectedInfo.newSelectedSpot;
 
-  markersMap[newSelectedSpot.id].setIcon(selectedIcon);
+  markersMap[newSelectedSpot.id].setIcon(selectedIcon).openPopup();
 
   if(prevSelectedSpot != undefined){
-    markersMap[prevSelectedSpot.id].setIcon(new L.Icon.Default());
+    markersMap[prevSelectedSpot.id].setIcon(new L.Icon.Default()).closePopup();
   }
 });
 
