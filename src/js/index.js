@@ -58,7 +58,7 @@ app.ports.setMarkers.subscribe(function(spots) {
   markers = spots.map(
     spot => {
       var marker =  L.marker([spot.latitude, spot.longitude])
-        .bindPopup(spot.name)
+            .bindPopup(L.popup({closeButton: false, closeOnClick: false}).setContent(spot.name))
             .on('click', (e) => onSpotClick(spot, e) );
       markersMap[spot.id] = marker;
       return marker;

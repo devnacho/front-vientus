@@ -183,9 +183,15 @@ update action model =
           { model
             | selectedSpot = selectedSpot
           }
+
+        cmd =
+          if selectedInfo.newSelectedSpot == selectedInfo.prevSelectedSpot then
+            Cmd.none
+          else
+            Ports.setSelectedMarker selectedInfo
       in
         ( validateNewModel newModel
-        , Ports.setSelectedMarker selectedInfo
+        , cmd
         )
 
     SetEmail str ->
