@@ -12,7 +12,9 @@ var app = Elm.Main.embed( document.getElementById('Main'),
 var mymap,
     selectedIcon,
     markers,
+    markersMap,
     layerGroup;
+
 
 selectedIcon = L.icon({
   iconUrl: 'img/marker-icon-selected@1x.png',
@@ -25,9 +27,7 @@ selectedIcon = L.icon({
 	shadowSize:  [41, 41]
 });
 
-//selectedIcon = new L.Icon.Default();
-
-function onSpotClick( spot ) {
+function onSpotClick( spot, e ) {
   app.ports.selectSpot.send( spot.id );
 };
 
@@ -51,21 +51,35 @@ app.ports.setMapBoundary.subscribe(function(country) {
 });
 
 app.ports.setMarkers.subscribe(function(spots) {
+  markersMap = {};
   if(layerGroup != undefined){
     mymap.removeLayer(layerGroup);
   }
   markers = spots.map(
     spot => {
-      return L.marker([spot.latitude, spot.longitude], {icon: selectedIcon})
+      var marker =  L.marker([spot.latitude, spot.longitude])
         .bindPopup(spot.name)
-        .on('click', () => onSpotClick(spot) );
+            .on('click', (e) => onSpotClick(spot, e) );
+      markersMap[spot.id] = marker;
+      return marker;
     }
   );
   layerGroup = L.featureGroup( markers );
   layerGroup.addTo(mymap);
   mymap.fitBounds(layerGroup.getBounds().pad(0.1));
+
 });
 
+app.ports.setSelectedMarker.subscribe(function(selectedInfo) {
+  var prevSelectedSpot = selectedInfo.prevSelectedSpot;
+  var newSelectedSpot = selectedInfo.newSelectedSpot;
+
+  markersMap[newSelectedSpot.id].setIcon(selectedIcon);
+
+  if(prevSelectedSpot != undefined){
+    markersMap[prevSelectedSpot.id].setIcon(new L.Icon.Default());
+  }
+});
 
 
 // Wait until DOM element exists before attaching map

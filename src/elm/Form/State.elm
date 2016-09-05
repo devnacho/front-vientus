@@ -174,13 +174,18 @@ update action model =
           else
             List.head filteredSpots
 
+        selectedInfo =
+          { prevSelectedSpot = model.selectedSpot
+          , newSelectedSpot = selectedSpot
+          }
+
         newModel =
           { model
             | selectedSpot = selectedSpot
           }
       in
         ( validateNewModel newModel
-        , Cmd.none
+        , Ports.setSelectedMarker selectedInfo
         )
 
     SetEmail str ->

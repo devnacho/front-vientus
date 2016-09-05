@@ -8,4 +8,6 @@ port setMapBoundary : Maybe Country -> Cmd msg
 
 port setMarkers : List Spot -> Cmd msg
 
+port setSelectedMarker : { prevSelectedSpot : Maybe Spot, newSelectedSpot : Maybe Spot } -> Cmd msg
+
 port selectSpot : (String -> msg) -> Sub msg
