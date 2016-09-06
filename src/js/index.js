@@ -43,13 +43,6 @@ app.ports.share.subscribe(function(network) {
 
 });
 
-app.ports.setMapBoundary.subscribe(function(country) {
-  //mymap.fitBounds([
-	//  [country.swLatitude, country.swLongitude],
-	//  [country.neLatitude, country.neLongitude]
-  //]);
-});
-
 app.ports.setMarkers.subscribe(function(spots) {
   markersMap = {};
   if(layerGroup != undefined){

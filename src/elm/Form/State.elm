@@ -105,7 +105,6 @@ update action model =
             Cmd.batch
               [ Form.Rest.getRegions id
               , Form.Rest.getCountrySpots id
-              , Ports.setMapBoundary selectedCountry
               ]
 
         newModel =
