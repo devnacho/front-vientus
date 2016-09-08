@@ -68,14 +68,18 @@ app.ports.setMarkers.subscribe(function(spots) {
 });
 
 app.ports.setSelectedMarker.subscribe(function(selectedInfo) {
-  var prevSelectedSpot = selectedInfo.prevSelectedSpot;
-  var newSelectedSpot = selectedInfo.newSelectedSpot;
+  // TODO window.innerWidth fixes bug on mobile. Refactor this to avoid showing map if
+  // device is a mobile device
+  if(window.innerWidth > 700) {
+    var prevSelectedSpot = selectedInfo.prevSelectedSpot;
+    var newSelectedSpot = selectedInfo.newSelectedSpot;
 
-  markersMap[newSelectedSpot.id].setIcon(selectedIcon).openPopup();
-  mymap.setView([newSelectedSpot.latitude, newSelectedSpot.longitude], 12);
+    markersMap[newSelectedSpot.id].setIcon(selectedIcon).openPopup();
+    mymap.setView([newSelectedSpot.latitude, newSelectedSpot.longitude], 12);
 
-  if(prevSelectedSpot != undefined){
-    markersMap[prevSelectedSpot.id].setIcon(new L.Icon.Default()).closePopup();
+    if(prevSelectedSpot != undefined){
+      markersMap[prevSelectedSpot.id].setIcon(new L.Icon.Default()).closePopup();
+    }
   }
 });
 
@@ -93,4 +97,5 @@ function attachMap() {
   L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiamduYXRjaCIsImEiOiJjaXJ3YWJvaGkwMGdkaHhrdzR0YXEwemFyIn0.CVofMKGll1SVcBtzW_vN1A').addTo(mymap);
 
 };
+
 attachMap();
