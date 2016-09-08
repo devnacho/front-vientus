@@ -44,23 +44,27 @@ app.ports.share.subscribe(function(network) {
 });
 
 app.ports.setMarkers.subscribe(function(spots) {
-  markersMap = {};
   if(layerGroup != undefined){
     mymap.removeLayer(layerGroup);
   }
-  markers = spots.map(
-    spot => {
-      var marker =  L.marker([spot.latitude, spot.longitude])
-            .bindPopup(L.popup({closeButton: false, closeOnClick: false}).setContent(spot.name))
-            .on('click', (e) => onSpotClick(spot, e) );
-      markersMap[spot.id] = marker;
-      return marker;
-    }
-  );
-  layerGroup = L.featureGroup( markers );
-  layerGroup.addTo(mymap);
-  mymap.fitBounds(layerGroup.getBounds().pad(0.1));
-
+  if( spots.length > 0) {
+    markersMap = {};
+    markers = spots.map(
+      spot => {
+        var marker =  L.marker([spot.latitude, spot.longitude])
+              .bindPopup(L.popup({closeButton: false, closeOnClick: false}).setContent(spot.name))
+              .on('click', (e) => onSpotClick(spot, e) );
+        markersMap[spot.id] = marker;
+        return marker;
+      }
+    );
+    layerGroup = L.featureGroup( markers );
+    layerGroup.addTo(mymap);
+    mymap.fitBounds(layerGroup.getBounds().pad(0.1));
+  } else {
+    // If there are no spots just show the world
+    mymap.setView([38.668356, -2.109375], 2);
+  }
 });
 
 app.ports.setSelectedMarker.subscribe(function(selectedInfo) {
