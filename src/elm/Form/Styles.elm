@@ -21,6 +21,13 @@ css =
         , height (pct 100)
         , width (pct 45)
         ]
+    , (#) Map
+        [ width (pct 100)
+        , height (pct 100)
+        ]
+    , (.) SidebarHidden
+        [ property "visibility" "hidden"
+        ]
     , (.) SidebarOverlay
         [ backgroundColor (rgba 111 60 135 0.7)
         , height (pct 100)

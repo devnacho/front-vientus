@@ -1,16 +1,15 @@
 module Form.Rest exposing (..)
 
 import Form.Types exposing (..)
-import AvailableDays.Types exposing (dayToStr)
 import Http
 import Json.Encode as JE
-import Json.Decode exposing (Decoder, object1, object2, object3, object4, list, succeed, string, float, int, (:=))
+import Json.Decode exposing (Decoder, object1, object2, object3, object4, object5, object6, list, succeed, oneOf, string, float, int, (:=))
 import Task
 
 
 baseUrl : String
 baseUrl =
-  "http://app.vient.us"
+  "http://localhost:3000"
 
 
 getCountries : Cmd Msg
@@ -27,9 +26,13 @@ countriesListDecoder =
 
 countryDecoder : Decoder Country
 countryDecoder =
-  object2 Country
+  object6 Country
     ("name" := string)
     ("id" := string)
+    (oneOf [ "sw_latitude" := float, succeed 0 ])
+    (oneOf [ "sw_longitude" := float, succeed 0 ])
+    (oneOf [ "ne_latitude" := float, succeed 0 ])
+    (oneOf [ "ne_longitude" := float, succeed 0 ])
 
 
 getRegions : String -> Cmd Msg
@@ -49,7 +52,6 @@ regionDecoder =
   object2 Region
     ("name" := string)
     ("id" := string)
-
 
 getCountrySpots : String -> Cmd Msg
 getCountrySpots countryId =
@@ -76,14 +78,14 @@ spotDecoder =
     ("name" := string)
     ("id" := string)
     ("latitude" := float)
-    ("latitude" := float)
+    ("longitude" := float)
 
 
 submitParams : SubmitModel -> List ( String, String )
 submitParams submitModel =
   List.append
     (List.map (\wd -> ( "alert[wind_directions][]", toString wd )) submitModel.windDirections)
-    (List.map (\day -> ( "alert[dates][]", dayToStr day )) submitModel.availableDays.days)
+    (List.map (\day -> ( "alert[dates][]", dayToStr day )) submitModel.availableDays)
     |> List.append
         [ ( "alert[user_attributes][locale]", "EN" )
         , ( "alert[user_attributes][email]", submitModel.email )

@@ -1,6 +1,5 @@
 module Form.Types exposing (..)
 
-import WindDirection.Types
 import AvailableDays.Types
 import Task
 import Translation.Utils exposing (..)
@@ -8,9 +7,7 @@ import Http
 
 
 type Msg
-  = AvailableDays AvailableDays.Types.Msg
-  | WindDirection WindDirection.Types.Msg
-  | SetEmail String
+  = SetEmail String
   | SetWindSpeed String
   | SetCountries (Maybe (List Country))
   | SelectCountry String
@@ -24,13 +21,15 @@ type Msg
   | ChangeLanguage Language
   | HttpFail Http.Error
   | ShareVientus String
+  | ToggleWindDirection WindDirection
+  | ToggleDay DayOfWeek
+  | ToggleDaysVisibility
 
 
 type alias Model =
   { email : String
   , windSpeed : String
-  , windDirections : WindDirection.Types.Model
-  , availableDays : AvailableDays.Types.Model
+  , windDirections : List WindDirection
   , countries : List Country
   , selectedCountry : Maybe Country
   , regions : List Region
@@ -40,6 +39,8 @@ type alias Model =
   , errors : Errors
   , status : Status
   , language : Language
+  , daysVisible : Bool
+  , days : List DayOfWeek
   }
 
 type Status
@@ -63,15 +64,33 @@ type alias Errors =
 type alias SubmitModel =
   { email : String
   , windSpeed : String
-  , windDirections : WindDirection.Types.Model
-  , availableDays : AvailableDays.Types.Model
+  , windDirections : List WindDirection
+  , availableDays : List DayOfWeek
   , selectedSpotId : String
   }
 
 
+type WindDirection
+  = N
+  | NE
+  | E
+  | SE
+  | S
+  | SW
+  | W
+  | NW
+
+allWindDirections : List WindDirection
+allWindDirections =
+  [ N, NE, E, SE, S, SW, W, NW ]
+
 type alias Country =
   { name : String
   , id : String
+  , swLatitude : Float
+  , swLongitude : Float
+  , neLatitude : Float
+  , neLongitude : Float
   }
 
 
@@ -88,6 +107,29 @@ type alias Spot =
   , longitude : Float
   }
 
+type DayOfWeek
+  = Mon
+  | Tue
+  | Wed
+  | Thu
+  | Fri
+  | Sat
+  | Sun
+
+allDaysOfWeek : List DayOfWeek
+allDaysOfWeek =
+  [ Mon, Tue, Wed, Thu, Fri, Sat, Sun ]
+
+dayToStr : DayOfWeek -> String
+dayToStr day  =
+  case day of
+    Sun -> "0"
+    Mon -> "1"
+    Tue -> "2"
+    Wed -> "3"
+    Thu -> "4"
+    Fri -> "5"
+    Sat -> "6"
 
 type CssClasses
   = FormSection
@@ -111,3 +153,5 @@ type CssClasses
   | Languages
   | LangIcon
   | LangActive
+  | Map
+  | SidebarHidden

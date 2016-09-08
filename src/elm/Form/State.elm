@@ -1,10 +1,8 @@
-module Form.State exposing (init, update)
+module Form.State exposing (init, update, subscriptions)
 
 import Form.Types exposing (..)
 import Form.Rest
 import Utils.ErrorView exposing (error)
-import WindDirection.State
-import AvailableDays.State
 import String exposing (isEmpty)
 import Regex
 import Translation.Utils exposing (..)
@@ -16,12 +14,16 @@ init =
   , Cmd.batch initialCommands
   )
 
+subscriptions model =
+  Sub.batch
+    [ Ports.selectSpot SelectSpot
+    ]
+
 initialModel : Model
 initialModel =
   { email = ""
   , windSpeed = "11"
-  , windDirections = WindDirection.State.initialModel
-  , availableDays = AvailableDays.State.initialModel
+  , windDirections = []
   , countries = []
   , selectedCountry = Nothing
   , regions = []
@@ -31,6 +33,8 @@ initialModel =
   , errors = initialErrors
   , status = Clean
   , language = English
+  , daysVisible = False
+  , days = allDaysOfWeek
   }
 
 
@@ -54,6 +58,25 @@ initialCommands =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update action model =
   case action of
+    ToggleDaysVisibility ->
+      { model
+        | daysVisible = not model.daysVisible
+      } ! []
+
+    ToggleDay day ->
+      let
+        toggledList =
+          if List.member day model.days then
+            List.filter (\d -> d /= day) model.days
+          else
+            day :: model.days
+        newModel =
+          { model
+            | days = toggledList
+          }
+      in
+        validateNewModel newModel ! []
+
     SetCountries countries ->
       ( { model
           | countries = Maybe.withDefault [] countries
@@ -130,11 +153,14 @@ update action model =
         )
 
     SetSpots spots ->
-      ( { model
-          | spots = Maybe.withDefault [] spots
-        }
-      , Cmd.none
-      )
+      let
+        justSpots = Maybe.withDefault [] spots
+      in
+        ( { model
+            | spots = justSpots
+          }
+        , Ports.setMarkers justSpots
+        )
 
     SelectSpot id ->
       let
@@ -147,13 +173,24 @@ update action model =
           else
             List.head filteredSpots
 
+        selectedInfo =
+          { prevSelectedSpot = model.selectedSpot
+          , newSelectedSpot = selectedSpot
+          }
+
         newModel =
           { model
             | selectedSpot = selectedSpot
           }
+
+        cmd =
+          if selectedInfo.newSelectedSpot == selectedInfo.prevSelectedSpot then
+            Cmd.none
+          else
+            Ports.setSelectedMarker selectedInfo
       in
         ( validateNewModel newModel
-        , Cmd.none
+        , cmd
         )
 
     SetEmail str ->
@@ -178,6 +215,17 @@ update action model =
         , Cmd.none
         )
 
+    ToggleWindDirection direction ->
+      let
+        toggledList =
+          if List.member direction model.windDirections then
+            List.filter (\d -> d /= direction) model.windDirections
+          else
+            direction :: model.windDirections
+        newModel = { model | windDirections = toggledList }
+      in
+        validateNewModel newModel ! []
+
     SubmitAlert ->
       let
         errors =
@@ -187,7 +235,7 @@ update action model =
           { email = model.email
           , windSpeed = model.windSpeed
           , windDirections = model.windDirections
-          , availableDays = model.availableDays
+          , availableDays = model.days
           , selectedSpotId =
               case model.selectedSpot of
                 Nothing ->
@@ -240,28 +288,6 @@ update action model =
     ShareVientus network ->
       ( model , Ports.share network )
 
-    AvailableDays action ->
-      let
-        newModel =
-          { model
-            | availableDays = AvailableDays.State.update action model.availableDays
-          }
-      in
-        ( validateNewModel newModel
-        , Cmd.none
-        )
-
-    WindDirection action ->
-      let
-        newModel =
-          { model
-            | windDirections = WindDirection.State.update action model.windDirections
-          }
-      in
-        ( validateNewModel newModel
-        , Cmd.none
-        )
-
 
 validateNewModel : Model -> Model
 validateNewModel newModel =
@@ -294,7 +320,7 @@ validate model =
       else
         EmptyError
   , availableDays =
-      if List.isEmpty model.availableDays.days then
+      if List.isEmpty model.days then
         DaysErrorText
       else
         EmptyError

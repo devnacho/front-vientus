@@ -5,6 +5,7 @@ import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Html.CssHelpers
 import Utils.ErrorView exposing (error)
+import Form.Types exposing (..)
 import AvailableDays.Types exposing (..)
 import Translation.Utils exposing (..)
 
@@ -36,7 +37,7 @@ root model errors language =
 
 
 selectDays model language =
-  if model.visible then
+  if model.daysVisible then
     div
       []
       [ label [] [ text <| i18n language SelectDaysText ]

@@ -11,8 +11,15 @@
     right: 0px;
     height: 100%;
     width: 45%;
-    background: url(http://www.kitesurfwallpaper.com/images/papers/best-kiteboarding-youri-zoon-low-pass-hd-2.jpg) center center;
-    background-size: cover;
+}
+
+#Map {
+    width: 100%;
+    height: 100%;
+}
+
+.FormSidebarHidden {
+    visibility: hidden;
 }
 
 .FormSidebarOverlay {

@@ -5,6 +5,7 @@ import Html.Attributes exposing (class, id, value, type', placeholder)
 import Html.Events exposing (onClick, targetValue, on, targetChecked)
 import Utils.ErrorView exposing (error)
 import WindDirection.Types exposing (..)
+import Form.Types exposing (..)
 import Html.CssHelpers
 import Translation.Utils exposing (..)
 
